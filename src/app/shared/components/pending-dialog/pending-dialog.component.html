@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="title">
+    <h2>Enviar para {{dados.caminhoPasta}}</h2>
+  </div>
+</div>
+<div class="row">
+    <div class="demo-button-container">
+      <div class="contact">
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput required [(ngModel)]="emailPending" name="emailPending">
+        </mat-form-field>
+        <button 
+          mat-raised-button 
+          (click)="email(emailPending)" 
+          class="demo-button">
+          E-mail
+        </button>
+      </div>
+      <div class="contact">
+        <mat-form-field>
+          <mat-label>Telefone</mat-label>
+          <input matInput required [(ngModel)]="telefonePending" name="telefonePending">
+        </mat-form-field>
+        <button
+          mat-raised-button
+          (click)="whatsapp(telefonePending)"
+          class="demo-button">
+          WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>

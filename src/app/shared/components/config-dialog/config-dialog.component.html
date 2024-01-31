@@ -1,0 +1,78 @@
+
+<form #loginForm="ngForm" >
+  <div class="row">
+    <div class="config">
+      <h2>Configuração</h2>
+    </div>
+  </div>
+  <div class="row">
+      <mat-form-field class="small">
+        <mat-label>IP do Servidor</mat-label>
+        <input matInput required [(ngModel)]="host" name="host" (ngModelChange)="change()">
+      </mat-form-field>
+
+      <mat-form-field class="small">
+        <mat-label>Porta</mat-label>
+        <input matInput required [(ngModel)]="port" name="port" (ngModelChange)="change()">
+      </mat-form-field>
+  </div>
+  <div class="row">    
+      <mat-form-field class="small">
+        <mat-label>Caminho da pasta Bin</mat-label>
+        <input matInput required [(ngModel)]="pastaBin" name="pastaBin" (ngModelChange)="change()">
+      </mat-form-field>
+      <mat-form-field class="small">
+        <mat-label>Partição</mat-label>
+        <input matInput required [(ngModel)]="particao" name="particao" (ngModelChange)="change()">
+      </mat-form-field>
+  </div>
+  
+  <div class="row">
+    <div class="table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="Nome do Banco">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{element.databasename}}</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="Caminho da Pasta">
+        <th mat-header-cell *matHeaderCellDef>Pasta</th>
+        <td mat-cell *matCellDef="let element">{{element.caminhopasta}}</td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Primeiro Horário">
+        <th mat-header-cell *matHeaderCellDef>1º Horário</th>
+        <td mat-cell *matCellDef="let element">{{element.firstSchedule}}</td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Segundo Horário">
+        <th mat-header-cell *matHeaderCellDef>2º Horário</th>
+        <td mat-cell *matCellDef="let element">{{element.secondSchedule}}</td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'selected-row': row.databasename === selectedRow}" (click)="selectRow(row)"></tr>
+    </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="demo-button-container">
+      <button mat-raised-button (click)="addData()" class="demo-button">
+        +
+      </button>
+      <button
+          mat-raised-button
+          (click)="removeData()"
+          class="demo-button">
+        -
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <button mat-raised-button type="submit" (click)="submit()" [disabled]="!loginForm.valid">Salvar</button>
+  </div>
+</form>

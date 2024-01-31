@@ -1,0 +1,68 @@
+
+
+.filter{
+  position: fixed;
+  top: 4rem;
+  padding-inline: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 100vw;
+  gap: 3rem;
+  z-index: 10;
+  color: white;
+}
+
+.filter mat-checkbox{
+  text-align: left;
+}
+
+#table{
+  position: fixed;
+  margin-top: 12rem;
+  width: 95%;
+  height: 77vh;
+  background-color: var(--brand-light);
+  overflow: auto;
+}
+
+table {
+  width: 0%;
+}
+
+table tr th {
+  background: var(--brand-dark);
+  color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0rem; 
+  z-index: 100; 
+}
+
+table  tr:nth-child(even) {
+  background: rgb(255, 255, 255);
+}
+table  tr:nth-child(odd) {
+  background: var(--brand-light);
+}
+
+table tr:hover {
+  background-color: var(--primary-color);
+}
+
+.mat-mdc-form-field {
+  float: right;
+  margin-top: 2rem;
+  width: min(30rem, 100%);
+}
+
+
+
+@media (max-width: 450px) {
+  .filter{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-inline: 1rem;
+  }
+}

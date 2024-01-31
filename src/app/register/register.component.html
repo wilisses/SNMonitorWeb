@@ -1,0 +1,112 @@
+<nav>
+  <div class="menu">
+    <h2>
+      SN Monitor 
+    <br/> 
+      <i>{{this.user.name}}</i>
+    </h2>
+    <button class="logout" (click)="signOut()">
+      <mat-icon><img src="../../assets/voltar.svg" alt=""></mat-icon>
+    </button>
+  </div>
+  
+</nav>
+
+<section>
+  <div id="form">
+      <form #loginForm="ngForm" class="form-container" >
+        
+        <div class="row">
+          <div class="config">
+            <h2>{{pasta}}</h2>
+            <button mat-raised-button (click)="openDialog('0ms', '0ms', key)">Configuração</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>Razão Social</mat-label>
+            <input matInput required [(ngModel)]="razaoSocial" name="razaoSocial" id="razaoSocial">
+          </mat-form-field>
+
+          <mat-form-field class="small">
+            <mat-label>Situação</mat-label>
+            <input type="text" placeholder="" aria-label="Situação" matInput [formControl]="myControlstatuss" [matAutocomplete]="auto4" required [(ngModel)]="status" name="status">
+            <mat-autocomplete #auto4="matAutocomplete">
+              <mat-option *ngFor="let status of statuss" [value]="status">{{status}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>CNPJ</mat-label>
+            <input matInput required [(ngModel)]="key" name="key" id="key" mask="90.000.000/0000-00">
+          </mat-form-field>
+          <mat-form-field class="small">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" required [(ngModel)]="email" name="email" id="email">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>Responsável</mat-label>
+            <input matInput required [(ngModel)]="responsavel" name="responsavel" id="responsavel">
+          </mat-form-field>
+          <mat-form-field class="small">
+            <mat-label>Telefone</mat-label>
+            <input matInput required [(ngModel)]="telefone" name="telefone" id="telefone" mask="(00) 0 0000-0000">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>Acesso</mat-label>
+            <input matInput [(ngModel)]="acesso" name="acesso" id="acesso">
+          </mat-form-field>
+          <mat-form-field class="small">
+            <mat-label>Senha</mat-label>
+            <input matInput [(ngModel)]="senha" name="senha" id="senha">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>Qtd. lojas</mat-label>
+            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControlnumbers" [matAutocomplete]="auto" required id="number" [(ngModel)]="qtdLoja" name="qtdLoja">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let number of numbers" [value]="number">{{number}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="small">
+            <mat-label>Estados</mat-label>
+            <input type="text" placeholder="" aria-label="Estados" matInput [formControl]="myControlstatesBrazil" [matAutocomplete]="auto2" required id="state" [(ngModel)]="estado" name="estado">
+            <mat-autocomplete #auto2="matAutocomplete">
+              <mat-option *ngFor="let state of statesBrazil" [value]="state">{{state}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="small">
+            <mat-label>SO</mat-label>
+            <input type="text" placeholder="" aria-label="SO" matInput [formControl]="myControlsos" [matAutocomplete]="auto3" required id="so"[(ngModel)]="so" name="so" >
+            <mat-autocomplete #auto3="matAutocomplete">
+              <mat-option *ngFor="let so of sos" [value]="so">{{so}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="mat-form-field">
+            <mat-label>Observação</mat-label>
+            <textarea matInput  id="observacao" [(ngModel)]="observacao" name="observacao"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <button mat-raised-button type="submit" (click)="submit()" [disabled]="!loginForm.valid">Salvar</button>
+        </div>
+      </form>
+    </div>
+</section>

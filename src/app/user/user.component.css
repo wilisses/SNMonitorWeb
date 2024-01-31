@@ -1,0 +1,57 @@
+
+#content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 5rem;
+    padding-block: 4em;
+    border-radius: 1em;
+    
+    border: 0.1rem solid var(--brand-dark);
+    box-shadow: 0.5rem 0.5rem 3rem rgba(0, 0, 0, 0.2);
+    gap: 2rem;
+}
+
+#login button {
+    width: 100%;
+    
+}
+#login form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#login form button {
+    background: var(--brand-dark);
+    color: white;
+}
+#login button {
+    background: var(--bg-light);
+    
+}
+#login button #button_google {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+#login button img{
+    width: 3rem;
+}
+#login button p{
+    font-size: 1.25rem;
+}

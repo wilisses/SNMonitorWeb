@@ -1,0 +1,123 @@
+[debug] [2024-01-31T18:53:00.211Z] ----------------------------------------------------------------------
+[debug] [2024-01-31T18:53:00.213Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-01-31T18:53:00.214Z] CLI Version:   13.1.0
+[debug] [2024-01-31T18:53:00.214Z] Platform:      win32
+[debug] [2024-01-31T18:53:00.214Z] Node Version:  v20.11.0
+[debug] [2024-01-31T18:53:00.214Z] Time:          Wed Jan 31 2024 15:53:00 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-01-31T18:53:00.214Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-31T18:53:00.314Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-31T18:53:00.315Z] > authorizing via signed-in user (negociovarejodev@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\SuperNet\DEV\SNMonitorWeb
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-01-31T18:53:24.073Z] > refreshing access token with scopes: []
+[debug] [2024-01-31T18:53:24.075Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-01-31T18:53:24.076Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-31T18:53:24.545Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-01-31T18:53:24.545Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-31T18:53:24.556Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-01-31T18:53:25.769Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-01-31T18:53:25.769Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project backupplus-monitoring (BackupPlus-monitoring) 
+[info] 
+=== Hosting Setup
+[debug] [2024-01-31T18:53:32.803Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-01-31T18:53:33.392Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-01-31T18:53:33.392Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2024-01-31T18:55:26.882Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2024-01-31T18:55:27.259Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2024-01-31T18:55:27.259Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"10.7.2","browserURL":"https://www.gstatic.com/firebasejs/10.7.2/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/10.7.2/firebase.tgz"},"live":{"version":"10.7","browserURL":"https://www.gstatic.com/firebasejs/live/10.7/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/10.7/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/10.7.2/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/10.7.2/firebase-auth/cordova.js","functions":"https://www.gstatic.com/firebasejs/10.7.2/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/10.7.2/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/10.7.2/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/10.7.2/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js","firestore.memory":"https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.memory.js"}}
+[info] +  Wrote public/index.html 
+[info] 
+[info] i  Detected a .git folder at D:\SuperNet\DEV\SNMonitorWeb 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=820173475&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2024-01-31T18:56:09.653Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2024-01-31T18:56:09.653Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2024-01-31T18:56:10.254Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2024-01-31T18:56:10.254Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2024-01-31T18:56:10.265Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2024-01-31T18:56:10.741Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2024-01-31T18:56:10.741Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"wilisses","id":91263134,"node_id":"MDQ6VXNlcjkxMjYzMTM0","avatar_url":"https://avatars.githubusercontent.com/u/91263134?v=4","gravatar_id":"","url":"https://api.github.com/users/wilisses","html_url":"https://github.com/wilisses","followers_url":"https://api.github.com/users/wilisses/followers","following_url":"https://api.github.com/users/wilisses/following{/other_user}","gists_url":"https://api.github.com/users/wilisses/gists{/gist_id}","starred_url":"https://api.github.com/users/wilisses/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/wilisses/subscriptions","organizations_url":"https://api.github.com/users/wilisses/orgs","repos_url":"https://api.github.com/users/wilisses/repos","events_url":"https://api.github.com/users/wilisses/events{/privacy}","received_events_url":"https://api.github.com/users/wilisses/received_events","type":"User","site_admin":false,"name":"Wilisses Maciel","company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"twitter_username":null,"public_repos":4,"public_gists":0,"followers":2,"following":3,"created_at":"2021-09-23T12:10:32Z","updated_at":"2023-12-14T17:03:00Z","private_gists":0,"total_private_repos":6,"owned_private_repos":6,"disk_usage":2628,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] +  Success! Logged into GitHub as wilisses 
+[info] 
+[debug] [2024-01-31T18:56:56.804Z] >>> [apiv2][query] GET https://api.github.com/repos/repository/actions/secrets/public-key type=owner
+[debug] [2024-01-31T18:56:57.248Z] <<< [apiv2][status] GET https://api.github.com/repos/repository/actions/secrets/public-key 404
+[debug] [2024-01-31T18:56:57.248Z] <<< [apiv2][body] GET https://api.github.com/repos/repository/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[info] 
+[info] 
+[error] !  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 
+[debug] [2024-01-31T18:58:19.483Z] >>> [apiv2][query] GET https://api.github.com/repos/negociovarejo/SNMonitorWeb/actions/secrets/public-key type=owner
+[debug] [2024-01-31T18:58:19.918Z] <<< [apiv2][status] GET https://api.github.com/repos/negociovarejo/SNMonitorWeb/actions/secrets/public-key 404
+[debug] [2024-01-31T18:58:19.918Z] <<< [apiv2][body] GET https://api.github.com/repos/negociovarejo/SNMonitorWeb/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest/actions/secrets#get-a-repository-public-key"}
+[info] 
+[info] 
+[error] !  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 
+[debug] [2024-01-31T19:00:32.675Z] >>> [apiv2][query] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key type=owner
+[debug] [2024-01-31T19:00:33.106Z] <<< [apiv2][status] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key 404
+[debug] [2024-01-31T19:00:33.106Z] <<< [apiv2][body] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[info] 
+[info] 
+[error] !  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 
+[debug] [2024-01-31T19:00:35.515Z] >>> [apiv2][query] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key type=owner
+[debug] [2024-01-31T19:00:35.754Z] <<< [apiv2][status] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key 404
+[debug] [2024-01-31T19:00:35.754Z] <<< [apiv2][body] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[info] 
+[info] 
+[error] !  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 
+[debug] [2024-01-31T19:00:36.826Z] >>> [apiv2][query] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key type=owner
+[debug] [2024-01-31T19:00:37.056Z] <<< [apiv2][status] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key 404
+[debug] [2024-01-31T19:00:37.057Z] <<< [apiv2][body] GET https://api.github.com/repos/https://github.com/negociovarejo/SNMonitorWeb/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest"}
+[info] 
+[info] 
+[error] !  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 

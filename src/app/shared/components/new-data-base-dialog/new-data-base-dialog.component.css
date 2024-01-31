@@ -1,0 +1,50 @@
+form {
+    width: 100%;
+  
+    padding-inline: 5rem;
+    padding-block: 4em;
+    border-radius: 1em;
+      
+  }
+
+.row {
+    display: flex;
+    flex-direction: column; /* Muda a direção para coluna, fazendo com que os itens fiquem um abaixo do outro */
+    gap: 1rem;
+  }
+  .row button{
+    margin-top: 2rem;
+      background: var(--brand-dark);
+      color: white;
+  }
+  
+  .row .config {
+    width: 100%;
+    margin-top:-3em;
+    padding-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .mat-form-field {
+    flex: 1 1 100%; /* Define a largura para 100% em todos os tamanhos de tela */
+  }
+
+  /* Adicionando um ajuste para evitar quebras de linha no último item */
+  .mat-form-field:last-child {
+    margin-bottom: 0;
+  }
+
+  
+  @media (min-width: 600px) {
+    .row {
+      flex-direction: row; /* Volta à direção padrão para telas maiores */
+    }
+  
+    .small {
+      flex: 1 1 calc(33.33% - 1rem); /* Cresce para ocupar 1/3 da largura total em telas maiores */
+    }
+  }
+  

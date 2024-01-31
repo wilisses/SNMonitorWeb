@@ -1,0 +1,32 @@
+
+<form #loginForm="ngForm" >
+    <div class="row">
+      <div class="config">
+        <h2>Novo Banco de Dados</h2>
+      </div>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+          <mat-label>Nome</mat-label>
+          <input matInput required [(ngModel)]="databasename" name="databasename" (ngModelChange)="change()">
+        </mat-form-field>
+  
+        <mat-form-field class="small">
+          <mat-label>Pasta DropBox</mat-label>
+          <input matInput required [(ngModel)]="caminhodapasta" name="caminhodapasta" (ngModelChange)="change()">
+        </mat-form-field>
+    </div>
+    <div class="row">    
+        <mat-form-field class="small">
+          <mat-label>1º Horário</mat-label>
+          <input matInput required [(ngModel)]="firstSchedule" name="firstSchedule" (ngModelChange)="change()"mask="00:00">
+        </mat-form-field>
+        <mat-form-field class="small">
+          <mat-label>2º Horário</mat-label>
+          <input matInput required [(ngModel)]="secondSchedule" name="secondSchedule" (ngModelChange)="change()"mask="00:00">
+        </mat-form-field>
+    </div>
+    <div class="row">
+      <button mat-raised-button type="submit" (click)="submit()" [disabled]="!loginForm.valid">Salvar</button>
+    </div>
+  </form>

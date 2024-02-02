@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import * as Dropbox from 'dropbox';
+import { environment } from '../../environments/environment';
 
 export interface Token{
   accesstoken: any,
@@ -12,10 +13,10 @@ export interface Token{
 })
 export class DropboxService  {
 
-  private refreshToken = 'pPKMhbddmDgAAAAAAAAAAc99gBUmtqM0E89ilSkjDIT1RcF22fogYmTt-N-xUnYQ';
-  private clientId = '3j5u6m3tcvlul9b';
-  private clientSecret = 'hrxjd7411akbhoe';
-  private tokenEndpoint = 'https://api.dropboxapi.com/oauth2/token';
+  private refreshToken = environment.dropbox.refreshToken;
+  private clientId = environment.dropbox.clientId;
+  private clientSecret = environment.dropbox.clientSecret;
+  private tokenEndpoint = environment.dropbox.tokenEndpoint;
   
   private dbx!: Dropbox.Dropbox;
   constructor(private http: HttpClient) {

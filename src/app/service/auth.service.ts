@@ -256,6 +256,46 @@ export class AuthService {
     }
   }
 
+  formatDate5(dataISO: string): string {
+   
+    if(dataISO === undefined){
+      return "";
+    }
+
+    const data = new Date(dataISO);
+    const horas = this.adicionarZero(data.getHours());
+    const minutos = this.adicionarZero(data.getMinutes());
+    const segundos = this.adicionarZero(data.getSeconds());
+    const dia = this.adicionarZero(data.getDate());
+    const mes = this.adicionarZero(data.getMonth() + 1);  // Os meses em JavaScript são baseados em zero, então adicione 1
+    const ano = data.getFullYear();
+    
+    return `${horas}:${minutos}:${segundos} ${dia}/${mes}/${ano}`;
+  }
+
+  formatDate6(dataString: string): string {
+    // yyyy-mm-dd em dd/mm/yyyy
+    const partes = dataString.split('-');
+    
+    // Verificação para garantir que a string foi dividida corretamente
+    if (partes.length !== 3) {
+      return 'Data inválida';
+    }
+  
+    // Obter os componentes de data (dia, mês, ano)
+    const ano = partes[0];
+    const mes = partes[1];
+    const dia = partes[2];
+  
+    // Formatar a data como "dd/mm/yyyy"
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  
+  adicionarZero(numero: number): string {
+    return numero < 10 ? `0${numero}` : `${numero}`;
+  }
+  
   formatSize1(tamanhoBytes: number | null): string {
     if (tamanhoBytes !== null) {
       const unidades: string[] = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -295,5 +335,6 @@ export class AuthService {
   
     return isNaN(valorNumerico) ? 0 : valorNumerico;
   }
+  
 
 }

@@ -30,6 +30,8 @@ import { PendingDialogComponent } from './shared/components/pending-dialog/pendi
 import { UserComponent } from './user/user.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { HttpClientModule } from '@angular/common/http';
+import { LicenseDialogComponent } from './shared/components/license-dialog/license-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     NewDataBaseDialogComponent,
     PendingDialogComponent,
     UserComponent,
+    LicenseDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatSnackBarModule,
     MatMenuModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    HttpClientModule,
   ],
   providers: [AuthService, provideNgxMask()],
   bootstrap: [AppComponent],

@@ -3,7 +3,6 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
-import { GetConfig } from '../shared/components/config-dialog/config-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +26,6 @@ export class MonitoringService {
   getDataInformation(): Observable<any[]> {
     return this.db.list('/information').valueChanges();
   }
-  
-  async getDataConfig(key: string): Promise<GetConfig> {
-    return (await this.db.database.ref(`/license/${key}/config`)
-      .orderByKey()
-      .once('value')
-    ).val();
-  }
 
   async getDataRegister(key: string): Promise<Register> {
     return (await this.db.database.ref(`/license/${key}`)
@@ -43,8 +35,9 @@ export class MonitoringService {
   }
   
   updateRegister(key: string, data: Register): Promise<void> {
-    const { razaoSocial, status, email, responsavel, telefone, acesso, senha, qtdLoja, estado, so, observacao, bancos } = data;
-    return this.db.database.ref(`/license/teste/${key}`).set({
+    
+    const { razaoSocial, status, email, responsavel, telefone, acesso, senha, qtdLoja, estado, so, observacao, config, expirationDate } = data;
+    return this.db.database.ref(`/license/${key}`).set({
       razaoSocial,
       status,
       email,
@@ -56,8 +49,11 @@ export class MonitoringService {
       estado,
       so,
       observacao,
-      bancos
+      config,
+      expirationDate
     });
+
+    
   }
 
 }

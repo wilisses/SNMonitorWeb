@@ -26,6 +26,21 @@
         <input matInput required [(ngModel)]="particao" name="particao" (ngModelChange)="change()">
       </mat-form-field>
   </div>
+
+  <div class="row">    
+    <mat-form-field class="small">
+      <mat-label>Token</mat-label>
+      <input matInput required [type]="senhaVisivel ? 'text' : 'password'" [(ngModel)]="access" name="access" />
+      <button *ngIf="access" class="visibili" matSuffix (click)="alternarVisibilidadeSenha()">
+      </button>
+      <button *ngIf="!access" class="visibili" matSuffix (click)="geraToken()">
+      </button>
+    </mat-form-field>
+    <mat-form-field class="small">
+      <mat-label>Data Expiração</mat-label>
+      <input matInput required [(ngModel)]="expiration" name="expiration" disabled (ngModelChange)="change()">
+    </mat-form-field>
+</div>
   
   <div class="row">
     <div class="table">

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="title">
+      <h2>Renovar Licença</h2>
+    </div>
+  </div>
+  <div class="row">
+      <div class="demo-button-container">
+        <div class="contact">
+            <mat-radio-group [(ngModel)]="selecionarTipo" name="selecionarTipo" (ngModelChange)="change(selecionarTipo)">
+            <!-- Cada mat-radio-button representa uma opção -->
+            <mat-radio-button value="mes">Mês</mat-radio-button>
+            <mat-radio-button value="ano">Ano</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field>
+                <mat-label>Data Expiração</mat-label>
+                <input matInput required [(ngModel)]="expiration" name="expiration" disabled >
+              </mat-form-field>
+              <button mat-raised-button type="submit" (click)="submit()">Salvar</button>
+        </div>
+      </div>
+    </div>

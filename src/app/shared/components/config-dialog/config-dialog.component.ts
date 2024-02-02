@@ -4,14 +4,17 @@ import { MatTable, MatTableDataSource, MatTableModule} from '@angular/material/t
 import { MonitoringService } from '../../../service/monitoring.service';
 import { AuthService } from '../../../service/auth.service';
 import { NewDataBaseDialogComponent } from '../new-data-base-dialog/new-data-base-dialog.component';
+import { DropboxService } from '../../../service/dropbox.service';
 
-export interface GetConfig {
-  host: string,
-  particao: string,
-  pastaBin: string,
-  port: string,
-  bancos: any;
-}
+// export interface GetConfig {
+//   host: string,
+//   particao: string,
+//   pastaBin: string,
+//   port: string,
+//   bancos: any;
+//   expirationAccess: string;
+//   token_access: string;
+// }
 
 export interface Config {
   databasename: string,
@@ -28,18 +31,21 @@ export interface Config {
 })
 export class ConfigDialogComponent implements DoCheck {
   displayedColumns: string[] = ['Nome do Banco', 'Caminho da Pasta', 'Primeiro Horário', 'Segundo Horário'];
-  dataSource: any ;
+  dataSource: any = [];
   selectedRow: any;
   configKey: string | undefined;
   host: string = '';
   port: string = '';
   pastaBin: string = '';
   particao: string = '';
+  expiration: string = '';
+  access: any = '';
   edit: boolean = false;
-
+  senhaVisivel: boolean = false;
 
   constructor(
     public auth: AuthService,
+    public dropBox: DropboxService,
     public dialogRef: MatDialogRef<ConfigDialogComponent>,
     private MonitoringService: MonitoringService,
     public dialog: MatDialog,
@@ -50,7 +56,9 @@ export class ConfigDialogComponent implements DoCheck {
   @ViewChild(MatTable) table!: MatTable<Config>;
 
   ngOnInit() {
+    
     this.configKey = this.data;
+   
     this.tableConfig(this.configKey);
   }
 
@@ -58,15 +66,39 @@ export class ConfigDialogComponent implements DoCheck {
     
   }
 
+  alternarVisibilidadeSenha() {
+    this.senhaVisivel = !this.senhaVisivel;
+  }
+
+  async geraToken(): Promise<any> {
+    this.change();
+    try {
+      const tokenInfo = await this.dropBox.obterToken();
+      this.expiration = this.auth.formatDate5(tokenInfo.expiration);
+      this.access = tokenInfo.accesstoken;
+    } catch (error) {
+      console.error('Erro ao gerar o token:', error);
+    }
+  }
+  
+
   async tableConfig(cnpj: any): Promise<void> {
     if(this.auth !== undefined){
-      const bancosTable = JSON.parse(((await this.MonitoringService.getDataConfig(cnpj)).bancos));
-      this.dataSource = new MatTableDataSource(bancosTable);
+        const bancosTable = ((await this.MonitoringService.getDataRegister(cnpj)).config);
+      
+        if((await this.MonitoringService.getDataRegister(cnpj)).config){
+          
+          this.dataSource = new MatTableDataSource(JSON.parse(bancosTable.bancos));
+          this.host = (await this.MonitoringService.getDataRegister(cnpj)).config.host,
+          this.particao = (await this.MonitoringService.getDataRegister(cnpj)).config.particao,
+          this.pastaBin = (await this.MonitoringService.getDataRegister(cnpj)).config.pastaBin,
+          this.port = (await this.MonitoringService.getDataRegister(cnpj)).config.port,
+          this.expiration = (await this.MonitoringService.getDataRegister(cnpj)).config.expirationAccess,
+          this.access = (await this.MonitoringService.getDataRegister(cnpj)).config.token_access
+  
+          this.expiration = this.auth.formatDate5(this.expiration);
+        }
 
-        this.host = (await this.MonitoringService.getDataConfig(cnpj)).host,
-        this.particao = (await this.MonitoringService.getDataConfig(cnpj)).particao,
-        this.pastaBin = (await this.MonitoringService.getDataConfig(cnpj)).pastaBin,
-        this.port = (await this.MonitoringService.getDataConfig(cnpj)).port
     }
   }
 
@@ -78,8 +110,12 @@ export class ConfigDialogComponent implements DoCheck {
     });
   
     dialogRef.afterClosed().subscribe((dados) => {
-      
-      this.dataSource.data.push(dados);
+     
+      if(this.dataSource.length === 0){
+        this.dataSource = new MatTableDataSource([dados]);
+      } else {
+        this.dataSource.data.push(dados);
+      }
       this.table.renderRows();
       
     });
@@ -103,8 +139,6 @@ export class ConfigDialogComponent implements DoCheck {
 
   selectRow(element: Config): void {
     this.selectedRow = element.databasename;
-
-    console.log(this.selectedRow)
   }
   
 
@@ -117,13 +151,21 @@ export class ConfigDialogComponent implements DoCheck {
   }
 
   async submit(): Promise<void> {
-    
+
+    const partes = this.expiration.split(' ');
+    const horaParte = partes[0];
+    const dataParte = partes[1];
+
+    const dataHoraFormatada = `${dataParte.split('/').reverse().join('-')}T${horaParte}.000`;
+    console.log(dataHoraFormatada)
     const dadosconfig = {
         host: this.host,
         port: this.port,
         pastaBin: this.pastaBin,
         particao: this.particao,
-        bancos: JSON.stringify(this.dataSource.data, null, 2)
+        bancos: JSON.stringify(this.dataSource.data, null, 2),
+        token_access: this.access,
+        expirationAccess:dataHoraFormatada,
     };
     
     const alteration = {

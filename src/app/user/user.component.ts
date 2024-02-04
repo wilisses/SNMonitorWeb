@@ -26,14 +26,14 @@ export class UserComponent implements OnInit {
     if(this.user){
       this.route.params.subscribe(params => {
         this.key = params['key'];
-        this.action = params['Action'] === 'Perfil' ? 0:1;
+        this.action = params['Action'] === 'Perfil' ? 0:params['Action'] === undefined ? 2 : 1;
       });
       
       try {
         const user = this.auth.UserAuth();
-        this.name = user.name;
-        this.role = user.role;
-        this.email=  user.email;
+        this.name = this.action === 2 ? '': user.name;
+        this.role = this.action === 2 ? '': user.role;
+        this.email= this.action === 2 ? '': user.email;
     
       } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);

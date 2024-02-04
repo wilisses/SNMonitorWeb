@@ -14,24 +14,24 @@
 <section>
     <div id="content">
         <div id="login">
-            <h2>{{key ? action === 0? 'Editar Perfil' : 'Editar Senha' : 'Cadastrar'}}</h2>
+            <h2>{{key ? action === 0 || action === 2? 'Editar Perfil' : 'Editar Senha' : 'Cadastrar'}}</h2>
             <form #loginForm="ngForm">
                 <mat-form-field>
                     <mat-label>E-mail</mat-label>
-                    <input matInput type="email" [(ngModel)]="email" name="email" required disabled>
+                    <input matInput type="email" [(ngModel)]="email" name="email" required [disabled]="action !== 2">
                 </mat-form-field>
-
-                <mat-form-field *ngIf="action === 0">
+                  
+                <mat-form-field *ngIf="action === 0  || action === 2">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" [(ngModel)]="name" name="name" required>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="action === 0">
+                <mat-form-field *ngIf="action === 0 || action === 2">
                     <mat-label>Cargo</mat-label>
                     <input matInput type="text" [(ngModel)]="role" name="role" required>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="!key || action === 1">
+                <mat-form-field *ngIf="action === 1 || action === 2">
                     <mat-label>{{action === 1? 'Senha Atual' : 'Senha'}}</mat-label>
                     <input matInput type="password" [(ngModel)]="password" name="password" required >
                 </mat-form-field>
@@ -41,14 +41,15 @@
                     <input matInput type="password" [(ngModel)]="passwordNew" name="passwordNew" required>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="action === 1">
+                <mat-form-field *ngIf="action === 1 || action === 2">
                     <mat-label>Confirmar Senha</mat-label>
                     <input matInput type="password" [(ngModel)]="passwordNewConfirm" name="passwordNewConfirm" required>
                 </mat-form-field>
 
             <button *ngIf="action === 1" mat-raised-button (click)="auth.changePassword(email, password, passwordNew, passwordNewConfirm)" [disabled]="!loginForm.valid">Salvar</button>
             <button *ngIf="action === 0" mat-raised-button (click)="auth.signUpdate( name, role)" [disabled]="!loginForm.valid">Salvar</button>
-            </form>
+            <button *ngIf="action === 2" mat-raised-button (click)="auth.signUp(email, password, passwordNewConfirm, name, role)" [disabled]="!loginForm.valid">Salvar</button>
+        </form>
         </div>
         <div *ngIf="auth.error" style="color: red;">
             {{auth.error}}

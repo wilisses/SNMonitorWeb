@@ -49,33 +49,39 @@ export class AuthService {
     return userFromLocalStorage;
   }
 
-  async signUp(email: string, password:string, name: string, role: string){
-    try {
-      const credential = await this.auth.createUserWithEmailAndPassword(email, password);
+  async signUp(email: string, password:string, passwordNewConfirm: string, name: string, role: string){
+    
+    if(password === passwordNewConfirm){
+      try {
+        const credential = await this.auth.createUserWithEmailAndPassword(email, password);
 
-      await credential.user?.updateProfile({
-        displayName: `${name} - ${role}`,
-      });
+        await credential.user?.updateProfile({
+          displayName: `${name} - ${role}`,
+        });
 
-      if(this.user !== undefined){
-      const inputString: any = credential.user?.displayName;
-      const parts = inputString.split(' - ');
-      
-      this.userAuth = {
-        name : parts[0],
-        role : parts[1],
-        email: credential.user?.email,
-        uid: credential.user?.uid,
-        user: credential.user,
+        if(this.user !== undefined){
+        const inputString: any = credential.user?.displayName;
+        const parts = inputString.split(' - ');
+        
+        this.userAuth = {
+          name : parts[0],
+          role : parts[1],
+          email: credential.user?.email,
+          uid: credential.user?.uid,
+          user: credential.user,
+        }
+
+        const userString = JSON.stringify(this.userAuth);
+        localStorage.setItem('User', userString);
+
+          this.Alert("Salvo com Sucesso!!");
+        }
+      } catch (error) {
+        this.error = error;
       }
 
-      const userString = JSON.stringify(this.userAuth);
-      localStorage.setItem('User', userString);
-
-        this.Alert("Salvo com Sucesso!!");
-      }
-    } catch (error) {
-      this.error = error;
+    } else {
+      this.Alert("A nova senha não foi digitada corretamente!");
     }
   }
 

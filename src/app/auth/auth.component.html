@@ -14,7 +14,7 @@
                 </mat-form-field>
             <button mat-raised-button (click)="auth.emailSingin(email, password)" [disabled]="!loginForm.valid">Login</button>
             </form>
-            <button mat-raised-button (click)="auth.googleSinin()">
+            <button mat-raised-button (click)="auth.googleSinin()" *ngIf="false">
                 <div id="button_google">
                     <img class="google-icon" src="../../assets/Icon_Google.svg" alt="Faça login no Google">
                     <p>Faça login no Google</p>

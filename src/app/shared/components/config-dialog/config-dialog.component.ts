@@ -96,7 +96,6 @@ export class ConfigDialogComponent implements DoCheck {
     
     const dialogRef = this.dialog.open(NewDataBaseDialogComponent, {
       width: '70rem',
-      height: '60rem',
     });
   
     dialogRef.afterClosed().subscribe((dados) => {

@@ -115,9 +115,6 @@ export class RegisterComponent implements OnInit, DoCheck {
       return;
     }
   
-  
-    //console.log(razaoSocial,status,key,email,responsavel,telefone,acesso,senha,qtdLoja,estado,so,observacao);
-
     this.register = {
       razaoSocial: this.razaoSocial,
       status: this.status === 'Ativo' ? "1" : "0",
@@ -182,7 +179,7 @@ export class RegisterComponent implements OnInit, DoCheck {
   openDialogConfig(enterAnimationDuration: string, exitAnimationDuration: string, key: string): void {
     const dialogRef = this.dialog.open(ConfigDialogComponent, {
       width: '70rem',
-      height: '60rem',
+      height: '65rem',
       enterAnimationDuration,
       exitAnimationDuration,
       data: key,

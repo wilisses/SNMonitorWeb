@@ -42,6 +42,15 @@ form {
   justify-content: space-between;
 }
 
+.row .configButton {
+  width: 100%;
+  margin-top: -3em;
+  padding-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
 
 .mat-form-field {
   flex: 1 1 100%; /* Define a largura para 100% em todos os tamanhos de tela */

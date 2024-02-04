@@ -120,7 +120,7 @@ export class RegisterComponent implements OnInit, DoCheck {
 
     this.register = {
       razaoSocial: this.razaoSocial,
-      status: this.status,
+      status: this.status === 'Ativo' ? "1" : "0",
       email: this.email,
       responsavel: this.responsavel,
       telefone: this.telefone,

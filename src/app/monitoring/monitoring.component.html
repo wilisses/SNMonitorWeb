@@ -19,6 +19,17 @@
         <button mat-menu-item  (click)="config()">
           <span>Configuração</span>
         </button>
+        <button mat-menu-item [matMenuTriggerFor]="submenu">
+          Cadastro
+        </button>
+        <mat-menu #submenu="matMenu">
+          <button mat-menu-item (click)="addCompany()">
+            <span>Empresa</span>
+          </button>
+          <button mat-menu-item  (click)="addUser()">
+            <span>Usuário</span>
+          </button>
+        </mat-menu>
         <button mat-menu-item  (click)="auth.signOut()">
           <span>Sair</span>
         </button>

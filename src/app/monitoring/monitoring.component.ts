@@ -124,7 +124,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     return new Promise<Monitoring[]>((resolve, reject) => {
         this.MonitoringService.getDataLincese().subscribe((dados) => {
           this.licenses = dados;
-          
+
           const listaMonitoramento: Monitoring[] = [];
           let row = 1;
           this.licenses.forEach(item => {
@@ -170,8 +170,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         let datePrevious: string | null = null;
                         let sizeCurrent: number | null = null;
                         let sizePrevious: number | null = null;
-                        let nameCurrent: number | null = null;
-                        let namePrevious: number | null = null;
+                        let nameCurrent: string = '';
+                        let namePrevious: string = '';
                         let key = item.key;
                         ultimosDoisArquivos.forEach((item,index) => {
                           let datearquivo = item.name.split('_');
@@ -201,9 +201,40 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         });
                         
                         const status = this.status(sizeCurrent, sizePrevious, dateCurrent);
-                        
-                        if(this.isChecked){
-                          if(status !== "OK"){
+
+                        if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
+                          listaMonitoramento.push({
+                            row,
+                            key,
+                            caminhoPasta,
+                            nameDataBase,
+                            status: "Novo",
+                            dateCurrent,
+                            datePrevious: null,
+                            sizeCurrent:this.auth.formatSize1(null),
+                            sizePrevious:this.auth.formatSize1(null),
+                            nameCurrent: null,
+                            namePrevious: null
+                          });
+                        } else {
+
+                          if(this.isChecked){
+                            if(status !== "OK"){
+                              listaMonitoramento.push({
+                                row,
+                                key,
+                                caminhoPasta,
+                                nameDataBase,
+                                status: status,
+                                dateCurrent,
+                                datePrevious,
+                                sizeCurrent:this.auth.formatSize1(sizeCurrent),
+                                sizePrevious:this.auth.formatSize1(sizePrevious),
+                                nameCurrent,
+                                namePrevious
+                              });
+                          }
+                          } else {
                             listaMonitoramento.push({
                               row,
                               key,
@@ -217,22 +248,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               nameCurrent,
                               namePrevious
                             });
-                         }
-                        } else {
-                          listaMonitoramento.push({
-                            row,
-                            key,
-                            caminhoPasta,
-                            nameDataBase,
-                            status: status,
-                            dateCurrent,
-                            datePrevious,
-                            sizeCurrent:this.auth.formatSize1(sizeCurrent),
-                            sizePrevious:this.auth.formatSize1(sizePrevious),
-                            nameCurrent,
-                            namePrevious
-                          });
-                        }
+                          }
+                        } 
                         
                         row = row+1;
                       });
@@ -297,9 +314,27 @@ export class MonitoringComponent implements OnInit , DoCheck{
       }));
       return results;
     } catch (error) {
-      console.error(error);
-      throw error; // Rejeita a promessa em caso de erro
+
+     // console.error(error);
+      
+      const dataAtual = new Date();
+      const dataAtualFormatada = `${dataAtual.getFullYear()}-${this.padZero(dataAtual.getMonth() + 1)}-${this.padZero(dataAtual.getDate())}T${this.padZero(dataAtual.getHours())}:${this.padZero(dataAtual.getMinutes())}:${this.padZero(dataAtual.getSeconds())}Z`;
+    
+      return [ 
+        {
+          server_modified: dataAtualFormatada,
+          name: '20240204_newcompany.backup',
+          client_modified: dataAtualFormatada,
+          size: 0
+        }
+      ];
     }
+    
+  }
+  
+    
+  padZero(num: number): string {
+    return num < 10 ? `0${num}` : num.toString();
   }
 
   async perfil(): Promise<void> {
@@ -324,6 +359,21 @@ export class MonitoringComponent implements OnInit , DoCheck{
       height: '45rem',
       data: null,
     });
+  }
+
+  addCompany():void{
+    try {
+      this.auth.navigate(`Register`);
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+    }
+  }
+  addUser():void{
+    try {
+      this.auth.navigate(`User`);
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+    }
   }
  
 }

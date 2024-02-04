@@ -12,12 +12,15 @@ import { Token } from '../../../monitoring/monitoring.component';
   styleUrl: './config-dropbox-dialog.component.css'
 })
 export class ConfigDropboxDialogComponent implements OnInit{
-  
-clientId: string = "";
-clientSecret: string = "";
-refreshToken: string = "";
-tokenEndpoint: string = "";
-token: Token | undefined;
+
+  password: string = "";
+  emailRemetente: string = "";
+  clientId: string = "";
+  clientSecret: string = "";
+  refreshToken: string = "";
+  tokenEndpoint: string = "";
+  token: Token | undefined;
+  emaildestinatarios: any;
 
   constructor(
     public auth: AuthService,
@@ -35,6 +38,9 @@ token: Token | undefined;
     this.clientSecret = (await this.MonitoringService.getDatatoken()).clientSecret;
     this.refreshToken = (await this.MonitoringService.getDatatoken()).refreshToken;
     this.tokenEndpoint = (await this.MonitoringService.getDatatoken()).tokenEndpoint;
+    this.emailRemetente = (await this.MonitoringService.getDatatoken()).remetente;
+    this.password = (await this.MonitoringService.getDatatoken()).passwordRemetente;
+    this.emaildestinatarios = (await this.MonitoringService.getDatatoken()).destinatarios;
 
   }
 
@@ -62,6 +68,9 @@ token: Token | undefined;
       clientSecret: this.clientSecret,
       refreshToken: this.refreshToken,
       tokenEndpoint: this.tokenEndpoint,
+      remetente: this.emailRemetente,
+      passwordRemetente: this.password,
+      destinatarios: this.emaildestinatarios,
     }
 
     try {

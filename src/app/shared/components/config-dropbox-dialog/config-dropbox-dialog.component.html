@@ -27,6 +27,35 @@
         </mat-form-field>
     </div>
     <div class="row">
+        <h2>Remetente</h2>
+        <br/><br/><br/>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+            <mat-label>E-mail</mat-label>
+            <input matInput required type="email" [(ngModel)]="emailRemetente" name="emailRemetente" (ngModelChange)="change()">
+    
+            <button class="visibili" matSuffix (click)="generatetoken()">
+        </button>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+            <mat-label>Senha</mat-label>
+            <input matInput required type="password" [(ngModel)]="password" name="password" (ngModelChange)="change()">
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <h2>Destinatários</h2>
+        <br/><br/><br/>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+            <mat-label>E-mail (;)</mat-label>
+            <textarea matInput [(ngModel)]="emaildestinatarios" name="emaildestinatarios" (ngModelChange)="change()"></textarea>
+        </mat-form-field>
+    </div>
+    <div class="row">
         <button mat-raised-button type="submit" (click)="submit()" [disabled]="!loginForm.valid">Salvar</button>
     </div>
     </form>

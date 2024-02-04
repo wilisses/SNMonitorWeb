@@ -25,6 +25,9 @@ export interface Token{
   clientSecret: string;
   refreshToken: string;
   tokenEndpoint: string;
+  remetente: string;
+  passwordRemetente: string;
+  destinatarios: any;
 }
 
 export interface Monitoring{

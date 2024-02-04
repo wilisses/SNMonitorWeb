@@ -46,6 +46,14 @@ export class UserComponent implements OnInit {
   signOut():void {
     this.auth.navigate("Monitoring");
   }
+
+  async changePasswordNew(): Promise<void> {
+    try {
+      this.auth.navigate(`User/Password/${this.user.uid}`);
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+    }
+  }
 }
 
 

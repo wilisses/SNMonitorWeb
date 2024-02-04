@@ -6,16 +6,6 @@ import { AuthService } from '../../../service/auth.service';
 import { NewDataBaseDialogComponent } from '../new-data-base-dialog/new-data-base-dialog.component';
 import { DropboxService } from '../../../service/dropbox.service';
 
-// export interface GetConfig {
-//   host: string,
-//   particao: string,
-//   pastaBin: string,
-//   port: string,
-//   bancos: any;
-//   expirationAccess: string;
-//   token_access: string;
-// }
-
 export interface Config {
   databasename: string,
   caminhodapasta: string,
@@ -29,6 +19,7 @@ export interface Config {
   templateUrl: './config-dialog.component.html',
   styleUrl: './config-dialog.component.css'
 })
+
 export class ConfigDialogComponent implements DoCheck {
   displayedColumns: string[] = ['Nome do Banco', 'Caminho da Pasta', 'Primeiro Horário', 'Segundo Horário'];
   dataSource: any = [];
@@ -49,8 +40,7 @@ export class ConfigDialogComponent implements DoCheck {
     public dialogRef: MatDialogRef<ConfigDialogComponent>,
     private MonitoringService: MonitoringService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data?: string | undefined,
-    
+    @Inject(MAT_DIALOG_DATA) public data?: string | undefined
   ) {}
 
   @ViewChild(MatTable) table!: MatTable<Config>;

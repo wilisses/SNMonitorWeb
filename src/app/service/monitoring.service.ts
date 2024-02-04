@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
-
+import { Token } from '../monitoring/monitoring.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +33,13 @@ export class MonitoringService {
       .once('value')
     ).val();
   }
+
+  async getDatatoken(): Promise<Token> {
+    return (await this.db.database.ref(`/authorizationDropbox`)
+      .orderByKey()
+      .once('value')
+    ).val();
+  }
   
   updateRegister(key: string, data: Register): Promise<void> {
     
@@ -54,6 +61,17 @@ export class MonitoringService {
     });
 
     
+  }
+
+  updateToken(data: Token): Promise<void> {
+    
+    const { clientId, clientSecret, refreshToken, tokenEndpoint } = data;
+    return this.db.database.ref(`/authorizationDropbox`).set({
+      clientId,
+      clientSecret, 
+      refreshToken, 
+      tokenEndpoint
+    });
   }
 
 }

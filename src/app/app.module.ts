@@ -33,6 +33,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { LicenseDialogComponent } from './shared/components/license-dialog/license-dialog.component';
 import { environment } from '../environments/environment';
+import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { environment } from '../environments/environment';
     PendingDialogComponent,
     UserComponent,
     LicenseDialogComponent,
+    ConfigDropboxDialogComponent,
   ],
   imports: [
     BrowserModule,

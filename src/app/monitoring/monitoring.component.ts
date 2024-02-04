@@ -5,6 +5,7 @@ import { DropboxService } from '../service/dropbox.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
+import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
 
 interface Banco {
   databasename: string;
@@ -17,6 +18,13 @@ export interface DropBoxEntry {
   name: any;
   client_modified: any;
   size: any;
+}
+
+export interface Token{
+  clientId: string;
+  clientSecret: string;
+  refreshToken: string;
+  tokenEndpoint: string;
 }
 
 export interface Monitoring{
@@ -61,7 +69,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
     this.user = this.auth.UserAuth();
 
-    if(this.user){
+    if(this.user && await this.dropboxService.obterToken()){
       this.table()
       .then(async result => {
         this.dataSource = new MatTableDataSource(result);
@@ -310,6 +318,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
   }
   
+  config():void{
+    const dialogRef = this.dialog.open(ConfigDropboxDialogComponent, {
+      width: '35rem',
+      height: '45rem',
+      data: null,
+    });
+  }
  
 }
 

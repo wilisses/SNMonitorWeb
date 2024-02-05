@@ -185,6 +185,7 @@ export class AuthService {
       await this.auth.signOut();
       this.user = null;
       localStorage.removeItem('User');
+      localStorage.removeItem('listaCNPJs');
       this.navigate("");
     } catch (error) {
       this.error = error;

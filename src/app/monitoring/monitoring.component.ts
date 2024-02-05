@@ -31,6 +31,7 @@ export interface Token{
 }
 
 export interface Monitoring{
+    checked: any;
     row: any;
     key: any;
     caminhoPasta: any;
@@ -98,7 +99,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     } else {
       this.auth.navigate("");
     }
-    
+
   }
   
   ngDoCheck(): void {
@@ -120,6 +121,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
       data: key,
     });
   
+  }
+
+  change(element: any): void {
+    
+    const listaCNPJs = this.obterListaCNPJs();
+
+    this.adicionarCNPJNaLista(listaCNPJs, element.key);
+
   }
   
 
@@ -220,9 +229,21 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         });
                         
                         const status = this.status(sizeCurrent, sizePrevious, dateCurrent);
+                        
+                        const listaCNPJs = this.obterListaCNPJs();
+    
+                        const estaNaLista = verificarCNPJNaLista(listaCNPJs, key);
+                        
+                        let ischecked: boolean = false;
+                        if (estaNaLista) {
+                          ischecked = true;
+                        } else {
+                          ischecked = false;
+                        }
 
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
+                            checked:ischecked,
                             row,
                             key,
                             caminhoPasta,
@@ -240,6 +261,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           if(this.isChecked){
                             if(status !== "OK"){
                               listaMonitoramento.push({
+                                checked:ischecked,
                                 row,
                                 key,
                                 caminhoPasta,
@@ -255,6 +277,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           }
                           } else {
                             listaMonitoramento.push({
+                              checked:ischecked,
                               row,
                               key,
                               caminhoPasta,
@@ -292,6 +315,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
         });
       
     });
+
+    function verificarCNPJNaLista(listaCNPJs: string, cnpjProcurado: string): boolean {
+      const lista = listaCNPJs.split(',').map(cnpj => cnpj.trim()); // Divide a lista em um array
+      return lista.includes(cnpjProcurado); // Verifica se o CNPJ procurado está na lista
+    }
+    
+    
   }
 
   status(sizeCurrent: any, sizePrevious: any, dateCurrent: any): any{
@@ -392,6 +422,40 @@ export class MonitoringComponent implements OnInit , DoCheck{
       this.auth.navigate(`User`);
     } catch (error) {
       console.error('Erro ao obter informações do usuário:', error);
+    }
+  }
+
+  adicionarCNPJNaLista(listaCNPJs: string, novoCNPJ: string): string {
+    const lista = listaCNPJs.split(',').map(cnpj => cnpj.trim());
+  
+    if (!lista.includes(novoCNPJ)) {
+      lista.push(novoCNPJ);
+  
+      localStorage.setItem('listaCNPJs', lista.join(','));
+  
+      return '';
+    } else {
+      this.removerCNPJDaLista(listaCNPJs, novoCNPJ);
+      return '';
+    }
+  }
+
+  obterListaCNPJs(): string {
+    return localStorage.getItem('listaCNPJs') || '';
+  }
+
+  removerCNPJDaLista(listaCNPJs: string, cnpjRemover: string): string {
+    const lista = listaCNPJs.split(',').map(cnpj => cnpj.trim());
+  
+    const index = lista.indexOf(cnpjRemover);
+    if (index !== -1) {
+      lista.splice(index, 1);
+  
+      localStorage.setItem('listaCNPJs', lista.join(','));
+  
+      return '';
+    } else {
+      return '';
     }
   }
  

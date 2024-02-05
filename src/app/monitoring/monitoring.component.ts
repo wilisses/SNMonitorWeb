@@ -84,6 +84,22 @@ export class MonitoringComponent implements OnInit , DoCheck{
       this.auth.navigate("");
     }
   }
+
+  async refresh():Promise<void>{
+    
+    if(this.user && await this.dropboxService.obterToken()){
+      this.table()
+      .then(async result => {
+        this.dataSource = new MatTableDataSource(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    } else {
+      this.auth.navigate("");
+    }
+    
+  }
   
   ngDoCheck(): void {
     if (this.dataSource) {

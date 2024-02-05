@@ -16,6 +16,15 @@
 .filter mat-checkbox{
   text-align: left;
 }
+.filter button{
+  width: 10rem;
+  background: var(--brand-dark);
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 #table{
   position: fixed;

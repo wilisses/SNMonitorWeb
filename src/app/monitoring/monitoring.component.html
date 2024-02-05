@@ -36,6 +36,10 @@
       </mat-menu>
     </div>
     <div class="filter">
+      <button mat-menu-item  (click)="refresh()">
+        <span>Carregar</span>
+      </button>
+
       <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()">Pendente</mat-checkbox>
 
       <mat-form-field>

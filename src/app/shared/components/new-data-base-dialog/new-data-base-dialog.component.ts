@@ -11,7 +11,7 @@ export class NewDataBaseDialogComponent implements OnInit {
   caminhodapasta: string = '';
   firstSchedule: string = '';
   secondSchedule: string = '';
-
+  edit: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<NewDataBaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data?: any,
@@ -25,7 +25,7 @@ export class NewDataBaseDialogComponent implements OnInit {
   }
 
   change():void{
-
+    this.edit = true;
   }
 
   async submit(): Promise<void> {
@@ -53,8 +53,13 @@ export class NewDataBaseDialogComponent implements OnInit {
       firstSchedule: this.firstSchedule,
       secondSchedule: this.secondSchedule
     };
+
+    const res = {
+      dados: dados,
+      edit: this.edit
+    }
     
-    this.dialogRef.close(dados);
+    this.dialogRef.close(res);
   
   }
 }

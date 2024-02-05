@@ -104,17 +104,17 @@ export class ConfigDialogComponent implements DoCheck {
     });
   
     dialogRef.afterClosed().subscribe((dados) => {
-
-      const updatedArray = this.dataSource.data.filter((obj:Config) => obj.databasename !== this.selectedRow.databasename);
-      this.dataSource = new MatTableDataSource(updatedArray);
-
-      if(this.dataSource.length === 0){
-        this.dataSource = new MatTableDataSource([dados]);
-      } else {
-        this.dataSource.data.push(dados);
-      }
-      this.table.renderRows();
       
+      if(dados.edit){
+        const updatedArray = this.dataSource.data.filter((obj:Config) => obj.databasename !== this.selectedRow.databasename);
+        this.dataSource = new MatTableDataSource(updatedArray);
+        if(this.dataSource.length === 0){
+          this.dataSource = new MatTableDataSource([dados.dados]);
+        } else {
+          this.dataSource.data.push(dados.dados);
+        }
+        this.table.renderRows();
+      }
     });
     
     this.change();
@@ -129,9 +129,9 @@ export class ConfigDialogComponent implements DoCheck {
     dialogRef.afterClosed().subscribe((dados) => {
      
       if(this.dataSource.length === 0){
-        this.dataSource = new MatTableDataSource([dados]);
+        this.dataSource = new MatTableDataSource([dados.dados]);
       } else {
-        this.dataSource.data.push(dados);
+        this.dataSource.data.push(dados.dados);
       }
       this.table.renderRows();
       

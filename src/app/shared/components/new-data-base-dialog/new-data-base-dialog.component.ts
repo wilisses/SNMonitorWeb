@@ -27,7 +27,7 @@ export class NewDataBaseDialogComponent {
       if (hour.length === 4) {
         return `${hour.slice(0, 2)}:${hour.slice(2)}`;
       } else {
-        return 'Formato de hora inválido';
+        return '  :  ';
       }
     }
 

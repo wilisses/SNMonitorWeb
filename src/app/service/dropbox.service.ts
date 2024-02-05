@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import * as Dropbox from 'dropbox';
+import { Injectable } from '@angular/core';
+import { Dropbox, files } from 'dropbox';
 import { MonitoringService } from './monitoring.service';
 
 export interface Token{
@@ -13,7 +13,7 @@ export interface Token{
 })
 export class DropboxService  {
 
-  private dbx!: Dropbox.Dropbox;
+  private dbx!: Dropbox;
   constructor(private MonitoringService: MonitoringService, private http: HttpClient) {
     this.obterToken();
   }
@@ -74,12 +74,12 @@ export class DropboxService  {
   
 
   configurarDropbox(token: string): void {
-    this.dbx = new Dropbox.Dropbox({
+    this.dbx = new Dropbox({
       accessToken: token,
     });
   }
 
-  async listarArquivos(caminho: string): Promise<Dropbox.files.ListFolderResult> {
+  async listarArquivos(caminho: string): Promise<files.ListFolderResult> {
     try {
       
       const response = await this.dbx.filesListFolder({ path: caminho });

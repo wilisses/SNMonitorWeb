@@ -33,7 +33,6 @@ export class ConfigDialogComponent implements DoCheck {
   access: any = '';
   edit: boolean = false;
   senhaVisivel: boolean = false;
-
   constructor(
     public auth: AuthService,
     public dropBox: DropboxService,
@@ -92,6 +91,35 @@ export class ConfigDialogComponent implements DoCheck {
     }
   }
 
+  editData() {
+
+    if(this.selectedRow === undefined){
+      this.auth.Alert("Por favor, selecione uma linha antes de remover.");
+      return;
+    }
+
+    const dialogRef = this.dialog.open(NewDataBaseDialogComponent, {
+      width: '70rem',
+      data:this.selectedRow,
+    });
+  
+    dialogRef.afterClosed().subscribe((dados) => {
+
+      const updatedArray = this.dataSource.data.filter((obj:Config) => obj.databasename !== this.selectedRow.databasename);
+      this.dataSource = new MatTableDataSource(updatedArray);
+
+      if(this.dataSource.length === 0){
+        this.dataSource = new MatTableDataSource([dados]);
+      } else {
+        this.dataSource.data.push(dados);
+      }
+      this.table.renderRows();
+      
+    });
+    
+    this.change();
+  }
+
   addData() {
     
     const dialogRef = this.dialog.open(NewDataBaseDialogComponent, {
@@ -113,12 +141,12 @@ export class ConfigDialogComponent implements DoCheck {
   }
 
   removeData() {
-    if(this.selectedRow === undefined){
+    if(this.selectedRow.databasename === undefined){
       this.auth.Alert("Por favor, selecione uma linha antes de remover.");
       return;
     }
     
-    const updatedArray = this.dataSource.data.filter((obj:Config) => obj.databasename !== this.selectedRow);
+    const updatedArray = this.dataSource.data.filter((obj:Config) => obj.databasename !== this.selectedRow.databasename);
     this.dataSource = new MatTableDataSource(updatedArray);
     this.table.renderRows();
     
@@ -127,7 +155,7 @@ export class ConfigDialogComponent implements DoCheck {
   
 
   selectRow(element: Config): void {
-    this.selectedRow = element.databasename;
+    this.selectedRow = element;
   }
   
 
@@ -146,7 +174,7 @@ export class ConfigDialogComponent implements DoCheck {
     const dataParte = partes[1];
 
     const dataHoraFormatada = `${dataParte.split('/').reverse().join('-')}T${horaParte}.000`;
-    console.log(dataHoraFormatada)
+  
     const dadosconfig = {
         host: this.host,
         port: this.port,

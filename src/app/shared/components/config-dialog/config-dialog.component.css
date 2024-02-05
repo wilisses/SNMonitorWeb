@@ -36,7 +36,8 @@ form {
     height: 1rem;
     margin-right: 1rem;
   }
-  
+
+
   .mat-form-field {
     flex: 1 1 100%; /* Define a largura para 100% em todos os tamanhos de tela */
   }

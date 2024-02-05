@@ -70,7 +70,10 @@
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'selected-row': row.databasename === selectedRow}" (click)="selectRow(row)"></tr>
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr> -->
+      <!-- Adicione a diretiva [ngClass] na linha -->
+<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" id="{{row.databasename}}"></tr>
+
     </table>
     </div>
   </div>

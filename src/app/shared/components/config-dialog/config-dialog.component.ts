@@ -155,10 +155,20 @@ export class ConfigDialogComponent implements DoCheck {
   
 
   selectRow(element: Config): void {
+
     this.selectedRow = element;
+    selectRow(this.selectedRow.databasename);
+
+    function selectRow(rowId: any) {
+      var tableRow = document.getElementById(rowId);
+  
+      if (tableRow) {
+          tableRow.style.backgroundColor = 'var(--primary-color)';
+         
+      } 
+    }
   }
   
-
   closeDialog(): void {
     this.dialogRef.close();
   }

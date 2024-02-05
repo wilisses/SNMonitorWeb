@@ -166,13 +166,13 @@ export class RegisterComponent implements OnInit, DoCheck {
   this.telefone = (await this.MonitoringService.getDataRegister(cnpj)).telefone;
   this.responsavel = (await this.MonitoringService.getDataRegister(cnpj)).responsavel;
   this.expirationDate = (await this.MonitoringService.getDataRegister(cnpj)).expirationDate;
-
+  this.status = this.status === "1" ? "Ativo": "Cancelado";
 
 
   this.myControlsos = new FormControl(this.so);
   this.myControlstatesBrazil = new FormControl(this.estado);
   this.myControlnumbers = new FormControl(this.qtdLoja);
-  this.myControlstatuss = new FormControl(this.status === "1" ? 'Ativo': 'Cancelado');
+  this.myControlstatuss = new FormControl(this.status);
            
   }
 

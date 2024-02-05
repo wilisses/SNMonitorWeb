@@ -52,20 +52,17 @@ export class PendingDialogComponent implements OnInit{
 
     let saudacao;
     const agora = new Date();
-    const manhaLimite = new Date();
-      manhaLimite.setHours(12, 0, 0, 0);  // Limite para a manhã (12:00 PM)
-    const tardeLimite = new Date();
-      tardeLimite.setHours(18, 0, 0, 0);  // Limite para a tarde (6:00 PM)
-    const noiteLimite = new Date();
-      noiteLimite.setHours(24, 0, 0, 0);  // Limite para a noite (12:00 AM)
+    const horas = agora.getHours();
+    const minutos = agora.getMinutes();
 
-    if (agora > manhaLimite && agora < tardeLimite) {
+    if(`${horas}${minutos}` > '0000' && `${horas}${minutos}` < '1200'){
       saudacao = "Bom dia";
-    } else if (agora > tardeLimite && agora < noiteLimite) {
+    } else if (`${horas}${minutos}` > '1200' && `${horas}${minutos}` < '1800') {
       saudacao = "Boa tarde";
     } else {
       saudacao = "Boa noite";
     }
+
 
     let situacao;
     if(this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAtual) || this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAnterior)){

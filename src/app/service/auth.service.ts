@@ -342,6 +342,23 @@ export class AuthService {
   
     return isNaN(valorNumerico) ? 0 : valorNumerico;
   }
+
+  formatCNPJ(cnpj: string): string {
+    // Remover caracteres não numéricos
+    const numerosCNPJ = cnpj.replace(/\D/g, '');
+
+    // Adicionar zeros à esquerda se necessário
+    const cnpjCompleto = numerosCNPJ.padStart(14, '0');
+
+    // Formatar o CNPJ
+    const parte1 = cnpjCompleto.slice(0, 2);
+    const parte2 = cnpjCompleto.slice(2, 5);
+    const parte3 = cnpjCompleto.slice(5, 8);
+    const parte4 = cnpjCompleto.slice(8, 12);
+    const parte5 = cnpjCompleto.slice(12);
+
+    return `${parte1}.${parte2}.${parte3}/${parte4}-${parte5}`;
+}
   
 
 }

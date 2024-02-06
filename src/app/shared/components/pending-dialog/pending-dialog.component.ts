@@ -16,6 +16,7 @@ export class PendingDialogComponent implements OnInit{
   telefonePending: string = '';
   responsavelPending: string = '';
   user:any;
+  pasta: string = '';
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<PendingDialogComponent>,
@@ -30,6 +31,10 @@ export class PendingDialogComponent implements OnInit{
     this.user = this.auth.UserAuth();
     
     this.dados = this.data;
+
+    if((await this.MonitoringService.getDataRegister(this.dados.key)).config !== undefined){
+      this.pasta = JSON.parse((await this.MonitoringService.getDataRegister(this.dados.key)).config.bancos)[0].caminhopasta;   
+    }
 
     this.emailPending = (await this.MonitoringService.getDataRegister(this.dados.key)).email;
     this.telefonePending = (await this.MonitoringService.getDataRegister(this.dados.key)).telefone;
@@ -67,17 +72,17 @@ export class PendingDialogComponent implements OnInit{
     let situacao;
     if(this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAtual) || this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAnterior)){
       if(this.dados.sizeCurrent === 0){
-        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* se encontram em nossos servidores com tamanho *zerado*.`;
+        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} se encontram em nossos servidores com tamanho *zerado*.`;
       } else if( this.auth.removeSufixoformatSize1(this.dados.sizePrevious) > this.auth.removeSufixoformatSize1(this.dados.sizeCurrent)){
-        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* se encontram em nossos servidores com tamanho *reduzido*.`; 
+        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} se encontram em nossos servidores com tamanho *reduzido*.`; 
       } else {
         this.auth.Alert("A situação do backup encontra-se sem pendências!");
       }
     } else {
       if(this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAtual)){
-        situacao = `*${this.auth.formatDate4(stringDataAtual)}* ainda não se encontram em nossos servidores.`;
+        situacao = `*${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
       } else {
-        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* a *${this.auth.formatDate4(stringDataAtual)}* ainda não se encontram em nossos servidores.`;
+        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* a *${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
       }
     }
     

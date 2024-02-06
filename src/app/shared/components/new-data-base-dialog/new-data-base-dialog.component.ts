@@ -39,11 +39,11 @@ export class NewDataBaseDialogComponent implements OnInit {
       }
     }
 
-    if(this.firstSchedule.length === 4) {
+    if(this.firstSchedule.length === 4 || this.firstSchedule.length === 0) {
       this.firstSchedule = formatHour(this.firstSchedule);
     }
 
-    if(this.secondSchedule.length === 4) {
+    if(this.secondSchedule.length === 4 || this.secondSchedule.length === 0) {
       this.secondSchedule = formatHour(this.secondSchedule);
     }
     

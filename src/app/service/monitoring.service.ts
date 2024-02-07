@@ -23,8 +23,12 @@ export class MonitoringService {
       })
     );
   }
-  getDataInformation(): Observable<any[]> {
-    return this.db.list('/information').valueChanges();
+  
+  async getDataInformation(key: string): Promise<Register> {
+    return (await this.db.database.ref(`/information/${key}`)
+      .orderByKey()
+      .once('value')
+    ).val();
   }
 
   async getDataRegister(key: string): Promise<Register> {

@@ -45,7 +45,7 @@ export class DropboxService  {
         // Configure o cliente Dropbox com o novo token de acesso
         this.configurarDropbox(response.access_token);
         
-        const subtractSeconds = 3600; // 1 hora
+        const subtractSeconds = 900; // 1 hora
 
         // Obtendo o timestamp atual em milissegundos
         const currentTimestamp = Date.now();

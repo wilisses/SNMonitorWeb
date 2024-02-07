@@ -17,6 +17,7 @@ export class PendingDialogComponent implements OnInit{
   responsavelPending: string = '';
   user:any;
   pasta: string = '';
+  information:any;
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<PendingDialogComponent>,
@@ -39,6 +40,9 @@ export class PendingDialogComponent implements OnInit{
     this.emailPending = (await this.MonitoringService.getDataRegister(this.dados.key)).email;
     this.telefonePending = (await this.MonitoringService.getDataRegister(this.dados.key)).telefone;
     this.responsavelPending = (await this.MonitoringService.getDataRegister(this.dados.key)).responsavel;
+
+    console.log(this.MonitoringService.getDataInformation(this.dados.key));
+
   }
 
   

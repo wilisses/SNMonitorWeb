@@ -6,14 +6,11 @@
         </div>
     </div>
     <div class="row">
-        <mat-form-field class="small">
-            <mat-label>Token</mat-label>
-            <input matInput required type="password" [(ngModel)]="refreshToken" name="refreshToken" (ngModelChange)="change()">
-    
-            <button class="visibili" matSuffix (click)="generatetoken()">
+        <button mat-raised-button (click)="generatetoken()">
+            Gerar Token
         </button>
-        </mat-form-field>
     </div>
+    <br/><br/>
     <div class="row">
         <mat-form-field class="small">
             <mat-label>Client Id</mat-label>

@@ -1,0 +1,38 @@
+.row {
+    display: flex;
+    flex-direction: column; /* Muda a direção para coluna, fazendo com que os itens fiquem um abaixo do outro */
+    gap: 1rem;
+  }
+  .row button{
+    margin-top: 2rem;
+    width: 10em;
+    background: var(--brand-dark);
+    color: white;
+  }
+
+  .demo-button-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .demo-button-container .contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .row .title {
+    width: 100%;
+    margin-top: 1em;
+    padding-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+ 

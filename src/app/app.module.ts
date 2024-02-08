@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LicenseDialogComponent } from './shared/components/license-dialog/license-dialog.component';
 import { environment } from '../environments/environment';
 import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
+import { GenerateTokenDialogComponent } from './shared/components/generate-token-dialog/generate-token-dialog.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox
     UserComponent,
     LicenseDialogComponent,
     ConfigDropboxDialogComponent,
+    GenerateTokenDialogComponent,
   ],
   imports: [
     BrowserModule,

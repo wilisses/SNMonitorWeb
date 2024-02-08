@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="title">
+      <h2>Gerar Token Atualização</h2>
+    </div>
+  </div>
+  <div class="row">
+      <div class="demo-button-container">
+        <div class="contact">
+          <button 
+            mat-raised-button 
+            (click)="generateCodeAuthentication()" 
+            class="demo-button">
+            Obter Código Autorização
+          </button>
+        </div>
+        <div class="contact">
+            <form #loginForm="ngForm">
+                <mat-form-field>
+                    <mat-label>Código Autorização</mat-label>
+                    <input matInput required [(ngModel)]="codeAuthentication" name="codeAuthentication"  (ngModelChange)="change('codeAuthentication')">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Token Atualização</mat-label>
+                    <textarea matInput [(ngModel)]="tokenRefresh" name="tokenRefresh" (ngModelChange)="change('tokenRefresh')"></textarea>
+                </mat-form-field>
+                <button mat-raised-button type="submit" (click)="submit()">Salvar</button>
+            </form>
+        </div>
+      </div>
+    </div>

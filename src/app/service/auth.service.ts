@@ -358,7 +358,25 @@ export class AuthService {
     const parte5 = cnpjCompleto.slice(12);
 
     return `${parte1}.${parte2}.${parte3}/${parte4}-${parte5}`;
-}
+  }
+  calcularDataExpiracao(dias: number): string {
+    const dataAtual = new Date();
+    const dataExpiracao = new Date(dataAtual.getTime() + dias * 24 * 60 * 60 * 1000);
   
-
+    return this.formatarData(dataExpiracao);
+  }
+  
+  formatarData(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = this.adicionarZero(data.getMonth() + 1); // Meses são indexados de 0 a 11
+    const dia = this.adicionarZero(data.getDate());
+    const horas = this.adicionarZero(data.getHours());
+    const minutos = this.adicionarZero(data.getMinutes());
+  
+    return `${ano}-${mes}-${dia} ${horas}:${minutos}`;
+  }
+  
+  
+  
+ 
 }

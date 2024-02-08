@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import * as Dropbox from 'dropbox';
 import { MonitoringService } from './monitoring.service';
+import { Observable } from 'rxjs';
 
 export interface Token{
   accesstoken: any,
@@ -12,10 +13,16 @@ export interface Token{
   providedIn: 'root'
 })
 export class DropboxService  {
+  private clientId = '3j5u6m3tcvlul9b';
+  private clientSecret = 'hrxjd7411akbhoe';
+  private authorizationEndpoint = 'https://www.dropbox.com/oauth2/authorize';
+  private tokenEndpoint = 'https://api.dropboxapi.com/oauth2/token';
+ 
 
   private dbx!: Dropbox.Dropbox;
   constructor(private MonitoringService: MonitoringService, private http: HttpClient) {
     this.obterToken();
+
   }
 
   async obterToken(): Promise<Token> {
@@ -94,6 +101,20 @@ export class DropboxService  {
     return Object.keys(params)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
       .join('&');
+  }
+
+  getAuthorizationUrl(): string {
+    return `${this.authorizationEndpoint}?response_type=code&client_id=${this.clientId}&token_access_type=offline`;
+  }
+
+  getToken(authorizationCode: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    const body = `code=${authorizationCode}&grant_type=authorization_code&client_id=${this.clientId}&client_secret=${this.clientSecret}`;
+
+    return this.http.post(this.tokenEndpoint, body, { headers });
   }
 
 }

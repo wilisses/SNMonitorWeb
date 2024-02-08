@@ -28,6 +28,7 @@ export interface Token{
   remetente: string;
   passwordRemetente: string;
   destinatarios: any;
+  expirationDate: any;
 }
 
 export interface Monitoring{
@@ -338,7 +339,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     if(this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAtual) || this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAnterior)){
       if(sizeCurrent === 0){
         status = "Zerado";
-      } else if( this.auth.formatSize2(sizePrevious) > this.auth.formatSize2(sizeCurrent)){
+      } else if( sizePrevious > sizeCurrent){
         status = "Reduzido";
       } else {
         status = "OK";
@@ -380,8 +381,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
     
   }
-  
-    
+
   padZero(num: number): string {
     return num < 10 ? `0${num}` : num.toString();
   }

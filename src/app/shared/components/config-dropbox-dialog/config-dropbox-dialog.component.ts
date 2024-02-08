@@ -3,6 +3,7 @@ import { AuthService } from '../../../service/auth.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MonitoringService } from '../../../service/monitoring.service';
 import { Token } from '../../../monitoring/monitoring.component';
+import { GenerateTokenDialogComponent } from '../generate-token-dialog/generate-token-dialog.component';
 
 
 
@@ -21,12 +22,12 @@ export class ConfigDropboxDialogComponent implements OnInit{
   tokenEndpoint: string = "";
   token: Token | undefined;
   emaildestinatarios: any;
+  expirationDate: any;
 
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<ConfigDropboxDialogComponent>,
     public dialog: MatDialog,
-    private renderer: Renderer2,
     private MonitoringService: MonitoringService,
     @Inject(MAT_DIALOG_DATA) public data?: any,
     
@@ -41,28 +42,31 @@ export class ConfigDropboxDialogComponent implements OnInit{
     this.emailRemetente = (await this.MonitoringService.getDatatoken()).remetente;
     this.password = (await this.MonitoringService.getDatatoken()).passwordRemetente;
     this.emaildestinatarios = (await this.MonitoringService.getDatatoken()).destinatarios;
-
+    this.expirationDate = (await this.MonitoringService.getDatatoken()).expirationDate;
   }
 
   generatetoken():void{
-    
-      const dropboxAuthorizationUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${this.clientId}&token_access_type=offline`;
-      
-      // Open the URL in a new tab
-      const newTab = this.renderer.createElement('a');
-      this.renderer.setAttribute(newTab, 'href', dropboxAuthorizationUrl);
-      this.renderer.setAttribute(newTab, 'target', '_blank');
-      this.renderer.appendChild(document.body, newTab);
-      newTab.click();
-      this.renderer.removeChild(document.body, newTab);
-    
+      const dialogRef = this.dialog.open(GenerateTokenDialogComponent, {
+        width: '35rem',
+        height: '45rem',
+        data: null,
+      });
+
+      dialogRef.afterClosed().subscribe((res) => {
+       if(res.edit){
+          this.refreshToken = res.dados;
+          this.expirationDate = this.auth.calcularDataExpiracao(4);
+         
+       }
+      });
   }
   change(){
 
   }
 
   async submit(): Promise<void> {
-
+    const diasParaExpiracao = 4; 
+    
     this.token = {
       clientId: this.clientId,
       clientSecret: this.clientSecret,
@@ -71,15 +75,17 @@ export class ConfigDropboxDialogComponent implements OnInit{
       remetente: this.emailRemetente,
       passwordRemetente: this.password,
       destinatarios: this.emaildestinatarios,
+      expirationDate: this.expirationDate,
     }
 
     try {
       await this.MonitoringService.updateToken(this.token);
-      this.auth.Alert('Salvo com sucesso!')
+      this.auth.Alert('Salvo com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar o registro:', error);
     }
-    
+
     this.dialogRef.close();
   }
+
 }

@@ -376,7 +376,24 @@ export class AuthService {
     return `${ano}-${mes}-${dia} ${horas}:${minutos}`;
   }
   
-  
+  updateTimeRemaining(expiration: string): void {
+    let expirationDate: Date = new Date(expiration);
+    let timeRemaining: any;
+    const currentTime = new Date();
+    const difference = expirationDate.getTime() - currentTime.getTime();
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      timeRemaining = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      timeRemaining = 'Expirado';
+    }
+    return timeRemaining;
+  }
   
  
 }

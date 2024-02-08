@@ -67,12 +67,11 @@ export class MonitoringComponent implements OnInit , DoCheck{
   filterValue: any;
   isChecked: boolean = false;
   user: any;
- 
   constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
   
   async ngOnInit(): Promise<void> {
 
-    this.user = this.auth.UserAuth();
+   this.user = this.auth.UserAuth();
 
     if(this.user && await this.dropboxService.obterToken()){
       this.table()

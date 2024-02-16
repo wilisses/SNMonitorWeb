@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
 import { Token } from '../monitoring/monitoring.component';
+import { Infor } from '../log/log.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +25,7 @@ export class MonitoringService {
     );
   }
   
-  async getDataInformation(key: string): Promise<Register> {
+  async getDataInformation(key: string): Promise<Infor> {
     return (await this.db.database.ref(`/information/${key}`)
       .orderByKey()
       .once('value')

@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MonitoringComponent } from './monitoring/monitoring.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
+import { LogComponent } from './log/log.component';
 
 const routes: Routes = [
   {path: '', component: AuthComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'Register/:key', component: RegisterComponent }, 
   {path: 'User', component: UserComponent},
   {path: 'User/:Action/:key', component: UserComponent},
+  {path: 'Log/:key', component: LogComponent},
 ];
 
 @NgModule({

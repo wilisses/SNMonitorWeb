@@ -63,8 +63,16 @@ export class DropboxService  {
         const expirationDate = new Date(expirationTimestamp);
 
         // Obtendo a data e hora no formato local
-        const localExpirationDateTime = expirationDate.toLocaleString();
-
+        const localExpirationDateTime = expirationDate.toLocaleString('en-US', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZoneName: 'short'
+        });
+        console.log(localExpirationDateTime)
         return {
           accesstoken: response.access_token,
           expiration: localExpirationDateTime
@@ -90,6 +98,7 @@ export class DropboxService  {
     try {
       
       const response = await this.dbx.filesListFolder({ path: caminho });
+     
       return response.result;
     } catch (error) {
       console.error('Erro ao listar arquivos:', error);

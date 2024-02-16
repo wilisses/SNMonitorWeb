@@ -35,6 +35,7 @@ import { LicenseDialogComponent } from './shared/components/license-dialog/licen
 import { environment } from '../environments/environment';
 import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
 import { GenerateTokenDialogComponent } from './shared/components/generate-token-dialog/generate-token-dialog.component';
+import { LogComponent } from './log/log.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { GenerateTokenDialogComponent } from './shared/components/generate-token
     LicenseDialogComponent,
     ConfigDropboxDialogComponent,
     GenerateTokenDialogComponent,
+    LogComponent,
   ],
   imports: [
     BrowserModule,

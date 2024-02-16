@@ -63,6 +63,7 @@ export class ConfigDialogComponent implements DoCheck {
     this.change();
     try {
       const tokenInfo = await this.dropBox.obterToken();
+      console.log(tokenInfo.expiration)
       this.expiration = this.auth.formatDate5(tokenInfo.expiration);
       this.access = tokenInfo.accesstoken;
     } catch (error) {

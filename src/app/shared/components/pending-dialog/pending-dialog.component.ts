@@ -41,8 +41,7 @@ export class PendingDialogComponent implements OnInit{
     this.telefonePending = (await this.MonitoringService.getDataRegister(this.dados.key)).telefone;
     this.responsavelPending = (await this.MonitoringService.getDataRegister(this.dados.key)).responsavel;
 
-    console.log(this.MonitoringService.getDataInformation(this.dados.key));
-
+    
   }
 
   

@@ -1,0 +1,44 @@
+<nav>
+    <div class="menu">
+      <h2>
+        SN Monitor 
+      <br/> 
+        <i>{{this.user.name}}</i>
+      </h2>
+      <button class="logout" (click)="signOut()">
+        <mat-icon><img src="../../assets/voltar.svg" alt=""></mat-icon>
+      </button>
+    </div>
+    
+  </nav>
+  
+  <section>
+    <div id="form">
+      <form #loginForm="ngForm" class="form-container" >
+        
+        <div class="row">
+          <div class="config">
+            <h2></h2>
+          </div>
+        </div>
+        
+        <div class="row">
+          <mat-form-field class="small">
+            <mat-label>Bancos</mat-label>
+            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldataBases" [matAutocomplete]="auto1" required id="number" [(ngModel)]="dataBase" name="dataBase" (ngModelChange)="changedataBase(dataBase)">
+            <mat-autocomplete #auto1="matAutocomplete">
+              <mat-option *ngFor="let number of dataBases" [value]="number">{{number}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field class="small">
+            <mat-label>Data</mat-label>
+            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldates" [matAutocomplete]="auto2" required id="number" [(ngModel)]="date" name="date" (ngModelChange)="changedataBase(dataBase)">
+            <mat-autocomplete #auto2="matAutocomplete">
+              <mat-option *ngFor="let number of dates" [value]="number">{{number}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </section>
+  

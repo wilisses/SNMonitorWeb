@@ -25,6 +25,10 @@
   align-items: center;
   justify-content: center;
 }
+.cell-container {
+  display: flex;
+  align-items: center; 
+}
 
 #table{
   position: fixed;

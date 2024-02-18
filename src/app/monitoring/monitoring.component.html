@@ -53,12 +53,20 @@
 <section>
     <div id="table">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
         <ng-container matColumnDef="codigo">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let element">
             <mat-checkbox [(ngModel)]="element.checked" (ngModelChange)="change(element)">{{element.row}}</mat-checkbox>
           </td>
         </ng-container>
+        
+        <ng-container matColumnDef="%">
+          <th mat-header-cell *matHeaderCellDef> % </th>
+          <td mat-cell *matCellDef="let element" [ngStyle]="getColorStyle(element)"
+          > {{element.percentage}} </td>
+        </ng-container>
+
 
         <ng-container matColumnDef="caminhoPasta">
           <th mat-header-cell *matHeaderCellDef> Nome </th>

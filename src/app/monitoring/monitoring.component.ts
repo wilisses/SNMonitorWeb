@@ -33,6 +33,8 @@ export interface Token{
 
 export interface Monitoring{
     checked: any;
+    sign:any;
+    percentage:any;
     row: any;
     key: any;
     caminhoPasta: any;
@@ -55,6 +57,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   licenses: any[] = [];
   displayedColumns: string[] = [
     'codigo',
+    '%',
     'caminhoPasta',
     'dateCurrent',
     'status',
@@ -240,10 +243,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         } else {
                           ischecked = false;
                         }
-
+                        let returnpercentage = calculatepercentage(sizePrevious, sizeCurrent);
+                     
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
                             checked:ischecked,
+                            sign: returnpercentage.sign,
+                            percentage: returnpercentage.percentage,
                             row,
                             key,
                             caminhoPasta,
@@ -262,6 +268,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             if(status !== "OK"){
                               listaMonitoramento.push({
                                 checked:ischecked,
+                                sign: returnpercentage.sign,
+                                percentage: returnpercentage.percentage,
                                 row,
                                 key,
                                 caminhoPasta,
@@ -278,6 +286,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           } else {
                             listaMonitoramento.push({
                               checked:ischecked,
+                              sign: returnpercentage.sign,
+                              percentage: returnpercentage.percentage,
                               row,
                               key,
                               caminhoPasta,
@@ -320,8 +330,34 @@ export class MonitoringComponent implements OnInit , DoCheck{
       const lista = listaCNPJs.split(',').map(cnpj => cnpj.trim()); // Divide a lista em um array
       return lista.includes(cnpjProcurado); // Verifica se o CNPJ procurado está na lista
     }
+
+    function calculatepercentage(sizePrevious: any, sizeCurrent: any): any {
+
+      const subtract = (sizeCurrent ? sizeCurrent : 0) - (sizePrevious ? sizePrevious : 0);
+
+      const calculation = ((subtract) * 100) / (sizeCurrent ? sizeCurrent : 0);
+      const sign = subtract >= 0 ? "+" : "-";
+
+      const res = {
+        percentage: `${calculation.toFixed(2).replace('.', ',')} %`,
+        sign: sign,
+      }
+
+      return res;
+  }
     
-    
+  }
+
+  getColorStyle(element: any): any {
+    if(element.percentage === '0,00 %') {
+      return { color: 'black' };
+    } else if (element.sign === '+') {
+      return { color: 'green' };
+    } else if (element.sign === '-') {
+      return { color: 'red' };
+    } else {
+      return { color: 'black' };
+    }
   }
 
   status(sizeCurrent: any, sizePrevious: any, dateCurrent: any): any{

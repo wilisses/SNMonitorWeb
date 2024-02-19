@@ -216,7 +216,7 @@ export class RegisterComponent implements OnInit, DoCheck {
   async linkDropBox():Promise<void>{
 
     const clientId = (await this.MonitoringService.getDatatoken()).clientId;
-    const dropboxAuthorizationUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${clientId}&token_access_type=offline`;
+    const dropboxAuthorizationUrl = `https://www.dropbox.com/home/VRBackup/${this.pasta}`;
       
     const newTab = this.renderer.createElement('a');
     this.renderer.setAttribute(newTab, 'href', dropboxAuthorizationUrl);

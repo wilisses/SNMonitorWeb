@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MonitoringService } from '../service/monitoring.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import moment from 'moment';
 
 export interface Infor {
   [key: string]: {
@@ -71,11 +70,11 @@ yesterday.setDate(today.getDate() - 1);
 export class LogComponent {
   user:any;
   key: any;
-
+  shift: string = '';
   information: any; 
   dados: information[] = [];
 
-  myControldataBases = new FormControl('');
+  myControldataBases = new FormControl();
 
   dataBases: string[] = [];
   dataBase: string = '';
@@ -91,13 +90,19 @@ export class LogComponent {
   
     this.route.params.subscribe(async (params) => {
       this.key = params['key'];
+      this.shift = params['shift'];
       if (this.user) {
         try {
           this.information = await this.MonitoringService.getDataInformation(this.key);
 
             const nomesBancos = Object.keys(this.information);
+            const termos = Array.isArray(nomesBancos) ? nomesBancos.join(',') : nomesBancos;
+            const termosArray = termos.split(',');
+
+            this.myControldataBases = new FormControl(termosArray[0]);
+            this.changedataBase(termosArray[0]);
             this.dataBases.push(...nomesBancos);
-         
+            
         } catch (error) {
           console.error('Erro ao obter informações:', error);
         }
@@ -190,6 +195,11 @@ export class LogComponent {
   }
 
   calcularDiferencaTempo(inicio: string, termino: string): string {
+
+    if (!inicio || !termino) {
+      return ''; // ou outra mensagem de erro adequada
+    }
+
     // Converte as datas para objetos Date
     const dataInicio = new Date(inicio.replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
     const dataTermino = new Date(termino.replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
@@ -211,7 +221,12 @@ export class LogComponent {
   }
  
   signOut():void {
-    this.auth.navigate("Monitoring");
+    if(this.shift === '0'){
+      this.auth.navigate("Monitoring");
+    } else if(this.shift === '1'){
+      this.auth.navigate(`Register/${this.key}`);
+    }
+    
   }
   
 }

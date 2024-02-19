@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
      
       let expira = `${this.expiration.split(' ')[0].replace('d','')+this.expiration.split(' ')[1].replace('h','')+this.expiration.split(' ')[2].replace('m','')+this.expiration.split(' ')[3].replace('s','')}`;
       
-       if(expira === '01059' || expira === '003059'){
+       if(expira < '01059'){
         alert("Atenção: O token expirará em breve!");
        }
 

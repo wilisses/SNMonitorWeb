@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'Register/:key', component: RegisterComponent }, 
   {path: 'User', component: UserComponent},
   {path: 'User/:Action/:key', component: UserComponent},
-  {path: 'Log/:key', component: LogComponent},
+  {path: 'Log/:key/:shift', component: LogComponent},
 ];
 
 @NgModule({

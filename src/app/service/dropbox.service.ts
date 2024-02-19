@@ -72,7 +72,7 @@ export class DropboxService  {
           second: '2-digit',
           timeZoneName: 'short'
         });
-        console.log(localExpirationDateTime)
+        
         return {
           accesstoken: response.access_token,
           expiration: localExpirationDateTime

@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit, DoCheck {
   observacao:  string = '';
   expirationDate: any;
   expirationDateLicense: any;
+
   constructor(private route: ActivatedRoute, public auth: AuthService, private MonitoringService: MonitoringService,public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -206,6 +207,10 @@ export class RegisterComponent implements OnInit, DoCheck {
 
       this.editLicense = alteration.edit;
     });
+  }
+
+  log(key: string):void{
+    this.auth.navigate(`Log/${key}/1`);
   }
   
 }

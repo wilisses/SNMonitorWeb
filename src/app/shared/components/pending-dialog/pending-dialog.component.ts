@@ -48,8 +48,14 @@ export class PendingDialogComponent implements OnInit{
   email(data:string):void{
     console.log("email",data);
   }
+  
   log():void{
-    this.auth.navigate(`Log/${this.dados.key}`);
+    this.auth.navigate(`Log/${this.dados.key}/0`);
+      
+    this.dialogRef.close();
+  }
+  Register():void{
+    this.auth.navigate(`Register/${this.dados.key}`);
       
     this.dialogRef.close();
   }

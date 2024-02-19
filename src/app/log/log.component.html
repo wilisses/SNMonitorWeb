@@ -14,14 +14,12 @@
   
   <section>
     <div id="form">
-      <form #loginForm="ngForm" class="form-container" >
-        
+      <form #loginForm="ngForm" class="form-container">
         <div class="row">
           <div class="config">
-            <h2></h2>
+            <h2>Log</h2>
           </div>
         </div>
-        
         <div class="row">
           <mat-form-field class="small">
             <mat-label>Bancos</mat-label>
@@ -30,15 +28,74 @@
               <mat-option *ngFor="let number of dataBases" [value]="number">{{number}}</mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <mat-form-field class="small">
-            <mat-label>Data</mat-label>
-            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldates" [matAutocomplete]="auto2" required id="number" [(ngModel)]="date" name="date" (ngModelChange)="changedataBase(dataBase)">
-            <mat-autocomplete #auto2="matAutocomplete">
-              <mat-option *ngFor="let number of dates" [value]="number">{{number}}</mat-option>
-            </mat-autocomplete>
+          <mat-form-field>
+            <mat-label>Período</mat-label>
+            <mat-date-range-input
+              [formGroup]="campaignOne"
+              [rangePicker]="campaignOnePicker"
+              [comparisonStart]="campaignOne.value.start"
+              [comparisonEnd]="campaignOne.value.end">
+              <input matStartDate placeholder="Start date" required formControlName="start" (ngModelChange)="changedataBase(dataBase)">
+              <input matEndDate placeholder="End date" required formControlName="end" (ngModelChange)="changedataBase(dataBase)">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
           </mat-form-field>
         </div>
       </form>
     </div>
   </section>
+
+  <section>
+    <div id="form">
+      <div class="table" *ngFor="let shift of dados">
+  
+        <div class="row">
+          <h3>{{shift.date}} ({{shift.shift}})</h3>
+        </div>
+        <div class="row">
+          <label></label>
+        </div>
+        <div class="row">
+          <label><b>Disco:</b> {{shift.freeSpace}} livre(s) de {{shift.totalSpace}}</label>
+        </div>
+        <div class="row">
+          <label><b>Banco de Dados:</b> {{shift.sizeDataBase}}</label>
+        </div>
+        <div class="row">
+          <label><b>Backup:</b> ({{shift.SizeByte}}) >> {{shift.SizeMbGb}}</label>
+        </div>
+        <div class="row">
+          <label><b>Ult. Linha:</b> {{shift.lastLine}}</label>
+        </div>
+        <div class="row" *ngIf="shift.last5Line">
+          <label><b>Ults. 5 Linha:</b> {{shift.last5Line}}</label>
+        </div>
+        <div class="row">
+          <label></label>
+        </div>
+        <div class="row">
+          <h3><b>Backup</b></h3>
+        </div>
+        <div class="row">
+          <label><b>Início:</b> {{shift.backup.start}}</label>
+          <label><b>Término:</b> {{shift.backup.end}}</label>
+        </div>
+        <div class="row" *ngIf="shift.backup.erro">
+          <label><b>Erro:</b> {{shift.backup.erro}}</label>
+        </div>
+        <div class="row">
+          <h3><b>Upload</b></h3>
+        </div>
+        <div class="row">
+          <label><b>Início:</b> {{shift.upload.start}}</label>
+          <label><b>Término:</b> {{shift.upload.end}}</label>
+        </div>
+        <div class="row" *ngIf="shift.upload.erro">
+          <label><b>Erro:</b> {{shift.upload.erro}}</label>
+        </div>
+      </div>
+    </div>
+  </section>
+  
   

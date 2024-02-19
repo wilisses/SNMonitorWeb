@@ -25,12 +25,26 @@ export class MonitoringService {
     );
   }
   
-  async getDataInformation(key: string): Promise<Infor> {
-    return (await this.db.database.ref(`/information/${key}`)
+  // async getDataInformation(key: string): Promise<Infor> {
+  //   return (await this.db.database.ref(`/information/${key}`)
+  //     .orderByKey()
+  //     .once('value')
+  //   ).val();
+  // }
+
+  async getDataInformation(key: string): Promise<Infor | null> {
+    const snapshot = await this.db.database.ref(`/information/${key}`)
       .orderByKey()
-      .once('value')
-    ).val();
+      .once('value');
+  
+    // Check if the snapshot exists and has a value
+    if (snapshot.exists() && snapshot.val() !== null) {
+      return snapshot.val();
+    } else {
+      return null; // Handle the case where the data is not available
+    }
   }
+  
 
   async getDataRegister(key: string): Promise<Register> {
     return (await this.db.database.ref(`/license/${key}`)

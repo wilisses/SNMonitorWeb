@@ -297,7 +297,12 @@ export class AuthService {
     // Formatar a data como "dd/mm/yyyy"
     return `${dia}/${mes}/${ano}`;
   }
-
+  formatDate7(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // adiciona zero à esquerda se necessário
+    const day = date.getDate().toString().padStart(2, '0'); // adiciona zero à esquerda se necessário
+    return `${year}-${month}-${day}`;
+  }
   
   adicionarZero(numero: number): string {
     return numero < 10 ? `0${numero}` : `${numero}`;

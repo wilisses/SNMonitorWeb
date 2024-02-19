@@ -36,7 +36,7 @@ import { environment } from '../environments/environment';
 import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
 import { GenerateTokenDialogComponent } from './shared/components/generate-token-dialog/generate-token-dialog.component';
 import { LogComponent } from './log/log.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -82,6 +82,7 @@ import { LogComponent } from './log/log.component';
     NgxMaskDirective,
     NgxMaskPipe,
     HttpClientModule,
+    MatDatepickerModule,
   ],
   providers: [AuthService, provideNgxMask()],
   bootstrap: [AppComponent],

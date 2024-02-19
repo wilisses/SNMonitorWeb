@@ -21,12 +21,16 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
+    "@emailjs/browser": "^4.1.0",
     "angular-calendar": "^0.31.0",
+    "cors": "^2.8.5",
     "date-fns": "^3.3.1",
     "dropbox": "^10.34.0",
+    "emailjs-com": "^3.2.0",
     "firebase": "^10.7.2",
     "moment": "^2.30.1",
     "ngx-mask": "^17.0.4",
+    "nodemailer": "^6.9.9",
     "rxjs": "^7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -48,5 +52,10 @@
   "browser": {
     "crypto": false,
     "util": false
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

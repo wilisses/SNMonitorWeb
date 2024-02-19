@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormControl } from '@angular/forms';
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit, DoCheck {
   expirationDate: any;
   expirationDateLicense: any;
 
-  constructor(private route: ActivatedRoute, public auth: AuthService, private MonitoringService: MonitoringService,public dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute,private renderer: Renderer2, public auth: AuthService, private MonitoringService: MonitoringService,public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.user = this.auth.UserAuth();
@@ -211,6 +211,19 @@ export class RegisterComponent implements OnInit, DoCheck {
 
   log(key: string):void{
     this.auth.navigate(`Log/${key}/1`);
+  }
+
+  async linkDropBox():Promise<void>{
+
+    const clientId = (await this.MonitoringService.getDatatoken()).clientId;
+    const dropboxAuthorizationUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${clientId}&token_access_type=offline`;
+      
+    const newTab = this.renderer.createElement('a');
+    this.renderer.setAttribute(newTab, 'href', dropboxAuthorizationUrl);
+    this.renderer.setAttribute(newTab, 'target', '_blank');
+    this.renderer.appendChild(document.body, newTab);
+    newTab.click();
+    this.renderer.removeChild(document.body, newTab);
   }
   
 }

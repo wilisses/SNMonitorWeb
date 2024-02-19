@@ -22,13 +22,6 @@
         </div>
         <div class="row">
           <mat-form-field class="small">
-            <mat-label>Bancos</mat-label>
-            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldataBases" [matAutocomplete]="auto1" required id="number" [(ngModel)]="dataBase" name="dataBase" (ngModelChange)="changedataBase(dataBase)">
-            <mat-autocomplete #auto1="matAutocomplete">
-              <mat-option *ngFor="let number of dataBases" [value]="number">{{number}}</mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <mat-form-field>
             <mat-label>Período</mat-label>
             <mat-date-range-input
               [formGroup]="campaignOne"
@@ -40,6 +33,14 @@
             </mat-date-range-input>
             <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
             <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+          </mat-form-field>
+
+          <mat-form-field class="small">
+            <mat-label>Bancos</mat-label>
+            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldataBases" [matAutocomplete]="auto1" required id="number" [(ngModel)]="dataBase" name="dataBase" (ngModelChange)="changedataBase(dataBase)">
+            <mat-autocomplete #auto1="matAutocomplete">
+              <mat-option *ngFor="let number of dataBases" [value]="number">{{number}}</mat-option>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
       </form>
@@ -80,6 +81,7 @@
         <div class="row">
           <label><b>Início:</b> {{shift.backup.start}}</label>
           <label><b>Término:</b> {{shift.backup.end}}</label>
+          <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.backup.start, shift.backup.end)}}</label>
         </div>
         <div class="row" *ngIf="shift.backup.erro">
           <label><b>Erro:</b> {{shift.backup.erro}}</label>
@@ -90,6 +92,7 @@
         <div class="row">
           <label><b>Início:</b> {{shift.upload.start}}</label>
           <label><b>Término:</b> {{shift.upload.end}}</label>
+          <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.upload.start, shift.upload.end)}}</label>
         </div>
         <div class="row" *ngIf="shift.upload.erro">
           <label><b>Erro:</b> {{shift.upload.erro}}</label>

@@ -48,6 +48,11 @@ export class PendingDialogComponent implements OnInit{
   email(data:string):void{
     console.log("email",data);
   }
+  log():void{
+    this.auth.navigate(`Log/${this.dados.key}`);
+      
+    this.dialogRef.close();
+  }
   whatsapp(data:string):void{
     const Telefone = data.replace(/\D/g, ""); 
   

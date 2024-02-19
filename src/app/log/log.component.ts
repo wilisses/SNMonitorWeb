@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MonitoringService } from '../service/monitoring.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import moment from 'moment';
 
 export interface Infor {
   [key: string]: {
@@ -56,6 +57,11 @@ export interface information {
 }
 
 const today = new Date();
+
+// Ontem
+const yesterday = new Date();
+yesterday.setDate(today.getDate() - 1);
+
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
@@ -74,7 +80,7 @@ export class LogComponent {
   dataBases: string[] = [];
   dataBase: string = '';
   campaignOne = new FormGroup({
-    start: new FormControl(today),
+    start: new FormControl(yesterday),
     end: new FormControl(today),
   });
   
@@ -130,6 +136,7 @@ export class LogComponent {
               for (const shift of this.information[dataBase][date].shifts) {
                 
                 if (typeof shift === 'object' && shift !== null) {
+
                   const shiftData: information = {
                     dataBase: dataBase,
                     date: this.auth.formatDate6(date),
@@ -179,8 +186,29 @@ export class LogComponent {
     shifts.reverse();
 
     this.dados = [...this.dados, ...shifts];
+
   }
+
+  calcularDiferencaTempo(inicio: string, termino: string): string {
+    // Converte as datas para objetos Date
+    const dataInicio = new Date(inicio.replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
+    const dataTermino = new Date(termino.replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
   
+    // Calcula a diferença em milissegundos
+    const diferencaEmMilissegundos = dataTermino.getTime() - dataInicio.getTime();
+  
+    // Calcula horas, minutos e segundos
+    const segundos = Math.floor(diferencaEmMilissegundos / 1000);
+    const horas = Math.floor(segundos / 3600);
+    const minutos = Math.floor((segundos % 3600) / 60);
+    const segundosRestantes = segundos % 60;
+  
+    // Formata o resultado
+    const formatoHora = (valor: number) => (valor < 10 ? `0${valor}` : valor.toString());
+    const resultado = `${horas}:${formatoHora(minutos)}:${formatoHora(segundosRestantes)}`;
+  
+    return resultado;
+  }
  
   signOut():void {
     this.auth.navigate("Monitoring");

@@ -121,7 +121,7 @@ export class RegisterComponent implements OnInit, DoCheck {
       status: this.status === 'Ativo' ? "1" : "0",
       email: this.email,
       responsavel: this.responsavel,
-      telefone: this.telefone,
+      telefone: formatarNumeroTelefone(this.telefone),
       acesso: this.acesso,
       senha: this.senha,
       qtdLoja: this.qtdLoja,
@@ -137,6 +137,26 @@ export class RegisterComponent implements OnInit, DoCheck {
       this.auth.Alert('Salvo com sucesso!')
     } catch (error) {
       console.error('Erro ao atualizar o registro:', error);
+    }
+
+    function formatarNumeroTelefone(numero: string): string {
+      // Remover todos os caracteres não numéricos do número
+      const numeroLimpo = numero.replace(/\D/g, '');
+    
+      // Verificar se o número tem o formato correto (11 dígitos)
+      if (numeroLimpo.length !== 11) {
+        // Se não tiver 11 dígitos, retornar o número original
+        return numero;
+      }
+    
+      // Formatar o número com parênteses, espaço e hífen
+      const codigoArea = numeroLimpo.slice(0, 2);
+      const parte1 = numeroLimpo.slice(2, 3);
+      const parte2 = numeroLimpo.slice(3, 7);
+      const parte3 = numeroLimpo.slice(7, 11);
+    
+      const numeroFormatado = `(${codigoArea}) ${parte1} ${parte2}-${parte3}`;
+      return numeroFormatado;
     }
 
   }

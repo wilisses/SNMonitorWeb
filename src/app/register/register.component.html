@@ -23,13 +23,25 @@
         </div>
         <div class="row">
           <div class="configButton">
-            <div style="display: flex; gap: 1rem;">
-            <button mat-raised-button (click)="linkDropBox()">DropBox</button>
-            <button mat-raised-button (click)="log(key)">Log</button>
-            <button mat-raised-button (click)="openDialogLicense('0ms', '0ms', key)">Licença</button>
-            <button mat-raised-button (click)="openDialogConfig('0ms', '0ms', key)">Configuração</button>
-            </div>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon><img src="../../assets/menu.svg" alt=""></mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openDialogConfig('0ms', '0ms', key)">
+                  <span>Configuração</span>
+                </button>
+                <button mat-menu-item  (click)="log(key)">
+                  <span>Log</span>
+                </button>
+                <button mat-menu-item  (click)="openDialogLicense('0ms', '0ms', key)">
+                  <span>Licença</span>
+                </button>
+                <button mat-menu-item  (click)="linkDropBox()">
+                  <span>DropBox</span>
+                </button>
+              </mat-menu>
           </div>
+          
         </div>
 
         <div class="row">

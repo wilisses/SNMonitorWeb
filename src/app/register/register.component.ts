@@ -175,7 +175,7 @@ export class RegisterComponent implements OnInit, DoCheck {
       this.pasta = JSON.parse((await this.MonitoringService.getDataRegister(cnpj)).config.bancos)[0].caminhopasta;   
     }
 
-  this.razaoSocial = (await this.MonitoringService.getDataRegister(cnpj)).razaoSocial;
+  this.razaoSocial = ((await this.MonitoringService.getDataRegister(cnpj)).razaoSocial).toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase());
   this.status = (await this.MonitoringService.getDataRegister(cnpj)).status;
   this.acesso = (await this.MonitoringService.getDataRegister(cnpj)).acesso;
   this.senha = (await this.MonitoringService.getDataRegister(cnpj)).senha;
@@ -185,7 +185,7 @@ export class RegisterComponent implements OnInit, DoCheck {
   this.observacao = (await this.MonitoringService.getDataRegister(cnpj)).observacao;
   this.email = (await this.MonitoringService.getDataRegister(cnpj)).email;
   this.telefone = (await this.MonitoringService.getDataRegister(cnpj)).telefone;
-  this.responsavel = (await this.MonitoringService.getDataRegister(cnpj)).responsavel;
+  this.responsavel = ((await this.MonitoringService.getDataRegister(cnpj)).responsavel).toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase());
   this.expirationDate = (await this.MonitoringService.getDataRegister(cnpj)).expirationDate;
   this.status = this.status === "1" ? "Ativo": "Cancelado";
 

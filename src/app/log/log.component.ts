@@ -228,5 +228,36 @@ export class LogComponent {
     }
     
   }
+
+  somarHoras(hora1: any, hora2: any) {
+      // Converter as horas para segundos
+      const segundos1 = this.converterParaSegundos(hora1);
+      const segundos2 = this.converterParaSegundos(hora2);
+
+      // Somar os segundos
+      const totalSegundos = segundos1 + segundos2;
+
+      // Calcular horas, minutos e segundos a partir do total de segundos
+      const horas = Math.floor(totalSegundos / 3600);
+      const minutos = Math.floor((totalSegundos % 3600) / 60);
+      const segundos = totalSegundos % 60;
+
+      // Formatando a saída
+      const resultado = `${this.formatarNumero(horas)}:${this.formatarNumero(minutos)}:${this.formatarNumero(segundos)}`;
+
+      return resultado;
+  }
+
+  // Função auxiliar para converter horas no formato "hh:mm:ss" para segundos
+  converterParaSegundos(hora: any) {
+      const partes = hora.split(':');
+      return parseInt(partes[0]) * 3600 + parseInt(partes[1]) * 60 + parseInt(partes[2]);
+  }
+
+  // Função auxiliar para formatar números menores que 10 com zero à esquerda
+  formatarNumero(numero: any) {
+      return numero < 10 ? `0${numero}` : numero;
+  }
+
   
 }

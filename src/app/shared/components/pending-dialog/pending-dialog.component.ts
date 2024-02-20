@@ -59,7 +59,7 @@ export class PendingDialogComponent implements OnInit{
       
     this.dialogRef.close();
   }
-  whatsapp(data:string):void{
+  public whatsapp(data:string):void{
     const Telefone = data.replace(/\D/g, ""); 
   
     const dataAtual = new Date();

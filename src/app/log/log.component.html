@@ -73,12 +73,16 @@
           <label><b>Ults. 5 Linha:</b> {{shift.last5Line}}</label>
         </div>
         <div class="row">
-          <label></label>
+          <label><b>Tempo Total:</b> {{somarHoras(calcularDiferencaTempo(shift.backup.start, shift.backup.end), calcularDiferencaTempo(shift.upload.start, shift.upload.end))}}</label>
+        </div>
+        <div class="row">
+          <h3></h3>
         </div>
         <div class="row">
           <h3><b>Backup</b></h3>
         </div>
         <div class="row">
+          <label>&nbsp;&nbsp;&nbsp;</label>
           <label><b>Início:</b> {{shift.backup.start}}</label>
           <label><b>Término:</b> {{shift.backup.end}}</label>
           <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.backup.start, shift.backup.end)}}</label>
@@ -90,6 +94,7 @@
           <h3><b>Upload</b></h3>
         </div>
         <div class="row">
+          <label>&nbsp;&nbsp;&nbsp;</label>
           <label><b>Início:</b> {{shift.upload.start}}</label>
           <label><b>Término:</b> {{shift.upload.end}}</label>
           <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.upload.start, shift.upload.end)}}</label>

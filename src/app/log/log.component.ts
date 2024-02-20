@@ -73,7 +73,7 @@ export class LogComponent {
   shift: string = '';
   information: any; 
   dados: information[] = [];
-
+  pasta: string = '';
   myControldataBases = new FormControl();
 
   dataBases: string[] = [];
@@ -93,6 +93,11 @@ export class LogComponent {
       this.shift = params['shift'];
       if (this.user) {
         try {
+
+          if((await this.MonitoringService.getDataRegister(this.key)).config !== undefined){
+            this.pasta = JSON.parse((await this.MonitoringService.getDataRegister(this.key)).config.bancos)[0].caminhopasta;   
+          }
+
           this.information = await this.MonitoringService.getDataInformation(this.key);
 
             const nomesBancos = Object.keys(this.information);

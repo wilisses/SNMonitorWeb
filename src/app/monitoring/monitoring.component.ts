@@ -68,7 +68,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   ];
   dataSource: any ;
   filterValue: any;
-  isChecked: boolean = false;
+  isChecked: boolean = Boolean(localStorage.getItem('checkboxPedente'));
   user: any;
   constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
   
@@ -143,6 +143,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
       .catch(error => {
         console.error(error);
       });
+  }
+
+  changecheckbox(status: boolean):void{
+    if(status){
+      localStorage.setItem('checkboxPedente', status.toString());
+    } else {
+      localStorage.removeItem('checkboxPedente');
+    }
   }
 
   applyFilter(event: Event) {

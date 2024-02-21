@@ -73,14 +73,26 @@ export class PendingDialogComponent implements OnInit{
     const agora = new Date();
     const horas = agora.getHours();
     const minutos = agora.getMinutes();
+    const horaAtual = horas * 100 + minutos; // Converter para um número de 4 dígitos (HHMM)
 
-    if(`${horas}${minutos}` > '0000' && `${horas}${minutos}` < '1200'){
+    console.log(horaAtual);
+
+    if (horaAtual >= 0 && horaAtual < 1200) {
       saudacao = "Bom dia";
-    } else if (`${horas}${minutos}` > '1200' && `${horas}${minutos}` < '1800') {
+    } else if (horaAtual >= 1200 && horaAtual < 1800) {
       saudacao = "Boa tarde";
     } else {
       saudacao = "Boa noite";
     }
+
+    console.log(saudacao);
+
+    const [dia, mes] = this.dados.dateCurrent.split('/').map(Number);
+    const datasum = new Date(new Date().getFullYear(), mes - 1, dia);
+    datasum.setDate(datasum.getDate() + 1);
+    const novoDia = datasum.getDate();
+    const novoMes = datasum.getMonth() + 1;
+    const novaDataString = `${novoDia.toString().padStart(2, '0')}/${novoMes.toString().padStart(2, '0')}`;
 
 
     let situacao;
@@ -90,13 +102,13 @@ export class PendingDialogComponent implements OnInit{
       } else if( this.auth.removeSufixoformatSize1(this.dados.sizePrevious) > this.auth.removeSufixoformatSize1(this.dados.sizeCurrent)){
         situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} se encontram em nossos servidores com tamanho *reduzido*.`; 
       } else {
-        this.auth.Alert("A situação do backup encontra-se sem pendências!");
+        situacao = `*${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
       }
     } else {
       if(this.auth.formatDate3(this.dados.dateCurrent) === this.auth.formatDate3(stringDataAtual)){
         situacao = `*${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
       } else {
-        situacao = `*${this.auth.formatDate4(this.dados.dateCurrent)}* a *${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
+        situacao = `*${this.auth.formatDate4(novaDataString)}* a *${this.auth.formatDate4(stringDataAtual)}* relativos à loja ${this.pasta} - CNPJ: ${this.auth.formatCNPJ(this.dados.key)} ainda não se encontram em nossos servidores.`;
       }
     }
     

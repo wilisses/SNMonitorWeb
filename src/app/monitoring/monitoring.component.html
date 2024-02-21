@@ -41,7 +41,7 @@
         <span>Carregar</span>
       </button>
 
-      <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()">Pendente</mat-checkbox>
+      <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()" (ngModelChange)="changecheckbox(isChecked)">Pendente</mat-checkbox>
 
       <mat-form-field>
         <mat-label>Filtro</mat-label>

@@ -88,6 +88,7 @@
           <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.backup.start, shift.backup.end)}}</label>
         </div>
         <div class="row" *ngIf="shift.backup.erro">
+          <label>&nbsp;&nbsp;&nbsp;</label>
           <label><b>Erro:</b> {{shift.backup.erro}}</label>
         </div>
         <div class="row">
@@ -100,6 +101,7 @@
           <label><b>Tempo:</b> {{calcularDiferencaTempo(shift.upload.start, shift.upload.end)}}</label>
         </div>
         <div class="row" *ngIf="shift.upload.erro">
+          <label>&nbsp;&nbsp;&nbsp;</label>
           <label><b>Erro:</b> {{shift.upload.erro}}</label>
         </div>
       </div>

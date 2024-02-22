@@ -144,9 +144,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     const listaCNPJs = this.obterListaCNPJs();
 
     this.adicionarCNPJNaLista(listaCNPJs, element.key);
-
   }
-  
 
   checkboxChanged(){
       this.table()

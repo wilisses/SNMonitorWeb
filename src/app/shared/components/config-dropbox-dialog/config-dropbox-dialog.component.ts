@@ -60,18 +60,18 @@ export class ConfigDropboxDialogComponent implements OnInit{
     this.renderer.removeChild(document.body, newTab);
   }
   generatetoken():void{
-      const dialogRef = this.dialog.open(GenerateTokenDialogComponent, {
-        width: '35rem',
-        height: '45rem',
-        data: null,
-      });
+    const dialogRef = this.dialog.open(GenerateTokenDialogComponent, {
+      width: '35rem',
+      height: '45rem',
+      data: null,
+    });
 
-      dialogRef.afterClosed().subscribe((res) => {
-       if(res.edit){
-          this.refreshToken = res.dados;
-          this.expirationDate = this.auth.calcularDataExpiracao(4);
-       }
-      });
+    dialogRef.afterClosed().subscribe((res) => {
+      if(res.edit){
+        this.refreshToken = res.dados;
+        this.expirationDate = this.auth.calcularDataExpiracao(4);
+      }
+    });
   }
   change(){
 

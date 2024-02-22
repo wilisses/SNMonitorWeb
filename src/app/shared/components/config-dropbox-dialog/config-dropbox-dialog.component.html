@@ -24,6 +24,15 @@
         </mat-form-field>
     </div>
     <div class="row">
+        <mat-form-field class="small">
+            <mat-label>Token Brevo</mat-label>
+            <input matInput required type="password" [(ngModel)]="tokenBrevo" name="tokenBrevo" (ngModelChange)="change()">
+    
+            <button class="visibili" matSuffix (click)="linkTokenBrevo()">
+        </button>
+        </mat-form-field>
+    </div>
+    <div class="row">
         <h2>Remetente</h2>
         <br/><br/><br/>
     </div>
@@ -45,22 +54,13 @@
     </div>
     <div class="row">
         <mat-form-field class="small">
-            <mat-label>E-mail (;)</mat-label>
+            <mat-label>E-mails Log (;)</mat-label>
             <textarea matInput [(ngModel)]="emaildestinatarios" name="emaildestinatarios" (ngModelChange)="change()"></textarea>
         </mat-form-field>
     </div>
     <div class="row">
         <mat-form-field class="small">
-            <mat-label>Token Brevo</mat-label>
-            <input matInput required type="password" [(ngModel)]="tokenBrevo" name="tokenBrevo" (ngModelChange)="change()">
-    
-            <button class="visibili" matSuffix (click)="linkTokenBrevo()">
-        </button>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <mat-form-field class="small">
-            <mat-label>E-mail Cópia (;)</mat-label>
+            <mat-label>E-mails Cópia (;)</mat-label>
             <textarea matInput [(ngModel)]="emaildestinatariosCopy" name="emaildestinatariosCopy" (ngModelChange)="change()"></textarea>
         </mat-form-field>
     </div>

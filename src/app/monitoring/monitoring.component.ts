@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
+import { FormControl } from '@angular/forms';
 
 interface Banco {
   databasename: string;
@@ -31,6 +32,14 @@ export interface Token{
   destinatariosCopy: any;
   expirationDate: any;
   tokenBrevo:any;
+}
+export interface logMonitoring{
+  key:any;
+  situation: any;
+  date: any;
+  namefile: any;
+  sizefile: any;
+  percentage: any;
 }
 
 export interface Send{
@@ -83,6 +92,20 @@ export class MonitoringComponent implements OnInit , DoCheck{
   filterValue: any;
   isChecked: boolean = Boolean(localStorage.getItem('checkboxPedente'));
   user: any;
+  myControlsituations = new FormControl('');
+  situations: string[] = [
+    'OK',
+    'Não Subiu',
+    'Reduzido',
+    'Novo',
+    'Subindo Upload',
+    'Gerando Backup',
+    'Aguardando Retorno',
+    'E-mail/whatsApp Enviado',
+  ];
+  situation: any;
+
+  log: logMonitoring[] = [];
   constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
   
   async ngOnInit(): Promise<void> {
@@ -100,6 +123,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     } else {
       this.auth.navigate("");
     }
+   
   }
 
   async refresh():Promise<void>{
@@ -155,7 +179,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
         console.error(error);
       });
   }
-
   changecheckbox(status: boolean):void{
     if(status){
       localStorage.setItem('checkboxPedente', status.toString());
@@ -250,8 +273,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           }
                         });
                         
-                        const status = this.status(sizeCurrent, sizePrevious, dateCurrent);
-                        
                         const listaCNPJs = this.obterListaCNPJs();
     
                         const estaNaLista = verificarCNPJNaLista(listaCNPJs, key);
@@ -263,7 +284,21 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           ischecked = false;
                         }
                         let returnpercentage = calculatepercentage(sizePrevious, sizeCurrent);
-                     
+                        
+                        const status = this.status(sizeCurrent, sizePrevious, dateCurrent);
+                        
+                       
+                        if(status !== 'OK'){ this.log.push({
+                          key: key,
+                          situation: status,
+                          date: this.auth.formatDate3(dateCurrent),
+                          namefile: nameCurrent,
+                          sizefile: sizeCurrent,
+                          percentage: returnpercentage.percentage,
+                        });}
+
+                        
+                      
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
                             checked:ischecked,
@@ -337,6 +372,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
             }
           });
 
+          
+          
           resolve(listaMonitoramento);
         }, error => {
           console.error('Erro ao obter dados de licença', error);
@@ -393,6 +430,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     if(this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAtual) || this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAnterior)){
       if(sizeCurrent === 0){
         status = "Zerado";
+        
       } else if( sizePrevious > sizeCurrent){
         status = "Reduzido";
       } else {
@@ -512,7 +550,27 @@ export class MonitoringComponent implements OnInit , DoCheck{
       return '';
     }
   }
+  // changestatus(data: any):void{
+  //   this.situation = data.status;
+   
+   
+  // }
  
 }
+
+// checked:ischecked,
+// sign: returnpercentage.sign,
+// percentage: returnpercentage.percentage,
+// row,
+// key,
+// caminhoPasta,
+// nameDataBase,
+// status: status,
+// dateCurrent,
+// datePrevious,
+// sizeCurrent:this.auth.formatSize1(sizeCurrent),
+// sizePrevious:this.auth.formatSize1(sizePrevious),
+// nameCurrent,
+// namePrevious
 
 

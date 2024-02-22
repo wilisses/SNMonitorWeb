@@ -226,7 +226,7 @@ export class AuthService {
     return `${dia}/${mes}/${ano}`;
   }
 
-  formatDate3(original: string): string | null {
+  formatDate3(original: any): string | null {
     // dd/mm/yyyy > yyyy-mm-dd
     const regexData = /^(\d{2})\/(\d{2})\/(\d{4})$/;
     const correspondencias = regexData.exec(original);

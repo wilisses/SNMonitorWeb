@@ -70,40 +70,45 @@
 
         <ng-container matColumnDef="caminhoPasta">
           <th mat-header-cell *matHeaderCellDef> Nome </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.caminhoPasta}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.caminhoPasta}} </td>
         </ng-container>
 
         <ng-container matColumnDef="dateCurrent">
           <th mat-header-cell *matHeaderCellDef> Data </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.dateCurrent}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.dateCurrent}} </td>
         </ng-container>
       
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element" (click)="element.status !== 'OK' ? rowClickedPending(element) : rowClicked(element.key)"
-          > 
-          {{element.status}} 
+          <td mat-cell *matCellDef="let element" >
+            <!-- {{changestatus(element)}} -->
+            <!-- <input class="select" type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControlsituations" [matAutocomplete]="auto" required [(ngModel)]="situation" name="situation">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let situation of situations" [value]="situation">{{situation}}</mat-option>
+            </mat-autocomplete> -->
+            {{element.status}}
           </td>
         </ng-container>
+        
 
         <ng-container matColumnDef="nameCurrent">
           <th mat-header-cell *matHeaderCellDef> Arq. Atual </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.nameCurrent}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.nameCurrent}} </td>
         </ng-container>
 
         <ng-container matColumnDef="sizeCurrent">
           <th mat-header-cell *matHeaderCellDef> Tam. Atual </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.sizeCurrent}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.sizeCurrent}} </td>
         </ng-container>
 
         <ng-container matColumnDef="namePrevious">
           <th mat-header-cell *matHeaderCellDef> Arq. Anterior </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.namePrevious}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.namePrevious}} </td>
         </ng-container>
 
         <ng-container matColumnDef="sizePrevious">
           <th mat-header-cell *matHeaderCellDef> Tam. Anterior </th>
-          <td mat-cell *matCellDef="let element" (click)="rowClicked(element.key)"> {{element.sizePrevious}} </td>
+          <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.sizePrevious}} </td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

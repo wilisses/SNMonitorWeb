@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
-import { Token } from '../monitoring/monitoring.component';
+import { Token, logMonitoring } from '../monitoring/monitoring.component';
 import { Infor } from '../log/log.component';
 @Injectable({
   providedIn: 'root'
@@ -78,8 +78,6 @@ export class MonitoringService {
       config,
       expirationDate
     });
-
-    
   }
 
   updateToken(data: Token): Promise<void> {
@@ -96,6 +94,23 @@ export class MonitoringService {
       destinatariosCopy,
       expirationDate,
       tokenBrevo,
+    });
+  }
+
+  logMonitoring(data: logMonitoring): Promise<void> {
+    
+    const { key,
+      situation,
+      date,
+      namefile,
+      sizefile,
+      percentage } = data;
+    return this.db.database.ref(`/logMonitoring/${date}`).set({
+      key,
+      situation,
+      namefile,
+      sizefile,
+      percentage
     });
   }
 

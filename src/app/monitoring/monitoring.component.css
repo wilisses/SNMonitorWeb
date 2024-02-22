@@ -69,6 +69,20 @@ table tr:hover {
   width: min(30rem, 100%);
 }
 
+.select {
+  background-color: transparent;
+  padding: 0.8em;
+  width: 80%; 
+  border: none; 
+}
+
+.select:hover {
+  border-color: #666; 
+}
+
+.select:focus {
+  outline: none; 
+}
 
 
 @media (max-width: 450px) {

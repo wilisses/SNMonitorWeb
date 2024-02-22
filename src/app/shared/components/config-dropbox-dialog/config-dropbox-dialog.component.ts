@@ -22,12 +22,15 @@ export class ConfigDropboxDialogComponent implements OnInit{
   tokenEndpoint: string = "";
   token: Token | undefined;
   emaildestinatarios: any;
+  tokenBrevo:any;
+  emaildestinatariosCopy: any;
   expirationDate: any;
 
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<ConfigDropboxDialogComponent>,
     public dialog: MatDialog,
+    private renderer: Renderer2,
     private MonitoringService: MonitoringService,
     @Inject(MAT_DIALOG_DATA) public data?: any,
     
@@ -42,9 +45,20 @@ export class ConfigDropboxDialogComponent implements OnInit{
     this.emailRemetente = (await this.MonitoringService.getDatatoken()).remetente;
     this.password = (await this.MonitoringService.getDatatoken()).passwordRemetente;
     this.emaildestinatarios = (await this.MonitoringService.getDatatoken()).destinatarios;
+    this.emaildestinatariosCopy = (await this.MonitoringService.getDatatoken()).destinatariosCopy;
     this.expirationDate = (await this.MonitoringService.getDatatoken()).expirationDate;
+    this.tokenBrevo = (await this.MonitoringService.getDatatoken()).tokenBrevo;
   }
-
+  async linkTokenBrevo():Promise<void>{
+    const dropboxAuthorizationUrl = `https://app-smtp.brevo.com/real-time`;
+      
+    const newTab = this.renderer.createElement('a');
+    this.renderer.setAttribute(newTab, 'href', dropboxAuthorizationUrl);
+    this.renderer.setAttribute(newTab, 'target', '_blank');
+    this.renderer.appendChild(document.body, newTab);
+    newTab.click();
+    this.renderer.removeChild(document.body, newTab);
+  }
   generatetoken():void{
       const dialogRef = this.dialog.open(GenerateTokenDialogComponent, {
         width: '35rem',
@@ -64,7 +78,6 @@ export class ConfigDropboxDialogComponent implements OnInit{
   }
 
   async submit(): Promise<void> {
-    const diasParaExpiracao = 4; 
     
     this.token = {
       clientId: this.clientId,
@@ -74,7 +87,9 @@ export class ConfigDropboxDialogComponent implements OnInit{
       remetente: this.emailRemetente,
       passwordRemetente: this.password,
       destinatarios: this.emaildestinatarios,
+      destinatariosCopy: this.emaildestinatariosCopy,
       expirationDate: this.expirationDate,
+      tokenBrevo: this.tokenBrevo,
     }
 
     try {

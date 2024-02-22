@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
+import { MonitoringService } from './monitoring.service';
+import { EmailService } from './email.service';
+import { Send } from '../monitoring/monitoring.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,11 @@ export class AuthService {
   user: any;
   error: any;
   userAuth: any;
-  constructor(public auth: AngularFireAuth,private router: Router,private _snackBar: MatSnackBar) { }
+  constructor(public auth: AngularFireAuth,
+    private router: Router,
+    private MonitoringService: MonitoringService,
+    private emailService: EmailService,
+    private _snackBar: MatSnackBar) { }
 
   async emailSingin(email: string, password:string){
     try {
@@ -400,5 +405,190 @@ export class AuthService {
     return timeRemaining;
   }
   
+  async sendEmail(data: Send): Promise<string> {
+    const { dateCurrent, sizeCurrent, sizePrevious, pasta, key, responsavel, email, telefone} = data;
+    this.user = this.UserAuth();
+    
+    const dataAtual = new Date();
+    const dataAnterior = new Date(dataAtual);
+    dataAnterior.setDate(dataAtual.getDate() - 1);
+    const formatoData = { year: 'numeric', month: '2-digit', day: '2-digit' } as const;
+    const stringDataAtual = dataAtual.toLocaleDateString('pt-BR', formatoData);
+    const stringDataAnterior = dataAnterior.toLocaleDateString('pt-BR', formatoData);
+
+    const [dia, mes] = dateCurrent.split('/').map(Number);
+    const datasum = new Date(new Date().getFullYear(), mes - 1, dia);
+    datasum.setDate(datasum.getDate() + 1);
+    const novoDia = datasum.getDate();
+    const novoMes = datasum.getMonth() + 1;
+    const novaDataString = `${novoDia.toString().padStart(2, '0')}/${novoMes.toString().padStart(2, '0')}`;
+
+    let saudacao;
+    const agora = new Date();
+    const horas = agora.getHours();
+    const minutos = agora.getMinutes();
+    const horaAtual = horas * 100 + minutos; // Converter para um número de 4 dígitos (HHMM)
+    const formato: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const dataHoraEnvio = agora.toLocaleString('pt-BR', formato);
+    
+    if (horaAtual >= 0 && horaAtual < 1200) {
+      saudacao = "Bom dia";
+    } else if (horaAtual >= 1200 && horaAtual < 1800) {
+      saudacao = "Boa tarde";
+    } else {
+      saudacao = "Boa noite";
+    }
+
+    let situation;
+    if(this.formatDate3(dateCurrent) === this.formatDate3(stringDataAtual) || this.formatDate3(dateCurrent) === this.formatDate3(stringDataAnterior)){
+      if(parseInt(sizeCurrent) === 0){
+        situation = `<b>${this.formatDate4(dateCurrent)}</b> relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} se encontram em nossos servidores com tamanho *zerado*.`;
+      } else if( this.removeSufixoformatSize1(sizePrevious) > this.removeSufixoformatSize1(sizeCurrent)){
+        situation = `<b>${this.formatDate4(dateCurrent)}</b> relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} se encontram em nossos servidores com tamanho *reduzido*.`; 
+      } else {
+        situation = `<b>${this.formatDate4(stringDataAtual)}</b> relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      }
+    } else {
+      if(this.formatDate3(dateCurrent) === this.formatDate3(stringDataAtual)){
+        situation = `<b>${this.formatDate4(stringDataAtual)}</b> relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      } else {
+        situation = `<b>${novaDataString}</b> a <b>${this.formatDate4(stringDataAtual)}</b> relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      }
+    }
+
+    let mensagem = saudacao;
+    mensagem += `<br/><br/>`;
+    mensagem += `Prezado cliente, gostaria de informar que o backup do(s) dia(s) `;
+    mensagem += situation;
+    mensagem += `<br/><br/>`;
+    mensagem += `Solicitamos que o Responsável TI da loja, entre em contato pelo chat da VRFortaleza para resolvermos esta pendência.`;
+    mensagem += `<br/><br/>`;
+    mensagem += `Grato desde já, aguardo retorno.`;
+    mensagem += `<br/><br/>`;
+    mensagem += `Atenciosamente,`;
+    mensagem += `<br/>`;
+    mensagem += `${this.user.name} - ${this.user.role}.`;
+    mensagem += `<br/>`;
+    mensagem += `VRFortaleza`;
+    
+    const emailRemetente = (await this.MonitoringService.getDatatoken()).remetente;
+    const emaildestinatariosCopy = (await this.MonitoringService.getDatatoken()).destinatariosCopy;
+    const arrayDeEmails: string[] = emaildestinatariosCopy.split(';');
+    const ccArray: any[] = [];
+
+    for (const copy of arrayDeEmails) {
+        try {
+            // Adicione cada destinatário CC ao array cc
+            ccArray.push({ email: copy.trim() });
+        } catch (error) {
+            console.error('Erro ao adicionar destinatário CC:', error);
+        }
+    }
+
+    const emailData = {
+      sender: { name: `SNBackup ${this.formatDate4(dateCurrent)}`, email: emailRemetente },
+      to: [{ email: `${email}`, name: `${responsavel.toLowerCase().replace(/\b\w/g, (match: string) => match.toUpperCase())}` }],
+      bcc: [{ email: `${emailRemetente}`, name: `SNBackup` }],
+      cc: ccArray,
+      subject: `${pasta}`,
+      htmlContent: `
+      <div style=\"width: 69%; left:0%; color:#828282;padding: 0px 0px 20px 50px;font-size: 100%;\">
+      <br/>
+      <b style='position: absolute; color:#000000; font-size:65%;float: right; '>
+      ${dataHoraEnvio}
+      </b>
+      <br/><br/>
+      ${mensagem}
+      <br/><br/>
+      </div>
+      <br/>
+      <div style=\"text-align: center;width: 100%; \">
+      Essa é uma mensagem automática. Por favor, não responda a esse e-mail.
+      <br/>
+      © Copyright VRSoftware Unidade de Fortaleza Todos os direitos reservados.
+      </div>
+      `,
+    };
+  
+    try {
+      await (await this.emailService.sendTransactionalEmail(emailData)).toPromise();
+      return 'Email enviado com sucesso';
+    } catch (error) {
+      console.error('Erro ao enviar e-mail:', error);
+      throw { message: 'Erro ao enviar e-mail', error };
+    }
+  }
+
+  public whatsapp(data: Send):void{
+    const { dateCurrent, sizeCurrent, sizePrevious, pasta, key, responsavel, email, telefone} = data;
+    this.user = this.UserAuth();
+
+    const Telefone = telefone.replace(/\D/g, ""); 
+  
+    const dataAtual = new Date();
+    const dataAnterior = new Date(dataAtual);
+    dataAnterior.setDate(dataAtual.getDate() - 1);
+    const formatoData = { year: 'numeric', month: '2-digit', day: '2-digit' } as const;
+    const stringDataAtual = dataAtual.toLocaleDateString('pt-BR', formatoData);
+    const stringDataAnterior = dataAnterior.toLocaleDateString('pt-BR', formatoData);
+
+    let saudacao;
+    const agora = new Date();
+    const horas = agora.getHours();
+    const minutos = agora.getMinutes();
+    const horaAtual = horas * 100 + minutos; // Converter para um número de 4 dígitos (HHMM)
+
+    if (horaAtual >= 0 && horaAtual < 1200) {
+      saudacao = "Bom dia";
+    } else if (horaAtual >= 1200 && horaAtual < 1800) {
+      saudacao = "Boa tarde";
+    } else {
+      saudacao = "Boa noite";
+    }
+
+    const [dia, mes] = dateCurrent.split('/').map(Number);
+    const datasum = new Date(new Date().getFullYear(), mes - 1, dia);
+    datasum.setDate(datasum.getDate() + 1);
+    const novoDia = datasum.getDate();
+    const novoMes = datasum.getMonth() + 1;
+    const novaDataString = `${novoDia.toString().padStart(2, '0')}/${novoMes.toString().padStart(2, '0')}`;
+
+
+    let situacao;
+    if(this.formatDate3(dateCurrent) === this.formatDate3(stringDataAtual) || this.formatDate3(dateCurrent) === this.formatDate3(stringDataAnterior)){
+      if(parseInt(sizeCurrent) === 0){
+        situacao = `*${this.formatDate4(dateCurrent)}* relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} se encontram em nossos servidores com tamanho *zerado*.`;
+      } else if( this.removeSufixoformatSize1(sizePrevious) > this.removeSufixoformatSize1(sizeCurrent)){
+        situacao = `*${this.formatDate4(dateCurrent)}* relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} se encontram em nossos servidores com tamanho *reduzido*.`; 
+      } else {
+        situacao = `*${this.formatDate4(stringDataAtual)}* relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      }
+    } else {
+      if(this.formatDate3(dateCurrent) === this.formatDate3(stringDataAtual)){
+        situacao = `*${this.formatDate4(stringDataAtual)}* relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      } else {
+        situacao = `*${this.formatDate4(novaDataString)}* a *${this.formatDate4(stringDataAtual)}* relativos à loja ${pasta} - CNPJ: ${this.formatCNPJ(key)} ainda não se encontram em nossos servidores.`;
+      }
+    }
+    
+    let mensagem: string = `${saudacao}, ${responsavel.toLowerCase().replace(/\b\w/g, (match: string) => match.toUpperCase())},\nEspero que esta mensagem o encontre bem.\n\n`;
+    mensagem += "Identificamos que os backups do(s) dia(s) ";
+    mensagem += situacao + "\n";
+    mensagem += "Solicitamos o acesso à máquina onde a aplicação está instalada para resolvermos esta pendência.\n\n";
+    mensagem += "Agradecemos pela colaboração.\n\n";
+    mensagem += `Atenciosamente,\n${this.user.name} - ${this.user.role}.\nVRFortaleza`;
+
+    const textoCodificado: string = encodeURIComponent(mensagem);
+
+    const linkWhatsApp = "https://api.whatsapp.com/send/?phone=55"+Telefone+"&text="+textoCodificado;
+    
+    try {
+
+      window.open(linkWhatsApp, '_blank');
+    } catch (error) {
+      console.error('Erro ao tentar abrir o link:', error);
+    }
+  
+  }
  
 }

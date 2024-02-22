@@ -28,7 +28,20 @@ export interface Token{
   remetente: string;
   passwordRemetente: string;
   destinatarios: any;
+  destinatariosCopy: any;
   expirationDate: any;
+  tokenBrevo:any;
+}
+
+export interface Send{
+  dateCurrent:any;
+  sizeCurrent:any;
+  sizePrevious:any;
+  pasta:any;
+  key:any;
+  responsavel:any;
+  email: any;
+  telefone:any;
 }
 
 export interface Monitoring{
@@ -119,8 +132,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
   }
   rowClickedPending(key: any): void {
     const dialogRef = this.dialog.open(PendingDialogComponent, {
-      width: '40rem',
-      height: '55rem',
+      width: '55rem',
+      height: '35rem',
       data: key,
     });
   
@@ -447,8 +460,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
   
   config():void{
     const dialogRef = this.dialog.open(ConfigDropboxDialogComponent, {
-      width: '35rem',
-      height: '45rem',
+      width: '60rem',
+      height: '70rem',
       data: null,
     });
   }

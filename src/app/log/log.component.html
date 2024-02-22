@@ -24,6 +24,7 @@
           <mat-form-field class="small">
             <mat-label>Período</mat-label>
             <mat-date-range-input
+              (ngModelChange)="changedataBase(dataBase)"
               [formGroup]="campaignOne"
               [rangePicker]="campaignOnePicker"
               [comparisonStart]="campaignOne.value.start"

@@ -59,7 +59,7 @@ const today = new Date();
 
 // Ontem
 const yesterday = new Date();
-yesterday.setDate(today.getDate() - 1);
+yesterday.setDate(today.getDate() - 7);
 
 @Component({
   selector: 'app-log',
@@ -236,6 +236,7 @@ export class LogComponent {
 
   somarHoras(hora1: any, hora2: any) {
       // Converter as horas para segundos
+     
       const segundos1 = this.converterParaSegundos(hora1);
       const segundos2 = this.converterParaSegundos(hora2);
 
@@ -248,8 +249,16 @@ export class LogComponent {
       const segundos = totalSegundos % 60;
 
       // Formatando a saída
-      const resultado = `${this.formatarNumero(horas)}:${this.formatarNumero(minutos)}:${this.formatarNumero(segundos)}`;
-
+      let resultado
+      if(hora1 === "" || hora2 === ""){
+        if(hora1 === ""){
+          resultado = hora2;
+        } else {
+          resultado = hora1;
+        }
+      } else {
+        resultado = `${this.formatarNumero(horas)}:${this.formatarNumero(minutos)}:${this.formatarNumero(segundos)}`;
+      }
       return resultado;
   }
 

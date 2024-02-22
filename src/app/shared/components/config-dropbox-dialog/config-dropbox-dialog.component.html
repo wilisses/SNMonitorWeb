@@ -31,9 +31,6 @@
         <mat-form-field class="small">
             <mat-label>E-mail</mat-label>
             <input matInput required type="email" [(ngModel)]="emailRemetente" name="emailRemetente" (ngModelChange)="change()">
-    
-            <button class="visibili" matSuffix (click)="generatetoken()">
-        </button>
         </mat-form-field>
     </div>
     <div class="row">
@@ -50,6 +47,21 @@
         <mat-form-field class="small">
             <mat-label>E-mail (;)</mat-label>
             <textarea matInput [(ngModel)]="emaildestinatarios" name="emaildestinatarios" (ngModelChange)="change()"></textarea>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+            <mat-label>Token Brevo</mat-label>
+            <input matInput required type="password" [(ngModel)]="tokenBrevo" name="tokenBrevo" (ngModelChange)="change()">
+    
+            <button class="visibili" matSuffix (click)="linkTokenBrevo()">
+        </button>
+        </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field class="small">
+            <mat-label>E-mail Cópia (;)</mat-label>
+            <textarea matInput [(ngModel)]="emaildestinatariosCopy" name="emaildestinatariosCopy" (ngModelChange)="change()"></textarea>
         </mat-form-field>
     </div>
     <div class="row">

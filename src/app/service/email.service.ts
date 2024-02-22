@@ -1,53 +1,32 @@
 // email.service.ts
 
 import { Injectable } from '@angular/core';
-import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
-
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError } from 'rxjs';
+import { MonitoringService } from './monitoring.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmailService {
-  constructor() { }
+  private apiUrl = 'https://api.brevo.com/v3/smtp/email'; // Substitua pela URL correta da API da Brevo
 
-  // enviarEmail(): void {
-  //   console.log('aqui52')
+  constructor(private http: HttpClient,private MonitoringService: MonitoringService) {}
 
-  //   const templateParams = {
-  //     name: 'James',
-  //     notes: 'Check this out!',
-  //     to_email: 'suporte@vrfortaleza.com.br'
-  //   };
-
-  //   const userID = 'jVu0eTTNQUxryvJ3T'; // Substitua pelo seu ID do usuário do Email.js
-  //   const serviceID = 'service_8s62izl';
-  //   const templateID = 'template_wbgrqi3';
-
-  //   emailjs.send(serviceID, templateID, templateParams, userID).then(
-  //     (response) => {
-  //       console.log('SUCCESS!', response.status, response.text);
-  //     },
-  //     (error) => {
-  //       console.log('FAILED...', error);
-  //     }
-  //   );
-  // }
-
-  public sendEmail(e: Event) {
-    e.preventDefault();
-
-    emailjs
-      .sendForm('service_8s62izl', 'template_wbgrqi3', e.target as HTMLFormElement, {
-        publicKey: 'jVu0eTTNQUxryvJ3T',
+  async sendTransactionalEmail(emailData: any): Promise<Observable<any>> {
+    const tokenBrevo = (await this.MonitoringService.getDatatoken()).tokenBrevo;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'api-key': tokenBrevo,
+    });
+  
+    return this.http.post<any>(this.apiUrl, emailData, { headers }).pipe(
+      catchError((error) => {
+        console.error('Erro ao enviar e-mail:', error);
+        throw error;
       })
-      .then(
-        () => {
-          console.log('SUCCESS!');
-        },
-        (error) => {
-          console.log('FAILED...', (error as EmailJSResponseStatus).text);
-        },
-      );
+    );
   }
-
+  
+  
+  
 }

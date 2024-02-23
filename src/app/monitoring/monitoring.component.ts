@@ -173,7 +173,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   rowClickedPending(key: any): void {
     const dialogRef = this.dialog.open(PendingDialogComponent, {
       width: '55rem',
-      height: '35rem',
+      height: '40rem',
       data: key,
     });
   

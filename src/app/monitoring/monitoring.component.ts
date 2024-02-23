@@ -247,8 +247,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                       
                       Object.keys(bancos).forEach(async nomeDoBanco => {
                         const arquivosDoBanco = bancos[nomeDoBanco];
-                        nameDataBase = nomeDoBanco;
-                        
+
                         const arquivosOrdenados = arquivosDoBanco.sort((a, b) => {
                           return new Date(b.server_modified).getTime() - new Date(a.server_modified).getTime();
                         });
@@ -301,7 +300,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         }
                         let returnpercentage = calculatepercentage(sizePrevious, sizeCurrent);
                         
-                        const status = await this.status(sizeCurrent, sizePrevious, dateCurrent, key, nameDataBase);
+                        const status = await this.status(sizeCurrent, sizePrevious, dateCurrent, key, nomeDoBanco, nameCurrent);
                         
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
@@ -419,8 +418,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
   }
 
-  async status(sizeCurrent: any, sizePrevious: any, dateCurrent: any, key:any, dataBase: any): Promise<any>{
+  async status(sizeCurrent: any, sizePrevious: any, dateCurrent: any, key:any, dataBase: any, nameCurrent:any): Promise<any>{
     let status: string;
+    
     const dataAtual = new Date();
     const dataAnterior = new Date(dataAtual);
     dataAnterior.setDate(dataAtual.getDate() - 1);
@@ -441,18 +441,20 @@ export class MonitoringComponent implements OnInit , DoCheck{
     } else {
       status = "Não Subiu";
     }
-    if (status !== "OK"){
-      try {
-        const logData: any = await this.auth.getLog(key, dataBase);
-        if (logData && logData.length > 0) {
+
+    try {
+      const logData: any = await this.auth.getLog(key, dataBase);
+      if (logData && logData.length > 0) {
+        if(logData[0].namefile === nameCurrent){
           status = logData[0].situation;
         }
-      } catch (error) {
-        console.error(error);
       }
-  }
-
+    } catch (error) {
+      console.error(error);
+    }
+   
     return status;
+    
   }
 
   async dropBox(caminhoDropbox: string): Promise<DropBoxEntry[]> {

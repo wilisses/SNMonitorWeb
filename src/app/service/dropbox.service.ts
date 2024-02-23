@@ -13,11 +13,11 @@ export interface Token{
   providedIn: 'root'
 })
 export class DropboxService  {
-  private clientId = '3j5u6m3tcvlul9b';
-  private clientSecret = 'hrxjd7411akbhoe';
-  private authorizationEndpoint = 'https://www.dropbox.com/oauth2/authorize';
-  private tokenEndpoint = 'https://api.dropboxapi.com/oauth2/token';
- 
+  clientId:any;
+  clientSecret:any;
+  authorizationEndpoint:any;
+  tokenEndpoint:any;
+  refreshToken:any;
 
   private dbx!: Dropbox.Dropbox;
   constructor(private MonitoringService: MonitoringService, private http: HttpClient) {
@@ -29,16 +29,16 @@ export class DropboxService  {
 
     try {
 
-      const clientId = (await this.MonitoringService.getDatatoken()).clientId;
-      const clientSecret = (await this.MonitoringService.getDatatoken()).clientSecret;
-      const refreshToken = (await this.MonitoringService.getDatatoken()).refreshToken;
-      const tokenEndpoint = (await this.MonitoringService.getDatatoken()).tokenEndpoint;
+      this.clientId = (await this.MonitoringService.getDatatoken()).clientId;
+      this.clientSecret = (await this.MonitoringService.getDatatoken()).clientSecret;
+      this.refreshToken = (await this.MonitoringService.getDatatoken()).refreshToken;
+      this.tokenEndpoint = (await this.MonitoringService.getDatatoken()).tokenEndpoint;
       
       const data = {
-        refresh_token: refreshToken,
+        refresh_token: this.refreshToken,
         grant_type: 'refresh_token',
-        client_id: clientId,
-        client_secret: clientSecret
+        client_id: this.clientId,
+        client_secret: this.clientSecret
       };
     
       // Faça uma solicitação HTTP POST para obter o novo token de acesso
@@ -47,7 +47,7 @@ export class DropboxService  {
       });
     
       try {
-        const response: any = await this.http.post(tokenEndpoint, this.urlEncodeParams(data), { headers }).toPromise();
+        const response: any = await this.http.post(this.tokenEndpoint, this.urlEncodeParams(data), { headers }).toPromise();
     
         // Configure o cliente Dropbox com o novo token de acesso
         this.configurarDropbox(response.access_token);

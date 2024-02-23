@@ -39,7 +39,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "lodash"
+              "lodash",
+              "dropbox"
             ]
           },
           "configurations": {

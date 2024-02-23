@@ -441,15 +441,16 @@ export class MonitoringComponent implements OnInit , DoCheck{
     } else {
       status = "Não Subiu";
     }
-
-    try {
-      const logData: any = await this.auth.getLog(key, dataBase);
-      if (logData && logData.length > 0) {
-        status = logData[0].situation;
+    if (status !== "OK"){
+      try {
+        const logData: any = await this.auth.getLog(key, dataBase);
+        if (logData && logData.length > 0) {
+          status = logData[0].situation;
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
+  }
 
     return status;
   }
@@ -562,7 +563,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
   }
   async changestatus(data: any, situation: string):Promise<void>{
-    console.log(data);
     const logdados = {
       key:data.key,
       situation: situation,
@@ -575,14 +575,24 @@ export class MonitoringComponent implements OnInit , DoCheck{
       percentage: data.percentage,
       dataBase: data.nameDataBase,
     };
+    let status;
+    try {
+      const logData: any = await this.auth.getLog(data.key, data.nameDataBase);
+      if (logData && logData.length > 0) {
+        status = logData[0].situation;
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
-    this.MonitoringService.logMonitoring(logdados).then(() => {
-      data.status = situation;
-    })
-    .catch(error => {
-      console.error('Erro ao salvar dados:', error);
-    });
-
+    if(status !== situation){
+      this.MonitoringService.logMonitoring(logdados).then(() => {
+        data.status = situation;
+      })
+      .catch(error => {
+        console.error('Erro ao salvar dados:', error);
+      });
+    }
     
 
   }

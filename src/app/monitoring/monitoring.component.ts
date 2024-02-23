@@ -116,7 +116,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     'Gerando Backup',
     'Aguardando Upload',
     'Aguardando Retorno',
-    'Aguardando Horário agendado',
+    'Aguardando Horário',
     'E-mail/WhatsApp Enviado',
   ];
   changesituations: any;

@@ -77,20 +77,21 @@
           <th mat-header-cell *matHeaderCellDef> Data </th>
           <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.dateCurrent}} </td>
         </ng-container>
-      
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element" >
-            <!-- {{changestatus(element)}} -->
-            <!-- <input class="select" type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControlsituations" [matAutocomplete]="auto" required [(ngModel)]="situation" name="situation">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let situation of situations" [value]="situation">{{situation}}</mat-option>
-            </mat-autocomplete> -->
-            {{element.status}}
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="select">
+              {{element.status}}
+            </button>
+              <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let situation of situations">
+                  <button mat-menu-item (click)="changestatus(element, situation)">
+                    <span>{{situation}}</span>
+                  </button>
+                </ng-container>
+              </mat-menu>
           </td>
         </ng-container>
-        
-
         <ng-container matColumnDef="nameCurrent">
           <th mat-header-cell *matHeaderCellDef> Arq. Atual </th>
           <td mat-cell *matCellDef="let element" (click)="rowClickedPending(element)"> {{element.nameCurrent}} </td>

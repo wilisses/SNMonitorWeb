@@ -69,10 +69,10 @@ table tr:hover {
   width: min(30rem, 100%);
 }
 
-.select {
+/* .select {
   background-color: transparent;
   padding: 0.8em;
-  width: 80%; 
+  width: 10em; 
   border: none; 
 }
 
@@ -82,8 +82,14 @@ table tr:hover {
 
 .select:focus {
   outline: none; 
-}
+} */
 
+.select {
+  background-color: transparent;
+  padding: 0.8em;
+  font-size: 1.4rem;
+  width: 85%;
+}
 
 @media (max-width: 450px) {
   .filter{

@@ -35,11 +35,27 @@ export interface Token{
 }
 export interface logMonitoring{
   key:any;
+  situationPrevious: any;
   situation: any;
+  movementdate: any;
   date: any;
+  dateCurrent: any;
   namefile: any;
   sizefile: any;
   percentage: any;
+  dataBase: any;
+}
+export interface GetLog {
+  [movementdate: string]: {
+    [dataBase: string]: {
+      situation: any;
+      situationPrevious: any;
+      dateCurrent: any;
+      namefile: any;
+      sizefile: any;
+      percentage: any;
+    }
+  };
 }
 
 export interface Send{
@@ -92,18 +108,18 @@ export class MonitoringComponent implements OnInit , DoCheck{
   filterValue: any;
   isChecked: boolean = Boolean(localStorage.getItem('checkboxPedente'));
   user: any;
-  myControlsituations = new FormControl('');
   situations: string[] = [
     'OK',
     'Não Subiu',
     'Reduzido',
     'Novo',
-    'Subindo Upload',
     'Gerando Backup',
+    'Aguardando Upload',
     'Aguardando Retorno',
-    'E-mail/whatsApp Enviado',
+    'Aguardando Horário agendado',
+    'E-mail/WhatsApp Enviado',
   ];
-  situation: any;
+  changesituations: any;
 
   log: logMonitoring[] = [];
   constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
@@ -197,7 +213,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     return new Promise<Monitoring[]>((resolve, reject) => {
         this.MonitoringService.getDataLincese().subscribe((dados) => {
           this.licenses = dados;
-
+          this.log = [];
           const listaMonitoramento: Monitoring[] = [];
           let row = 1;
           this.licenses.forEach(item => {
@@ -229,7 +245,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                      
                       let nameDataBase: string | null = null;
                       
-                      Object.keys(bancos).forEach(nomeDoBanco => {
+                      Object.keys(bancos).forEach(async nomeDoBanco => {
                         const arquivosDoBanco = bancos[nomeDoBanco];
                         nameDataBase = nomeDoBanco;
                         
@@ -285,20 +301,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         }
                         let returnpercentage = calculatepercentage(sizePrevious, sizeCurrent);
                         
-                        const status = this.status(sizeCurrent, sizePrevious, dateCurrent);
+                        const status = await this.status(sizeCurrent, sizePrevious, dateCurrent, key, nameDataBase);
                         
-                       
-                        if(status !== 'OK'){ this.log.push({
-                          key: key,
-                          situation: status,
-                          date: this.auth.formatDate3(dateCurrent),
-                          namefile: nameCurrent,
-                          sizefile: sizeCurrent,
-                          percentage: returnpercentage.percentage,
-                        });}
-
-                        
-                      
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
                             checked:ischecked,
@@ -307,7 +311,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             row,
                             key,
                             caminhoPasta,
-                            nameDataBase,
+                            nameDataBase: nomeDoBanco,
                             status: "Novo",
                             dateCurrent,
                             datePrevious: null,
@@ -327,7 +331,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 row,
                                 key,
                                 caminhoPasta,
-                                nameDataBase,
+                                nameDataBase: nomeDoBanco,
                                 status: status,
                                 dateCurrent,
                                 datePrevious,
@@ -345,7 +349,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               row,
                               key,
                               caminhoPasta,
-                              nameDataBase,
+                              nameDataBase: nomeDoBanco,
                               status: status,
                               dateCurrent,
                               datePrevious,
@@ -369,11 +373,10 @@ export class MonitoringComponent implements OnInit , DoCheck{
                 }
                 
               });
+              
             }
           });
 
-          
-          
           resolve(listaMonitoramento);
         }, error => {
           console.error('Erro ao obter dados de licença', error);
@@ -416,8 +419,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
   }
 
-  status(sizeCurrent: any, sizePrevious: any, dateCurrent: any): any{
-    let status;
+  async status(sizeCurrent: any, sizePrevious: any, dateCurrent: any, key:any, dataBase: any): Promise<any>{
+    let status: string;
     const dataAtual = new Date();
     const dataAnterior = new Date(dataAtual);
     dataAnterior.setDate(dataAtual.getDate() - 1);
@@ -430,7 +433,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
     if(this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAtual) || this.auth.formatDate3(dateCurrent) === this.auth.formatDate3(stringDataAnterior)){
       if(sizeCurrent === 0){
         status = "Zerado";
-        
       } else if( sizePrevious > sizeCurrent){
         status = "Reduzido";
       } else {
@@ -438,6 +440,15 @@ export class MonitoringComponent implements OnInit , DoCheck{
       }
     } else {
       status = "Não Subiu";
+    }
+
+    try {
+      const logData: any = await this.auth.getLog(key, dataBase);
+      if (logData && logData.length > 0) {
+        status = logData[0].situation;
+      }
+    } catch (error) {
+      console.error(error);
     }
 
     return status;
@@ -550,27 +561,32 @@ export class MonitoringComponent implements OnInit , DoCheck{
       return '';
     }
   }
-  // changestatus(data: any):void{
-  //   this.situation = data.status;
-   
-   
-  // }
+  async changestatus(data: any, situation: string):Promise<void>{
+    console.log(data);
+    const logdados = {
+      key:data.key,
+      situation: situation,
+      situationPrevious: data.status,
+      movementdate: this.auth.getCurrentDateTime(),
+      date: this.auth.getCurrentDate(),
+      dateCurrent: this.auth.formatDate3(data.dateCurrent),
+      namefile: data.nameCurrent,
+      sizefile: data.sizeCurrent,
+      percentage: data.percentage,
+      dataBase: data.nameDataBase,
+    };
+
+    this.MonitoringService.logMonitoring(logdados).then(() => {
+      data.status = situation;
+    })
+    .catch(error => {
+      console.error('Erro ao salvar dados:', error);
+    });
+
+    
+
+  }
  
 }
-
-// checked:ischecked,
-// sign: returnpercentage.sign,
-// percentage: returnpercentage.percentage,
-// row,
-// key,
-// caminhoPasta,
-// nameDataBase,
-// status: status,
-// dateCurrent,
-// datePrevious,
-// sizeCurrent:this.auth.formatSize1(sizeCurrent),
-// sizePrevious:this.auth.formatSize1(sizePrevious),
-// nameCurrent,
-// namePrevious
 
 

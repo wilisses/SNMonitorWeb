@@ -60,6 +60,21 @@ export class PendingDialogComponent implements OnInit{
     this.auth.sendEmail(dados)
     .then(successMessage => {
       this.auth.Alert(successMessage);
+
+      const logdados = {
+        key:this.dados.key,
+        situation: 'E-mail/WhatsApp Enviado',
+        situationPrevious:this.dados.status,
+        movementdate: this.auth.getCurrentDateTime(),
+        date: this.auth.getCurrentDate(),
+        dateCurrent: this.auth.formatDate3(this.dados.dateCurrent),
+        namefile: this.dados.nameCurrent,
+        sizefile: this.dados.sizeCurrent,
+        percentage: this.dados.percentage,
+        dataBase: this.dados.nameDataBase,
+      };
+      
+      this.MonitoringService.logMonitoring(logdados);
     })
     .catch(errorInfo => {
       this.auth.Alert(errorInfo.message);
@@ -91,6 +106,21 @@ export class PendingDialogComponent implements OnInit{
     }
 
     this.auth.whatsapp(dados);
+
+    const logdados = {
+      key:this.dados.key,
+      situation: 'E-mail/WhatsApp Enviado',
+      situationPrevious:this.dados.status,
+      movementdate: this.auth.getCurrentDateTime(),
+      date: this.auth.getCurrentDate(),
+      dateCurrent: this.auth.formatDate3(this.dados.dateCurrent),
+      namefile: this.dados.nameCurrent,
+      sizefile: this.dados.sizeCurrent,
+      percentage: this.dados.percentage,
+      dataBase: this.dados.nameDataBase,
+    };
+    
+    this.MonitoringService.logMonitoring(logdados);
   }
   
 

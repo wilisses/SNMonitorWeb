@@ -3,8 +3,9 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
-import { Token, logMonitoring } from '../monitoring/monitoring.component';
+import { GetLog, Token, logMonitoring } from '../monitoring/monitoring.component';
 import { Infor } from '../log/log.component';
+import { formatDate } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,13 +26,6 @@ export class MonitoringService {
     );
   }
   
-  // async getDataInformation(key: string): Promise<Infor> {
-  //   return (await this.db.database.ref(`/information/${key}`)
-  //     .orderByKey()
-  //     .once('value')
-  //   ).val();
-  // }
-
   async getDataInformation(key: string): Promise<Infor | null> {
     const snapshot = await this.db.database.ref(`/information/${key}`)
       .orderByKey()
@@ -101,17 +95,30 @@ export class MonitoringService {
     
     const { key,
       situation,
+      situationPrevious,
+      movementdate,
       date,
+      dateCurrent,
       namefile,
       sizefile,
-      percentage } = data;
-    return this.db.database.ref(`/logMonitoring/${date}`).set({
-      key,
+      percentage,
+      dataBase } = data;
+    return this.db.database.ref(`/logMonitoring/${date}/${key}/${movementdate}/${dataBase}`).set({
       situation,
+      situationPrevious,
+      dateCurrent,
       namefile,
       sizefile,
       percentage
     });
+  }
+
+  async getLog(key: string): Promise<GetLog> {
+    const today = new Date();
+    return (await this.db.database.ref(`/logMonitoring/${formatDate(today, 'yyyy-MM-dd', 'en-US')}/${key}`)
+      .orderByKey()
+      .once('value')
+    ).val();
   }
 
 }

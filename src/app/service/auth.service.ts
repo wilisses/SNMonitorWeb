@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MonitoringService } from './monitoring.service';
 import { EmailService } from './email.service';
-import { Send } from '../monitoring/monitoring.component';
+import { Send, logMonitoring } from '../monitoring/monitoring.component';
+import { formatDate } from '@angular/common';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -590,5 +593,58 @@ export class AuthService {
     }
   
   }
- 
+
+  getCurrentDateTime(): string {
+    const currentDate = new Date();
+  
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+    const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+  
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    
+    return formattedDateTime;
+  }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    return formatDate(today, 'yyyy-MM-dd', 'en-US');
+  }
+
+  async getLog(key:string, dataBase: string):Promise<any>{
+    const logData = await this.MonitoringService.getLog(key);
+    const shifts: logMonitoring[] = [];
+
+    if (logData) {
+      for (const dateKey in logData) {
+        if (logData.hasOwnProperty(dateKey) && logData[dateKey][dataBase]) {
+          const logEntry = logData[dateKey][dataBase];
+          shifts.push({
+            key: key,
+            situation: logEntry.situation,
+            situationPrevious: logEntry.situationPrevious,
+            movementdate: dateKey,
+            date: this.getCurrentDate(),
+            dateCurrent: logEntry.dateCurrent,
+            namefile: logEntry.namefile,
+            sizefile: logEntry.sizefile,
+            percentage: logEntry.percentage,
+            dataBase,
+          });
+        }
+      }
+    }
+
+
+    shifts.sort((a, b) => {
+      const dateComparison = new Date(b.movementdate).getTime() - new Date(a.movementdate).getTime();
+      
+      return dateComparison;
+    });
+
+    return shifts;
+  }
 }

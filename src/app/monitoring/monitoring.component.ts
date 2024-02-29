@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
-import { FormControl } from '@angular/forms';
 
 interface Banco {
   databasename: string;
@@ -32,6 +31,7 @@ export interface Token{
   destinatariosCopy: any;
   expirationDate: any;
   tokenBrevo:any;
+  validationHours:any;
 }
 export interface logMonitoring{
   key:any;
@@ -78,12 +78,14 @@ export interface Monitoring{
     caminhoPasta: any;
     nameDataBase: any;
     status: any;
+    statusApp: any;
     dateCurrent: any;
     datePrevious: any;
     sizeCurrent: any;
     sizePrevious: any;
     nameCurrent: any;
     namePrevious: any;
+    hours: any;
 }
 
 @Component({
@@ -94,7 +96,7 @@ export interface Monitoring{
 export class MonitoringComponent implements OnInit , DoCheck{
   licenses: any[] = [];
   displayedColumns: string[] = [
-    'codigo',
+    'statusApp',
     '%',
     'caminhoPasta',
     'dateCurrent',
@@ -127,7 +129,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   async ngOnInit(): Promise<void> {
 
    this.user = this.auth.UserAuth();
-
+   
     if(this.user && await this.dropboxService.obterToken()){
       this.table()
       .then(async result => {
@@ -136,14 +138,106 @@ export class MonitoringComponent implements OnInit , DoCheck{
       .catch(error => {
         console.error(error);
       });
+
+      setInterval(async () => {
+        await this.refresh();
+      }, 60000);
+      
     } else {
       this.auth.navigate("");
     }
+
+    
    
   }
 
-  async refresh():Promise<void>{
+  async statusLog(key: string): Promise<any> {
+    let resdescription = null;
+    let result= null;
+    let velidationLog:any[] = [];
+
+    const dataInformationLog = await this.MonitoringService.getDataInformationLog(key);
     
+    if (dataInformationLog !== null) {
+      const transformedData = Object.entries(dataInformationLog).map(([date, { description }]) => ({
+        date,
+        description,
+      }));
+  
+      transformedData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+      for (const item of transformedData) {
+        const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
+        const dataUltimoLog = item.date.split(' ')[0];
+        
+        if (dataUltimoLog === dataHoraHorario) {
+          velidationLog.push(`${switchLog(item.description)} ${this.auth.formatDate9(item.date)} `); 
+        }
+      }
+
+      let validationDate = false;
+
+      for (const item of transformedData) {
+        const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
+        const dataUltimoLog = item.date.split(' ')[0];
+        if (dataUltimoLog === dataHoraHorario) {
+          validationDate = true;
+          break;
+        } else {
+          validationDate = false;
+          break;
+        }
+      }
+
+      if(validationDate){
+        resdescription = switchLog(transformedData[0]?.description);
+      } else {
+        resdescription = '🚪'; 
+      }
+      
+    } else {
+      resdescription = '❌';
+    }
+   
+    result = {
+      description: resdescription,
+      date: velidationLog
+    }
+
+    return result;
+
+    function switchLog(data: any){
+      let result;
+      switch (data) {
+        case "Ativo":
+          result = '✅';
+          break;
+        case "Aplicação Iniciada":
+          result = '🚀';
+          break;
+        case "Backup Iniciado":
+          result = '⏳🗃️';
+          break;
+        case "Backup Finalizado e Upload Iniciado":
+          result = '⏳📤';
+          break;
+        case "Upload Finalizado e Limpeza Iniciada":
+          result = '⌛🗑️';
+          break;
+        case "Limpeza Finalizada e Reiniciando Aplicação":
+          result = '🔄';
+          break;
+        default:
+          result = '🚪';
+          break;
+      }
+
+      return result;
+    }
+  }
+  
+  async refresh():Promise<void>{
+
     if(this.user && await this.dropboxService.obterToken()){
       this.table()
       .then(async result => {
@@ -218,11 +312,19 @@ export class MonitoringComponent implements OnInit , DoCheck{
           let row = 1;
           this.licenses.forEach(item => {
             if (item.config && item.config.bancos) {
+              
               let bancosArray: Banco[] = JSON.parse(item.config.bancos);
               let pastas: string[] = [];
-              
+              let hour:any[] = [];
               bancosArray.forEach(async banco => {
                 let caminhoPasta: string = banco.caminhopasta;
+                hour.push({
+                  [banco.caminhopasta]:{
+                    [banco.databasename]:{
+                      hour: `${banco.firstSchedule} ${banco.secondSchedule === '  :  '? '': banco.secondSchedule}`,
+                    }
+                  }
+                })
                 if(item.status === "1"){
                   if(!pastas.includes(caminhoPasta) && caminhoPasta !== 'Licenca encerrada'){
                     
@@ -242,12 +344,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         }
                       });
                       
-                     
-                      let nameDataBase: string | null = null;
-                      
                       Object.keys(bancos).forEach(async nomeDoBanco => {
                         const arquivosDoBanco = bancos[nomeDoBanco];
-
                         const arquivosOrdenados = arquivosDoBanco.sort((a, b) => {
                           return new Date(b.server_modified).getTime() - new Date(a.server_modified).getTime();
                         });
@@ -263,7 +361,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         let key = item.key;
                         ultimosDoisArquivos.forEach((item,index) => {
                           let datearquivo = item.name.split('_');
-
                           if(index === 0){
                             sizeCurrent = item.size;
                             nameCurrent = item.name;
@@ -301,7 +398,15 @@ export class MonitoringComponent implements OnInit , DoCheck{
                         let returnpercentage = calculatepercentage(sizePrevious, sizeCurrent);
                         
                         const status = await this.status(sizeCurrent, sizePrevious, dateCurrent, key, nomeDoBanco, nameCurrent);
-                        
+                        const statusApp = await this.statusLog(key);
+
+                        let hourData: any[]=[];
+                        hour.forEach(item => {
+                          if(item[caminhoPasta][nomeDoBanco] !== undefined){
+                            hourData.push(item[caminhoPasta][nomeDoBanco]?.hour)
+                          }
+                        })
+
                         if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                           listaMonitoramento.push({
                             checked:ischecked,
@@ -312,12 +417,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             caminhoPasta,
                             nameDataBase: nomeDoBanco,
                             status: "Novo",
+                            statusApp: statusApp,
                             dateCurrent,
                             datePrevious: null,
                             sizeCurrent:this.auth.formatSize1(null),
                             sizePrevious:this.auth.formatSize1(null),
                             nameCurrent: null,
-                            namePrevious: null
+                            namePrevious: null,
+                            hours:null,
                           });
                         } else {
 
@@ -332,12 +439,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 caminhoPasta,
                                 nameDataBase: nomeDoBanco,
                                 status: status,
+                                statusApp: statusApp,
                                 dateCurrent,
                                 datePrevious,
                                 sizeCurrent:this.auth.formatSize1(sizeCurrent),
                                 sizePrevious:this.auth.formatSize1(sizePrevious),
                                 nameCurrent,
-                                namePrevious
+                                namePrevious,
+                                hours: hourData,
                               });
                           }
                           } else {
@@ -350,15 +459,18 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               caminhoPasta,
                               nameDataBase: nomeDoBanco,
                               status: status,
+                              statusApp: statusApp,
                               dateCurrent,
                               datePrevious,
                               sizeCurrent:this.auth.formatSize1(sizeCurrent),
                               sizePrevious:this.auth.formatSize1(sizePrevious),
                               nameCurrent,
-                              namePrevious
+                              namePrevious,
+                              hours: hourData,
                             });
                           }
                         } 
+
                         
                         row = row+1;
                       });
@@ -402,9 +514,11 @@ export class MonitoringComponent implements OnInit , DoCheck{
       }
 
       return res;
-  }
+    }
     
   }
+
+  
 
   getColorStyle(element: any): any {
     if(element.percentage === '0,00 %') {

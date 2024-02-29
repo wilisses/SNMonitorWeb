@@ -37,6 +37,7 @@ import { ConfigDropboxDialogComponent } from './shared/components/config-dropbox
 import { GenerateTokenDialogComponent } from './shared/components/generate-token-dialog/generate-token-dialog.component';
 import { LogComponent } from './log/log.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NgxMaskPipe,
     HttpClientModule,
     MatDatepickerModule,
+    MatTooltipModule,
   ],
   providers: [AuthService, provideNgxMask()],
   bootstrap: [AppComponent],

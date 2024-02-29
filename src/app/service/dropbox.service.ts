@@ -101,7 +101,7 @@ export class DropboxService  {
      
       return response.result;
     } catch (error) {
-      console.error('Erro ao listar arquivos:', error);
+      console.error(`Erro ao listar arquivos:${caminho}`, error);
       throw error;
     }
   }

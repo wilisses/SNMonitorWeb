@@ -32,6 +32,17 @@ export interface Infor {
   };
 }
 
+export interface InforLog {
+    [date: string]: {
+      description: string;
+  };
+}
+
+export interface informationLog {
+  date: string;
+  shifts: string;
+}
+
 export interface information {
   dataBase: any;
   date: any;
@@ -100,13 +111,15 @@ export class LogComponent {
 
           this.information = await this.MonitoringService.getDataInformation(this.key);
 
-            const nomesBancos = Object.keys(this.information);
-            const termos = Array.isArray(nomesBancos) ? nomesBancos.join(',') : nomesBancos;
-            const termosArray = termos.split(',');
+          const nomesBancos = Object.keys(this.information);
+          const termos = Array.isArray(nomesBancos) ? nomesBancos.join(',') : nomesBancos;
+          const termosArray = termos.split(',');
 
-            this.myControldataBases = new FormControl(termosArray[0]);
-            this.changedataBase(termosArray[0]);
-            this.dataBases.push(...nomesBancos);
+          this.myControldataBases = new FormControl(termosArray[0]);
+          this.changedataBase(termosArray[0]);
+
+          const termosFiltrados = termosArray.filter(item => item !== 'statusApp');
+          this.dataBases.push(...termosFiltrados);
             
         } catch (error) {
           console.error('Erro ao obter informações:', error);

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Register } from '../register/register.component';
 import { GetLog, Token, logMonitoring } from '../monitoring/monitoring.component';
-import { Infor } from '../log/log.component';
+import { Infor, InforLog } from '../log/log.component';
 import { formatDate } from '@angular/common';
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,19 @@ export class MonitoringService {
   
   async getDataInformation(key: string): Promise<Infor | null> {
     const snapshot = await this.db.database.ref(`/information/${key}`)
+      .orderByKey()
+      .once('value');
+  
+    // Check if the snapshot exists and has a value
+    if (snapshot.exists() && snapshot.val() !== null) {
+      return snapshot.val();
+    } else {
+      return null; // Handle the case where the data is not available
+    }
+  }
+
+  async getDataInformationLog(key: string): Promise<InforLog | null> {
+    const snapshot = await this.db.database.ref(`/information/${key}/statusApp`)
       .orderByKey()
       .once('value');
   

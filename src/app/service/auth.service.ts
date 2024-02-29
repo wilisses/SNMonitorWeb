@@ -311,6 +311,29 @@ export class AuthService {
     const day = date.getDate().toString().padStart(2, '0'); // adiciona zero à esquerda se necessário
     return `${year}-${month}-${day}`;
   }
+
+  formatDate8(dataString: string): string {
+    //yyyy-mm-dd hh:mi:ss em dd/mm/yyyy hh:mi:ss
+    const data = new Date(dataString);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0'); // Meses são baseados em zero
+    const ano = data.getFullYear();
+    const horas = data.getHours().toString().padStart(2, '0');
+    const minutos = data.getMinutes().toString().padStart(2, '0');
+    const segundos = data.getSeconds().toString().padStart(2, '0');
+  
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+  }
+  formatDate9(dataString: string): string {
+    //yyyy-mm-dd hh:mi:ss em dd/mm hh:mi
+    const data = new Date(dataString);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const horas = data.getHours().toString().padStart(2, '0');
+    const minutos = data.getMinutes().toString().padStart(2, '0');
+  
+    return `${dia}/${mes} ${horas}:${minutos}`;
+  }
   
   adicionarZero(numero: number): string {
     return numero < 10 ? `0${numero}` : `${numero}`;

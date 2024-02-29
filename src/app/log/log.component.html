@@ -38,9 +38,9 @@
 
           <mat-form-field class="small">
             <mat-label>Bancos</mat-label>
-            <input type="text" placeholder="" aria-label="Qtd. lojas" matInput [formControl]="myControldataBases" [matAutocomplete]="auto1" required id="number" [(ngModel)]="dataBase" name="dataBase" (ngModelChange)="changedataBase(dataBase)">
+            <input type="text" placeholder="" aria-label="Bancos" matInput [formControl]="myControldataBases" [matAutocomplete]="auto1" required id="bancos" [(ngModel)]="dataBase" name="dataBase" (ngModelChange)="changedataBase(dataBase)">
             <mat-autocomplete #auto1="matAutocomplete">
-              <mat-option *ngFor="let number of dataBases" [value]="number">{{number}}</mat-option>
+              <mat-option *ngFor="let data of dataBases" [value]="data">{{data}}</mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>

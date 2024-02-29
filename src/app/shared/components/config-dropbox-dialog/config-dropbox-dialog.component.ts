@@ -25,7 +25,7 @@ export class ConfigDropboxDialogComponent implements OnInit{
   tokenBrevo:any;
   emaildestinatariosCopy: any;
   expirationDate: any;
-
+  validationHours: any;
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<ConfigDropboxDialogComponent>,
@@ -48,6 +48,7 @@ export class ConfigDropboxDialogComponent implements OnInit{
     this.emaildestinatariosCopy = (await this.MonitoringService.getDatatoken()).destinatariosCopy;
     this.expirationDate = (await this.MonitoringService.getDatatoken()).expirationDate;
     this.tokenBrevo = (await this.MonitoringService.getDatatoken()).tokenBrevo;
+    this.validationHours = (await this.MonitoringService.getDatatoken()).validationHours;
   }
   async linkTokenBrevo():Promise<void>{
     const dropboxAuthorizationUrl = `https://app-smtp.brevo.com/real-time`;
@@ -90,6 +91,8 @@ export class ConfigDropboxDialogComponent implements OnInit{
       destinatariosCopy: this.emaildestinatariosCopy,
       expirationDate: this.expirationDate,
       tokenBrevo: this.tokenBrevo,
+      validationHours: this.validationHours,
+
     }
 
     try {

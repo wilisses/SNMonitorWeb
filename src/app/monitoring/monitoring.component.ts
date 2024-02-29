@@ -176,24 +176,39 @@ export class MonitoringComponent implements OnInit , DoCheck{
       }
 
       let validationDate = false;
-
-      for (const item of transformedData) {
-        const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
-        const dataUltimoLog = item.date.split(' ')[0];
-        if (dataUltimoLog === dataHoraHorario) {
-          validationDate = true;
-          break;
+      const validationHours = (await this.MonitoringService.getDatatoken()).validationHours;
+     
+      for (const horario of validationHours.split(',')) {
+        
+        if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','')){
+          if (
+            +(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')
+          ) {
+            resdescription = '🔔';
+          } else {
+            resdescription = '🚨';
+          }
         } else {
-          validationDate = false;
-          break;
-        }
-      }
+          for (const item of transformedData) {
+            const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
+            const dataUltimoLog = item.date.split(' ')[0];
+    
+            if (dataUltimoLog === dataHoraHorario) {
+              validationDate = true;
+              break;
+            } else {
+              validationDate = false;
+              break;
+            }
+          }
 
-      if(validationDate){
-        resdescription = switchLog(transformedData[0]?.description);
-      } else {
-        resdescription = '🚪'; 
-      }
+          if(validationDate){
+            resdescription = switchLog(transformedData[0]?.description);
+          } else {
+            resdescription = '🚪'; 
+          }
+        }
+      }  
       
     } else {
       resdescription = '❌';
@@ -205,6 +220,27 @@ export class MonitoringComponent implements OnInit , DoCheck{
     }
 
     return result;
+
+    function formatDateHour(hora: string): string {
+      const dataAtual = new Date();
+      const [hh, mm] = hora.split(':');
+      
+      // Ajustar a hora atual para os horários fornecidos
+      dataAtual.setHours(parseInt(hh, 10));
+      dataAtual.setMinutes(parseInt(mm, 10));
+    
+      // Obter as partes da data e hora local
+      const ano = dataAtual.getFullYear();
+      const mes = dataAtual.getMonth() + 1; // Meses são baseados em zero
+      const dia = dataAtual.getDate();
+      const horas = dataAtual.getHours();
+      const minutos = dataAtual.getMinutes();
+    
+      // Formatar a data e hora manualmente
+      const dataFormatada = `${ano}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')} ${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+    
+      return dataFormatada;
+    }
 
     function switchLog(data: any){
       let result;

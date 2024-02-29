@@ -89,7 +89,7 @@ export class MonitoringService {
 
   updateToken(data: Token): Promise<void> {
     
-    const { clientId, clientSecret, refreshToken, tokenEndpoint, remetente, passwordRemetente, destinatarios, destinatariosCopy, expirationDate, tokenBrevo } = data;
+    const { clientId, clientSecret, refreshToken, tokenEndpoint, remetente, passwordRemetente, destinatarios, destinatariosCopy, expirationDate, tokenBrevo, validationHours } = data;
     return this.db.database.ref(`/authorizationDropbox`).set({
       clientId,
       clientSecret, 
@@ -101,6 +101,7 @@ export class MonitoringService {
       destinatariosCopy,
       expirationDate,
       tokenBrevo,
+      validationHours
     });
   }
 

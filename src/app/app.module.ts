@@ -38,7 +38,7 @@ import { GenerateTokenDialogComponent } from './shared/components/generate-token
 import { LogComponent } from './log/log.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AuthComponent,
@@ -85,6 +85,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     MatDatepickerModule,
     MatTooltipModule,
+
+    MatExpansionModule,
   ],
   providers: [AuthService, provideNgxMask()],
   bootstrap: [AppComponent],

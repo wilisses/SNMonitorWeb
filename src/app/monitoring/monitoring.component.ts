@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { MonitoringService } from '../service/monitoring.service';
 import { AuthService } from '../service/auth.service';
 import { DropboxService } from '../service/dropbox.service';
@@ -6,7 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
-import { subDays, isLeapYear, endOfMonth, format } from 'date-fns';
+import {ThemePalette, provideNativeDateAdapter} from '@angular/material/core';
+import { format } from 'date-fns';
+import { MatAccordion } from '@angular/material/expansion';
 
 interface Banco {
   databasename: string;
@@ -97,8 +99,24 @@ export interface Monitoring{
   selector: 'app-monitoring',
   templateUrl: './monitoring.component.html',
   styleUrl: './monitoring.component.css',
+  providers: [provideNativeDateAdapter()],
 })
 export class MonitoringComponent implements OnInit , DoCheck{
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
+  statusAppsActive: string[] = [];
+  statusApps = [
+          {description:'Ativo',icon:'✅', active: true},
+          {description:'Aplicação Iniciada',icon:'🚀', active: true},
+          {description:'Aplicação Fechada',icon:'🚪', active: true},
+          {description:'Alerta Fechada',icon:'🚨', active: true},
+          {description:'Alerta Ativo',icon:'🔔', active: true},
+          {description:'Erro',icon:'🚫', active: true},
+          {description:'Limpeza Finalizada e Reiniciando Aplicação',icon:'🔄', active: true},
+          {description:'Backup Iniciado',icon:'⏳🗃️', active: true},
+          {description:'Backup Finalizado e Upload Iniciado',icon:'⏳📤', active: true},
+          {description:'Upload Finalizado e Limpeza Iniciada',icon:'⌛🗑️', active: true},
+  ];
+  markAll: any;
   licenses: any[] = [];
   displayedColumns: string[] = [
     'statusApp',
@@ -127,15 +145,17 @@ export class MonitoringComponent implements OnInit , DoCheck{
     'E-mail/WhatsApp Enviado',
   ];
   changesituations: any;
-  
-  statusApps: string[] = ['✅', '❌', '🚀', '🔄', '🚪', '🔔', '🚨', '⏳🗃️', '⏳📤', '⌛🗑️'];
-
   log: logMonitoring[] = [];
-  constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
+
+  constructor(
+    public auth: AuthService , 
+    private MonitoringService: MonitoringService,
+    private dropboxService: DropboxService,
+    public dialog: MatDialog,){}
   
   async ngOnInit(): Promise<void> {
-    
-   this.user = this.auth.UserAuth();
+    this.statusActive();
+    this.user = this.auth.UserAuth();
    
     if(this.user && await this.dropboxService.Token()){
       this.table()
@@ -148,16 +168,51 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
       setInterval(async () => {
         await this.refresh();
-      }, 60000);
+      }, 300000);
       
     } else {
       this.auth.navigate("");
     }
-
-    
-   
   }
 
+  emoji(element:any):any{
+    this.statusApps = this.statusApps.map(app => {
+      if (app.description === element.description) {
+        return { ...app, active: !app.active };
+      }
+      return app;
+    });
+       
+    this.statusActive();
+    this.refresh();
+  }
+
+  toggleAll() {
+    const allTrue = this.statusApps.every(item => item.active === true);
+
+    this.statusApps.forEach(item => (item.active = !allTrue));
+    this.statusActive();
+    if(allTrue === false){
+      this.refresh();
+    }
+  }
+
+  isAllTrue(): boolean {
+    return this.statusApps.every(item => item.active === true);
+  }
+
+  isAllFalse(): boolean {
+    return this.statusApps.every(item => item.active === false);
+  }
+
+  statusActive(): any{
+    this.statusAppsActive = [];
+    this.statusApps.map(item => {
+      if(item.active === true){
+        this.statusAppsActive.push(item.description);
+      }
+    });
+  }
   async statusLog(key: string): Promise<any> {
     let resdescription = null;
     let result = null;
@@ -287,7 +342,23 @@ export class MonitoringComponent implements OnInit , DoCheck{
   }
   
   async refresh():Promise<void>{
+    if(this.user && await this.dropboxService.Token()){
+      this.table()
+      .then(async result => {
+        this.dataSource = new MatTableDataSource(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    } else {
+      this.auth.navigate("");
+    }
 
+  }
+
+  async refreshButton(event: Event):Promise<void>{
+    this.accordion.closeAll();
+    event.stopPropagation();
     if(this.user && await this.dropboxService.Token()){
       this.table()
       .then(async result => {
@@ -335,6 +406,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   }
 
   checkboxChanged(){
+    this.accordion.closeAll();
       this.table()
       .then(async result => {
         this.dataSource = new MatTableDataSource(result);
@@ -461,33 +533,57 @@ export class MonitoringComponent implements OnInit , DoCheck{
                           }
                         })
 
-                        if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
-                          listaMonitoramento.push({
-                            checked:ischecked,
-                            sign: returnpercentage.sign,
-                            percentage: returnpercentage.percentage,
-                            row,
-                            key,
-                            caminhoPasta,
-                            nameDataBase: nomeDoBanco,
-                            status: "Novo",
-                            statusAppDescription: statusApp.description.description,
-                            statusAppIcon: statusApp.description.icon,
-                            statusAppLog: statusApp.date,
-                            dateCurrent,
-                            datePrevious: null,
-                            sizeCurrent:this.auth.formatSize1(null),
-                            sizePrevious:this.auth.formatSize1(null),
-                            nameCurrent: null,
-                            namePrevious: null,
-                            hours:null,
-                            access: null,
-                            accessPassword:null
-                          });
-                        } else {
-
-                          if(this.isChecked){
-                            if(status !== "OK"){
+                        if (this.statusAppsActive.includes(statusApp.description.description)) {
+                          if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
+                            listaMonitoramento.push({
+                              checked:ischecked,
+                              sign: returnpercentage.sign,
+                              percentage: returnpercentage.percentage,
+                              row,
+                              key,
+                              caminhoPasta,
+                              nameDataBase: nomeDoBanco,
+                              status: "Novo",
+                              statusAppDescription: statusApp.description.description,
+                              statusAppIcon: statusApp.description.icon,
+                              statusAppLog: statusApp.date,
+                              dateCurrent,
+                              datePrevious: null,
+                              sizeCurrent:this.auth.formatSize1(null),
+                              sizePrevious:this.auth.formatSize1(null),
+                              nameCurrent: null,
+                              namePrevious: null,
+                              hours:null,
+                              access: null,
+                              accessPassword:null
+                            });
+                          } else {
+                            if(this.isChecked){
+                              if(status !== "OK"){
+                                listaMonitoramento.push({
+                                  checked:ischecked,
+                                  sign: returnpercentage.sign,
+                                  percentage: returnpercentage.percentage,
+                                  row,
+                                  key,
+                                  caminhoPasta,
+                                  nameDataBase: nomeDoBanco,
+                                  status: status,
+                                  statusAppDescription: statusApp.description.description,
+                                  statusAppIcon: statusApp.description.icon,
+                                  statusAppLog: statusApp.date,
+                                  dateCurrent,
+                                  datePrevious,
+                                  sizeCurrent:this.auth.formatSize1(sizeCurrent),
+                                  sizePrevious:this.auth.formatSize1(sizePrevious),
+                                  nameCurrent,
+                                  namePrevious,
+                                  hours: hourData,
+                                  access: (await this.MonitoringService.getDataRegister(key)).acesso,
+                                  accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
+                                });
+                              }
+                            } else {
                               listaMonitoramento.push({
                                 checked:ischecked,
                                 sign: returnpercentage.sign,
@@ -510,33 +606,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 access: (await this.MonitoringService.getDataRegister(key)).acesso,
                                 accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
                               });
-                          }
-                          } else {
-                            listaMonitoramento.push({
-                              checked:ischecked,
-                              sign: returnpercentage.sign,
-                              percentage: returnpercentage.percentage,
-                              row,
-                              key,
-                              caminhoPasta,
-                              nameDataBase: nomeDoBanco,
-                              status: status,
-                              statusAppDescription: statusApp.description.description,
-                              statusAppIcon: statusApp.description.icon,
-                              statusAppLog: statusApp.date,
-                              dateCurrent,
-                              datePrevious,
-                              sizeCurrent:this.auth.formatSize1(sizeCurrent),
-                              sizePrevious:this.auth.formatSize1(sizePrevious),
-                              nameCurrent,
-                              namePrevious,
-                              hours: hourData,
-                              access: (await this.MonitoringService.getDataRegister(key)).acesso,
-                              accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
-                            });
-                          }
-                        } 
-
+                            }
+                          } 
+                        }
                         
                         row = row+1;
                       });

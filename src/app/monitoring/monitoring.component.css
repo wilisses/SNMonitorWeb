@@ -2,24 +2,20 @@
 
 .filter{
   position: fixed;
-  top: 4rem;
-  padding-inline: 10rem;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  width: 100vw;
-  gap: 3rem;
   z-index: 10;
-  color: white;
+  display: flex;
+  position: fixed;
+  top: 4em; 
+  right: 2.9em;
 }
 
 .filter mat-checkbox{
   text-align: left;
 }
 .filter button{
-  width: 10rem;
-  background: var(--brand-dark);
-  color: white;
+  margin-left: auto;
+  width: 3em;
+  background: transparent;
   text-align: center;
   display: flex;
   align-items: center;
@@ -74,6 +70,28 @@ table tr:hover {
   padding: 0.8em;
   font-size: 1.4rem;
   width: 85%;
+  
+}
+
+.statusapps{
+  display: flex;
+  align-items: left;
+  text-align: left;
+  justify-content: right;
+  flex-direction: column;
+  
+}
+.emojis{
+  overflow-y: auto;
+  height: 20em;
+}
+
+.statusapps .emojis section {
+  display: flex;
+  align-items: left;
+  text-align: left;
+  justify-content: right;
+  flex-direction: column;
 }
 
 @media (max-width: 450px) {

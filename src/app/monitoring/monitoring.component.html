@@ -37,18 +37,41 @@
       </mat-menu>
     </div>
     <div class="filter">
-      <button mat-menu-item  (click)="refresh()">
-        <span>Carregar</span>
-      </button>
+      <mat-accordion multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Filtro
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-menu-item  (click)="refreshButton($event)">
+                <span>🔄️</span>
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+            
+            <div class="statusapps">
+              <mat-form-field>
+                <mat-label>Filtro</mat-label>
+                <input matInput (keyup)="applyFilter($event)" #input>
+              </mat-form-field>
 
-      <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()" (ngModelChange)="changecheckbox(isChecked)">Pendente</mat-checkbox>
-
-      <mat-form-field>
-        <mat-label>Filtro</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-      </mat-form-field>
-      
+              <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()" (ngModelChange)="changecheckbox(isChecked)">Pendente</mat-checkbox>
+              <hr>
+              <br>
+              <span>Status App</span>
+              <mat-checkbox [indeterminate]="!isAllTrue() && !isAllFalse()" [checked]="isAllTrue()" (click)="toggleAll()"></mat-checkbox>
+              <div class="emojis">
+                <section *ngFor="let item of statusApps" >
+                  <mat-checkbox (click)="emoji(item)" [checked]="item.active">{{ item.icon }}</mat-checkbox>
+                </section>
+              </div>
+            </div>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
+    
 </nav>
 
 <section>
@@ -127,5 +150,6 @@
       </table>
     </div>
     <div>{{this.user.name}}</div>
+    
 </section>
 

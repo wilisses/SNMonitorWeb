@@ -59,7 +59,7 @@ export class PendingDialogComponent implements OnInit{
 
     this.auth.sendEmail(dados)
     .then(successMessage => {
-      this.auth.Alert(successMessage);
+      this.auth.Alert(successMessage, 3000);
 
       const logdados = {
         key:this.dados.key,
@@ -77,7 +77,7 @@ export class PendingDialogComponent implements OnInit{
       this.MonitoringService.logMonitoring(logdados);
     })
     .catch(errorInfo => {
-      this.auth.Alert(errorInfo.message);
+      this.auth.Alert(errorInfo.message, 3000);
       console.error(errorInfo.message, errorInfo.error);
     });
   }

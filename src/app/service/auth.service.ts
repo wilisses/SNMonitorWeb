@@ -82,14 +82,14 @@ export class AuthService {
         const userString = JSON.stringify(this.userAuth);
         localStorage.setItem('User', userString);
 
-          this.Alert("Salvo com Sucesso!!");
+          this.Alert("Salvo com Sucesso!!", 3000);
         }
       } catch (error) {
         this.error = error;
       }
 
     } else {
-      this.Alert("A nova senha não foi digitada corretamente!");
+      this.Alert("A nova senha não foi digitada corretamente!", 3000);
     }
   }
 
@@ -116,7 +116,7 @@ export class AuthService {
       const userString = JSON.stringify(this.userAuth);
       localStorage.setItem('User', userString);
 
-      this.Alert("Salvo com Sucesso!!");
+      this.Alert("Salvo com Sucesso!!", 3000);
 
     } catch (error) {
       this.error = error;
@@ -131,17 +131,17 @@ export class AuthService {
         if(passwordNew === passwordNewConfirm){
           await credential.user?.updatePassword(passwordNew);
           
-          this.Alert("Salvo com Sucesso!!");
+          this.Alert("Salvo com Sucesso!!", 3000);
         } else {
-          this.Alert("A nova senha não foi digitada corretamente!");
+          this.Alert("A nova senha não foi digitada corretamente!", 3000);
         }
       } else {
-        this.Alert("A senha atual está incorreta!");
+        this.Alert("A senha atual está incorreta!", 3000);
       }
 
     } catch (error) {
       
-      this.Alert("A senha atual está incorreta!");
+      this.Alert("A senha atual está incorreta!", 3000);
       this.error = error;
     }
   }
@@ -203,9 +203,9 @@ export class AuthService {
     this.router.navigate([`/${path}`]);
   }
 
-  Alert(mensagem: string): void {
+  Alert(mensagem: string, time: any): void {
     this._snackBar.open(mensagem, 'Fechar', {
-      duration: 3000, 
+      duration: time, 
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });

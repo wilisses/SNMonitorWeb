@@ -97,7 +97,7 @@ export class ConfigDropboxDialogComponent implements OnInit{
 
     try {
       await this.MonitoringService.updateToken(this.token);
-      this.auth.Alert('Salvo com sucesso!');
+      this.auth.Alert('Salvo com sucesso!', 3000);
     } catch (error) {
       console.error('Erro ao atualizar o registro:', error);
     }

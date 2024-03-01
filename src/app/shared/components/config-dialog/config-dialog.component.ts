@@ -94,7 +94,7 @@ export class ConfigDialogComponent implements DoCheck {
   editData() {
 
     if(this.selectedRow === undefined){
-      this.auth.Alert("Por favor, selecione uma linha antes de remover.");
+      this.auth.Alert("Por favor, selecione uma linha antes de remover.", 3000);
       return;
     }
 
@@ -142,7 +142,7 @@ export class ConfigDialogComponent implements DoCheck {
 
   removeData() {
     if(this.selectedRow.databasename === undefined){
-      this.auth.Alert("Por favor, selecione uma linha antes de remover.");
+      this.auth.Alert("Por favor, selecione uma linha antes de remover.", 3000);
       return;
     }
     

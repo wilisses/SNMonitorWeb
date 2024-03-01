@@ -320,6 +320,10 @@ export class MonitoringComponent implements OnInit , DoCheck{
     });
   
   }
+  rowClick(element: any):void{
+    console.log(element)
+    this.auth.Alert(`${element.nameDataBase} <br> ${element.hours}`, 60000)
+  }
 
   change(element: any): void {
     

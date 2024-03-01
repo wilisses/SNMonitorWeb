@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit, DoCheck {
         expirationAccess: expirationDate, 
       };
     } else if(this.editConfig === false && (await this.MonitoringService.getDataRegister(this.key)).config === undefined){
-      this.auth.Alert("Preencha todos os campos obrigatórios.");
+      this.auth.Alert("Preencha todos os campos obrigatórios.", 3000);
       return;
     }
   
@@ -134,7 +134,7 @@ export class RegisterComponent implements OnInit, DoCheck {
       
     try {
       await this.MonitoringService.updateRegister(this.key, this.register);
-      this.auth.Alert('Salvo com sucesso!')
+      this.auth.Alert('Salvo com sucesso!', 3000)
     } catch (error) {
       console.error('Erro ao atualizar o registro:', error);
     }

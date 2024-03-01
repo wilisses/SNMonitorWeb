@@ -54,7 +54,7 @@ export class GenerateTokenDialogComponent {
         (data) => {
           this.edit = true;
           this.tokenRefresh = data.refresh_token;
-          this.auth.Alert('Token gerado com sucesso!');
+          this.auth.Alert('Token gerado com sucesso!', 3000);
         },
         (error) => {
           this.tokenRefresh = `Erro ao obter token.`;

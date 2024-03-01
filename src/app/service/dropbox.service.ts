@@ -22,12 +22,11 @@ export class DropboxService  {
 
   private dbx!: Dropbox.Dropbox;
   constructor(private MonitoringService: MonitoringService, private http: HttpClient) {
+    localStorage.setItem('expirationToken', format(setSeconds(new Date(), 0), 'yyyy-MM-dd HH:mm'));
     this.Token();
-
   }
   async Token(): Promise<any> {
     let result: any = null;
-  
     try {
       const dateHourCurrent = format(setSeconds(new Date(), 0), 'yyyy-MM-dd HH:mm');
       const dataHourExpiration = localStorage.getItem('expirationToken');
@@ -52,7 +51,7 @@ export class DropboxService  {
       
         try {
         const response: any = await this.http.post(this.tokenEndpoint, this.urlEncodeParams(data), { headers }).toPromise();
-          const expiration = format(addSeconds(new Date(), (response.expires_in - 900)), 'yyyy-MM-dd HH:mm');
+          const expiration = format(addSeconds(new Date(), (response.expires_in - 1800)), 'yyyy-MM-dd HH:mm');
           localStorage.setItem('expirationToken', expiration);
           localStorage.setItem('TokenApp', response.access_token);
 

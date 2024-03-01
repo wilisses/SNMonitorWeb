@@ -89,6 +89,8 @@ export interface Monitoring{
     nameCurrent: any;
     namePrevious: any;
     hours: any;
+    access: any;
+    accessPassword: any;
 }
 
 @Component({
@@ -322,7 +324,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   }
   rowClick(element: any):void{
     console.log(element)
-    this.auth.Alert(`${element.nameDataBase} <br> ${element.hours}`, 60000)
+    this.auth.Alert(`Banco de dados: ${element.nameDataBase}  Horários: ${element.hours}  Acesso: ${element.access} Senha: ${element.accessPassword}`, 15000)
   }
 
   change(element: any): void {
@@ -479,6 +481,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             nameCurrent: null,
                             namePrevious: null,
                             hours:null,
+                            access: null,
+                            accessPassword:null
                           });
                         } else {
 
@@ -503,6 +507,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 nameCurrent,
                                 namePrevious,
                                 hours: hourData,
+                                access: (await this.MonitoringService.getDataRegister(key)).acesso,
+                                accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
                               });
                           }
                           } else {
@@ -525,6 +531,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               nameCurrent,
                               namePrevious,
                               hours: hourData,
+                              access: (await this.MonitoringService.getDataRegister(key)).acesso,
+                              accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
                             });
                           }
                         } 

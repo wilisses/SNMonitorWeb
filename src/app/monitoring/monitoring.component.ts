@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
+import { subDays, isLeapYear, endOfMonth, format } from 'date-fns';
 
 interface Banco {
   databasename: string;
@@ -78,7 +79,9 @@ export interface Monitoring{
     caminhoPasta: any;
     nameDataBase: any;
     status: any;
-    statusApp: any;
+    statusAppDescription: any;
+    statusAppIcon: any;
+    statusAppLog: any;
     dateCurrent: any;
     datePrevious: any;
     sizeCurrent: any;
@@ -132,7 +135,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
     
    this.user = this.auth.UserAuth();
    
-    if(this.user && await this.dropboxService.obterToken()){
+    if(this.user && await this.dropboxService.Token()){
       this.table()
       .then(async result => {
         this.dataSource = new MatTableDataSource(result);
@@ -143,7 +146,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
       setInterval(async () => {
         await this.refresh();
-      }, 600000);
+      }, 60000);
       
     } else {
       this.auth.navigate("");
@@ -170,13 +173,15 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
       for (const item of transformedData) {
         const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
+        const dataHoraAnterior = format(new Date(this.auth.getCurrentDateTime().split(' ')[0]), 'yyyy-MM-dd');
         const dataUltimoLog = item.date.split(' ')[0];
-        
-        if (dataUltimoLog === dataHoraHorario) {
-          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description)}`); 
+
+        if (dataUltimoLog === dataHoraHorario || dataUltimoLog === dataHoraAnterior) {
+          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`); 
         } else {
-          velidationLog.push(`${this.auth.formatDate9(transformedData[0]?.date)} ${switchLog(transformedData[0]?.description)}`);
-          break;
+          if(dataUltimoLog === (transformedData[0]?.date).split(' ')[0]){
+            velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`); 
+          }
         }
       }
 
@@ -184,15 +189,17 @@ export class MonitoringComponent implements OnInit , DoCheck{
       const validationHours = (await this.MonitoringService.getDatatoken()).validationHours;
      
       for (const horario of validationHours.split(',')) {
-        
+
         if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','')){
-          if (
+         if (
             +(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')
           ) {
-            resdescription = '🔔';
+            resdescription = {description:'Alerta Ativo',icon:'🔔'};
           } else {
-            resdescription = '🚨';
+            resdescription = {description:'Alerta Fechada',icon:'🚨'};
           }
+
+          break;
         } else {
           for (const item of transformedData) {
             const dataHoraHorario = this.auth.getCurrentDateTime().split(' ')[0];
@@ -210,13 +217,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
           if(validationDate){
             resdescription = switchLog(transformedData[0]?.description);
           } else {
-            resdescription = '🚪'; 
+            resdescription = `${switchLog(transformedData[0]?.description)}`; 
           }
         }
       }  
       
     } else {
-      resdescription = '❌';
+      resdescription = {description:'Erro',icon:'🚫'};
     }
    
     result = {
@@ -251,25 +258,25 @@ export class MonitoringComponent implements OnInit , DoCheck{
       let result;
       switch (data) {
         case "Ativo":
-          result = '✅';
+          result = {description:'Ativo',icon:'✅'};
           break;
         case "Aplicação Iniciada":
-          result = '🚀';
+          result = {description:'Aplicação Iniciada',icon:'🚀'};
           break;
         case "Backup Iniciado":
-          result = '⏳🗃️';
+          result = {description:'Backup Iniciado',icon:'⏳🗃️'};
           break;
         case "Backup Finalizado e Upload Iniciado":
-          result = '⏳📤';
+          result = {description:'Backup Finalizado e Upload Iniciado',icon:'⏳📤'};
           break;
         case "Upload Finalizado e Limpeza Iniciada":
-          result = '⌛🗑️';
+          result = {description:'Upload Finalizado e Limpeza Iniciada',icon:'⌛🗑️'};
           break;
         case "Limpeza Finalizada e Reiniciando Aplicação":
-          result = '🔄';
+          result = {description:'Limpeza Finalizada e Reiniciando Aplicação',icon:'🔄'};
           break;
         default:
-          result = '🚪';
+          result = {description:'Aplicação Fechada',icon:'🚪'};
           break;
       }
 
@@ -279,7 +286,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   
   async refresh():Promise<void>{
 
-    if(this.user && await this.dropboxService.obterToken()){
+    if(this.user && await this.dropboxService.Token()){
       this.table()
       .then(async result => {
         this.dataSource = new MatTableDataSource(result);
@@ -458,7 +465,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             caminhoPasta,
                             nameDataBase: nomeDoBanco,
                             status: "Novo",
-                            statusApp: statusApp,
+                            statusAppDescription: statusApp.description.description,
+                            statusAppIcon: statusApp.description.icon,
+                            statusAppLog: statusApp.date,
                             dateCurrent,
                             datePrevious: null,
                             sizeCurrent:this.auth.formatSize1(null),
@@ -480,7 +489,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 caminhoPasta,
                                 nameDataBase: nomeDoBanco,
                                 status: status,
-                                statusApp: statusApp,
+                                statusAppDescription: statusApp.description.description,
+                                statusAppIcon: statusApp.description.icon,
+                                statusAppLog: statusApp.date,
                                 dateCurrent,
                                 datePrevious,
                                 sizeCurrent:this.auth.formatSize1(sizeCurrent),
@@ -500,7 +511,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               caminhoPasta,
                               nameDataBase: nomeDoBanco,
                               status: status,
-                              statusApp: statusApp,
+                              statusAppDescription: statusApp.description.description,
+                              statusAppIcon: statusApp.description.icon,
+                              statusAppLog: statusApp.date,
                               dateCurrent,
                               datePrevious,
                               sizeCurrent:this.auth.formatSize1(sizeCurrent),

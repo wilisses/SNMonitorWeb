@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as Dropbox from 'dropbox';
 import { MonitoringService } from './monitoring.service';
 import { Observable } from 'rxjs';
+import { addSeconds, format, setSeconds } from 'date-fns';
 
 export interface Token{
   accesstoken: any,
@@ -21,8 +22,55 @@ export class DropboxService  {
 
   private dbx!: Dropbox.Dropbox;
   constructor(private MonitoringService: MonitoringService, private http: HttpClient) {
-    this.obterToken();
+    this.Token();
 
+  }
+  async Token(): Promise<any> {
+    let result: any = null;
+  
+    try {
+      const dateHourCurrent = format(setSeconds(new Date(), 0), 'yyyy-MM-dd HH:mm');
+      const dataHourExpiration = localStorage.getItem('expirationToken');
+      
+      if (dataHourExpiration && new Date(dateHourCurrent) >= new Date(dataHourExpiration)) {
+        this.clientId = (await this.MonitoringService.getDatatoken()).clientId;
+        this.clientSecret = (await this.MonitoringService.getDatatoken()).clientSecret;
+        this.refreshToken = (await this.MonitoringService.getDatatoken()).refreshToken;
+        this.tokenEndpoint = (await this.MonitoringService.getDatatoken()).tokenEndpoint;
+        
+        const data = {
+          refresh_token: this.refreshToken,
+          grant_type: 'refresh_token',
+          client_id: this.clientId,
+          client_secret: this.clientSecret
+        };
+      
+        // Faça uma solicitação HTTP POST para obter o novo token de acesso
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        });
+      
+        try {
+        const response: any = await this.http.post(this.tokenEndpoint, this.urlEncodeParams(data), { headers }).toPromise();
+          const expiration = format(addSeconds(new Date(), (response.expires_in - 900)), 'yyyy-MM-dd HH:mm');
+          localStorage.setItem('expirationToken', expiration);
+          localStorage.setItem('TokenApp', response.access_token);
+
+          result = localStorage.getItem('TokenApp');
+        } catch (error) {
+          console.error('Erro ao obter o token:', error);
+          throw error; // Propague o erro para quem chama essa função, se necessário
+        }
+      } else {
+        result = localStorage.getItem('TokenApp');
+      }
+     
+    } catch (error) {
+      console.error('Erro ao obter o token:', error);
+      throw error; // Propague o erro se necessário
+    }
+    this.configurarDropbox(result);
+    return result;
   }
 
   async obterToken(): Promise<Token> {

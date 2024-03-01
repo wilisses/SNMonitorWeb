@@ -70,7 +70,7 @@ export class ConfigDropboxDialogComponent implements OnInit{
     dialogRef.afterClosed().subscribe((res) => {
       if(res.edit){
         this.refreshToken = res.dados;
-        this.expirationDate = this.auth.calcularDataExpiracao(4);
+        this.expirationDate = this.auth.calcularDataExpiracao(3);
       }
     });
   }

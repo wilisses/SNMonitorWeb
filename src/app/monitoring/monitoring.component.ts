@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
-import { FormControl } from '@angular/forms';
 
 interface Banco {
   databasename: string;
@@ -144,7 +143,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
       setInterval(async () => {
         await this.refresh();
-      }, 60000);
+      }, 600000);
       
     } else {
       this.auth.navigate("");
@@ -156,7 +155,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
   async statusLog(key: string): Promise<any> {
     let resdescription = null;
-    let result= null;
+    let result = null;
     let velidationLog:any[] = [];
 
     const dataInformationLog = await this.MonitoringService.getDataInformationLog(key);
@@ -174,7 +173,10 @@ export class MonitoringComponent implements OnInit , DoCheck{
         const dataUltimoLog = item.date.split(' ')[0];
         
         if (dataUltimoLog === dataHoraHorario) {
-          velidationLog.push(`${switchLog(item.description)} ${this.auth.formatDate9(item.date)} `); 
+          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description)}`); 
+        } else {
+          velidationLog.push(`${this.auth.formatDate9(transformedData[0]?.date)} ${switchLog(transformedData[0]?.description)}`);
+          break;
         }
       }
 

@@ -57,8 +57,15 @@
         <ng-container matColumnDef="statusApp">
           <th mat-header-cell *matHeaderCellDef> 
           </th>
-          <td mat-cell *matCellDef="let element" matTooltip="{{element.statusApp.date}}">
-            {{element.statusApp.description}}
+          <td mat-cell *matCellDef="let element">
+            <button mat-menu-item [matMenuTriggerFor]="submenu">
+              {{element.statusApp.description}}
+            </button>
+            <mat-menu #submenu="matMenu" class="custom-menu">
+              <div mat-menu-item *ngFor="let item of element.statusApp.date">
+                <span>{{ item }}</span>
+              </div>
+            </mat-menu>
           </td>
         </ng-container>
         

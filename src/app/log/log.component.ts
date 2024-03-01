@@ -114,11 +114,11 @@ export class LogComponent {
           const nomesBancos = Object.keys(this.information);
           const termos = Array.isArray(nomesBancos) ? nomesBancos.join(',') : nomesBancos;
           const termosArray = termos.split(',');
-
-          this.myControldataBases = new FormControl(termosArray[0]);
-          this.changedataBase(termosArray[0]);
-
           const termosFiltrados = termosArray.filter(item => item !== 'statusApp');
+          this.myControldataBases = new FormControl(termosFiltrados[0]);
+          this.changedataBase(termosFiltrados[0]);
+
+          
           this.dataBases.push(...termosFiltrados);
             
         } catch (error) {
@@ -131,6 +131,7 @@ export class LogComponent {
   }
   
   changedataBase(dataBase: string): void {
+    
     this.dados = [];
     const startDate = this.campaignOne.get('start')?.value;
     const formattedStartDate = startDate ? this.auth.formatDate7(startDate) : '';

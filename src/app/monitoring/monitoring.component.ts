@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PendingDialogComponent } from '../shared/components/pending-dialog/pending-dialog.component';
 import { ConfigDropboxDialogComponent } from '../shared/components/config-dropbox-dialog/config-dropbox-dialog.component';
+import { FormControl } from '@angular/forms';
 
 interface Banco {
   databasename: string;
@@ -122,12 +123,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
     'E-mail/WhatsApp Enviado',
   ];
   changesituations: any;
+  
+  statusApps: string[] = ['✅', '❌', '🚀', '🔄', '🚪', '🔔', '🚨', '⏳🗃️', '⏳📤', '⌛🗑️'];
 
   log: logMonitoring[] = [];
   constructor(public auth: AuthService , private MonitoringService: MonitoringService,private dropboxService: DropboxService,public dialog: MatDialog){}
   
   async ngOnInit(): Promise<void> {
-
+    
    this.user = this.auth.UserAuth();
    
     if(this.user && await this.dropboxService.obterToken()){

@@ -234,10 +234,16 @@ export class MonitoringComponent implements OnInit , DoCheck{
         const dataUltimoLog = item.date.split(' ')[0];
 
         if (dataUltimoLog === dataHoraHorario || dataUltimoLog === dataHoraAnterior) {
-          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description.split(',')[0]).icon}`); 
+          velidationLog.push({
+            description: `${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`,
+            obs:item.description.split(',')[1]
+          }); 
         } else {
           if(dataUltimoLog === (transformedData[0]?.date).split(' ')[0]){
-            velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description.split(',')[0]).icon}`); 
+            velidationLog.push({
+              description: `${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`,
+              obs:item.description.split(',')[1]
+            }); 
           }
         }
       }
@@ -253,11 +259,11 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
         if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +hourCurrent0){
           if(transformedData[0]?.description === 'Aplicação Fechada') {
-            resdescription = {description:'Alerta Fechada',icon:'🚨'};
+            resdescription = {description:'Alerta Fechada', icon:'🚨'};
           } else if (+(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')) {
-            resdescription = {description:'Alerta Ativo',icon:'🔔'};
+            resdescription = {description:'Alerta Ativo', icon:'🔔'};
           } else {
-            resdescription = {description:'Alerta Fechada',icon:'🚨'};
+            resdescription = {description:'Alerta Fechada', icon:'🚨'};
             if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+10) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+59)){
               this.MonitoringService.updateStatusApp(key, this.auth.getCurrentDateTime(), 'Aplicação Fechada');
             }
@@ -279,15 +285,16 @@ export class MonitoringComponent implements OnInit , DoCheck{
           }
 
           if(validationDate){
-            resdescription = switchLog(transformedData[0]?.description.split(',')[0]);
+            resdescription = switchLog(transformedData[0]?.description);
           } else {
-            resdescription = `${switchLog(transformedData[0]?.description.split(',')[0])}`; 
+            resdescription = `${switchLog(transformedData[0]?.description)}`;
+             
           }
         }
       }  
       
     } else {
-      resdescription = {description:'Erro',icon:'🚫'};
+      resdescription = {description:'Erro', icon:'🚫'};
 
     }
    
@@ -321,33 +328,33 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
     function switchLog(data: any){
       let result;
-      switch (data) {
+      switch (data.split(',')[0]) {
         case "Ativo":
-          result = {description:'Ativo',icon:'✅'};
+          result = {description: data.split(',')[0], icon:'✅'};
           break;
         case "Erro":
-          result = {description:'Erro',icon:'🚫'};
+          result = {description: data.split(',')[0], icon:'🚫'};
           break;
         case "Aplicação Fechada":
-          result = {description:'Aplicação Fechada',icon:'🚪'};
+          result = {description: data.split(',')[0], icon:'🚪'};
           break;
         case "Aplicação Iniciada":
-          result = {description:'Aplicação Iniciada',icon:'🚀'};
+          result = {description: data.split(',')[0], icon:'🚀'};
           break;
         case "Backup Iniciado":
-          result = {description:'Backup Iniciado',icon:'⏳🗃️'};
+          result = {description: data.split(',')[0], icon:'⏳🗃️'};
           break;
         case "Backup Finalizado e Upload Iniciado":
-          result = {description:'Backup Finalizado e Upload Iniciado',icon:'⏳📤'};
+          result = {description: data.split(',')[0], icon:'⏳📤'};
           break;
         case "Upload Finalizado e Limpeza Iniciada":
-          result = {description:'Upload Finalizado e Limpeza Iniciada',icon:'⌛🗑️'};
+          result = {description: data.split(',')[0], icon:'⌛🗑️'};
           break;
         case "Limpeza Finalizada e Reiniciando Aplicação":
-          result = {description:'Limpeza Finalizada e Reiniciando Aplicação',icon:'🔄'};
+          result = {description: data.split(',')[0], icon:'🔄'};
           break;
         default:
-          result = {description:'Aplicação Fechada',icon:'🚪'};
+          result = {description:'Erro', icon:'🚫'};
           break;
       }
 
@@ -421,8 +428,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
 
   checkboxChanged(event: any) {
     this.isChecked = event.checked;
-    
-
     this.accordion.closeAll();
       this.table()
       .then(async result => {

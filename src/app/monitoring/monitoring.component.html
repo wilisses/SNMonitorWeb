@@ -85,7 +85,7 @@
             </button>
             <mat-menu #submenu="matMenu" class="custom-menu">
               <div mat-menu-item *ngFor="let item of element.statusAppLog">
-                <span>{{ item }}</span>
+                <span  matTooltip="{{ item.obs }}">{{ item.description }}</span>
               </div>
             </mat-menu>
           </td>

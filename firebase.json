@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "src",
+    "public": "dist/snmonitor/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

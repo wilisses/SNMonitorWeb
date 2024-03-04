@@ -44,6 +44,7 @@ export interface informationLog {
 }
 
 export interface information {
+  daterow:any;
   dataBase: any;
   date: any;
   shift: any;
@@ -162,6 +163,7 @@ export class LogComponent {
                 if (typeof shift === 'object' && shift !== null) {
 
                   const shiftData: information = {
+                    daterow: date,
                     dataBase: dataBase,
                     date: this.auth.formatDate6(date),
                     shift: row,
@@ -192,22 +194,16 @@ export class LogComponent {
         }
       }
     }
-
     shifts.sort((a, b) => {
-      // Ordenar por data em ordem decrescente
-      const dateComparison = new Date(b.date).getTime() - new Date(a.date).getTime();
+      const dateComparison = new Date(b.daterow).getTime() - new Date(a.daterow).getTime();
       
       if (dateComparison === 0) {
-        // Se as datas forem iguais, ordenar por turno em ordem decrescente
         return b.shift - a.shift;
       }
-    
-      // Ordenar por data em ordem decrescente
       return dateComparison;
     });
     
-    // Inverter a ordem dos shifts após a ordenação
-    shifts.reverse();
+    //shifts.reverse();
 
     this.dados = [...this.dados, ...shifts];
 

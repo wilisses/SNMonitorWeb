@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     
-      //this.auth.navigate("");
+      this.auth.navigate("");
       const expirationDate = (await this.MonitoringService.getDatatoken()).expirationDate;
       setInterval(() => {
       this.expiration = this.auth.updateTimeRemaining(expirationDate);

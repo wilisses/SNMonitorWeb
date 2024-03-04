@@ -69,7 +69,6 @@ export interface information {
 
 const today = new Date();
 
-// Ontem
 const yesterday = new Date();
 yesterday.setDate(today.getDate() - 7);
 

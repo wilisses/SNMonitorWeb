@@ -146,7 +146,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   ];
   changesituations: any;
   log: logMonitoring[] = [];
-
+  selectedSituation: string = "1";
   constructor(
     public auth: AuthService , 
     private MonitoringService: MonitoringService,
@@ -426,9 +426,25 @@ export class MonitoringComponent implements OnInit , DoCheck{
     this.adicionarCNPJNaLista(listaCNPJs, element.key);
   }
 
-  checkboxChanged(event: any) {
-    this.isChecked = event.checked;
+  checkboxChanged(){
     this.accordion.closeAll();
+      this.table()
+      .then(async result => {
+        this.dataSource = new MatTableDataSource(result);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  changecheckbox(status: boolean):void{
+    if(status){
+      localStorage.setItem('checkboxPedente', status.toString());
+    } else {
+      localStorage.removeItem('checkboxPedente');
+    }
+  }
+  situationChanged(event: any): void {
+    this.selectedSituation = event.target.value;
       this.table()
       .then(async result => {
         this.dataSource = new MatTableDataSource(result);
@@ -466,10 +482,11 @@ export class MonitoringComponent implements OnInit , DoCheck{
                     }
                   }
                 })
-                if(item.status === "1"){
+                
+                if(item.status === this.selectedSituation){
                   if(!pastas.includes(caminhoPasta) && caminhoPasta !== 'Licenca encerrada'){
                     
-                    this.dropBox(caminhoPasta)
+                    this.dropBox(caminhoPasta, this.selectedSituation)
                     .then(result => {
                       const bancos: Record<string, DropBoxEntry[]> = {};
                       result.forEach(item => {
@@ -671,8 +688,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
     
   }
 
-  
-
   getColorStyle(element: any): any {
     if(element.percentage === '0,00 %') {
       return { color: 'black' };
@@ -724,9 +739,15 @@ export class MonitoringComponent implements OnInit , DoCheck{
     
   }
 
-  async dropBox(caminhoDropbox: string): Promise<DropBoxEntry[]> {
+  async dropBox(caminhoDropbox: string, selectedSituation: any): Promise<DropBoxEntry[]> {
     try {
-      const result = await this.dropboxService.listarArquivos(`/VRBackup/${caminhoDropbox}`);
+      let file;
+      if(selectedSituation === "1"){
+        file = "VRBackup";
+      } else {
+        file = "VRBackup/Licenca encerrada";
+      }
+      const result = await this.dropboxService.listarArquivos(`/${file}/${caminhoDropbox}`);
 
       const results: DropBoxEntry[] = result.entries
       .map(item => ({

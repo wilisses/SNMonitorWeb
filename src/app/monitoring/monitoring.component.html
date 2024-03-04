@@ -55,8 +55,15 @@
                 <mat-label>Filtro</mat-label>
                 <input matInput (keyup)="applyFilter($event)" #input>
               </mat-form-field>
-              <mat-checkbox (change)="checkboxChanged($event)" [checked]="isChecked">Pendente</mat-checkbox>
+              <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()" (ngModelChange)="changecheckbox(isChecked)">Pendente</mat-checkbox>
               <hr>
+              <mat-form-field>
+                <mat-label>Situação</mat-label>
+                <select matNativeControl name="situation" (change)="situationChanged($event)">
+                  <option value="1" selected>Ativo</option>
+                  <option value="0">Cancelado</option>
+                </select>
+              </mat-form-field>
               <br>
               <span>Status App</span>
               <mat-checkbox [indeterminate]="!isAllTrue() && !isAllFalse()" [checked]="isAllTrue()" (click)="toggleAll()"></mat-checkbox>

@@ -44,7 +44,7 @@ export class AuthService {
         this.navigate("Monitoring");
       }
     } catch (error) {
-      this.error = error;
+      this.Alert("Ops! Parece que houve um erro no login. Verifique se seu e-mail e senha estão corretos e tente mais uma vez.", 3000);
     }
   }
 

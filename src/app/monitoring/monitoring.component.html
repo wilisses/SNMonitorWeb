@@ -55,8 +55,7 @@
                 <mat-label>Filtro</mat-label>
                 <input matInput (keyup)="applyFilter($event)" #input>
               </mat-form-field>
-
-              <mat-checkbox [(ngModel)]="isChecked" (change)="checkboxChanged()" (ngModelChange)="changecheckbox(isChecked)">Pendente</mat-checkbox>
+              <mat-checkbox (change)="checkboxChanged($event)" [checked]="isChecked">Pendente</mat-checkbox>
               <hr>
               <br>
               <span>Status App</span>
@@ -80,7 +79,7 @@
         <ng-container matColumnDef="statusApp">
           <th mat-header-cell *matHeaderCellDef> 
           </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element" matTooltip="{{element.nameDataBase}} {{element.hours}}">
             <button mat-menu-item [matMenuTriggerFor]="submenu">
               {{element.statusAppIcon}}
             </button>

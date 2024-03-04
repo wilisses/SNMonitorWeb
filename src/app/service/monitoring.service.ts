@@ -52,6 +52,13 @@ export class MonitoringService {
     }
   }
   
+  updateStatusApp(key: string, date: string, description: string): Promise<void> {
+    
+    return this.db.database.ref(`/information/${key}/statusApp/${date}`).set({
+      description
+    });
+
+  }
 
   async getDataRegister(key: string): Promise<Register> {
     return (await this.db.database.ref(`/license/${key}`)

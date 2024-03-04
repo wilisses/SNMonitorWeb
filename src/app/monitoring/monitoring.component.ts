@@ -225,7 +225,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
         date,
         description,
       }));
-  
+      
       transformedData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
       for (const item of transformedData) {
@@ -234,10 +234,10 @@ export class MonitoringComponent implements OnInit , DoCheck{
         const dataUltimoLog = item.date.split(' ')[0];
 
         if (dataUltimoLog === dataHoraHorario || dataUltimoLog === dataHoraAnterior) {
-          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`); 
+          velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description.split(',')[0]).icon}`); 
         } else {
           if(dataUltimoLog === (transformedData[0]?.date).split(' ')[0]){
-            velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description).icon}`); 
+            velidationLog.push(`${this.auth.formatDate9(item.date)} ${switchLog(item.description.split(',')[0]).icon}`); 
           }
         }
       }
@@ -247,13 +247,20 @@ export class MonitoringComponent implements OnInit , DoCheck{
      
       for (const horario of validationHours.split(',')) {
 
-        if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','')){
-         if (
-            +(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')
-          ) {
+        let hourCurrent0 = (this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','');
+        let minuteCurrent1 = (this.auth.getCurrentDateTime()).split(' ')[1].split(':')[1];
+
+
+        if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +hourCurrent0){
+          if(transformedData[0]?.description === 'Aplicação Fechada') {
+            resdescription = {description:'Alerta Fechada',icon:'🚨'};
+          } else if (+(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')) {
             resdescription = {description:'Alerta Ativo',icon:'🔔'};
           } else {
             resdescription = {description:'Alerta Fechada',icon:'🚨'};
+            if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+10) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+59)){
+              this.MonitoringService.updateStatusApp(key, this.auth.getCurrentDateTime(), 'Aplicação Fechada');
+            }
           }
 
           break;
@@ -272,15 +279,16 @@ export class MonitoringComponent implements OnInit , DoCheck{
           }
 
           if(validationDate){
-            resdescription = switchLog(transformedData[0]?.description);
+            resdescription = switchLog(transformedData[0]?.description.split(',')[0]);
           } else {
-            resdescription = `${switchLog(transformedData[0]?.description)}`; 
+            resdescription = `${switchLog(transformedData[0]?.description.split(',')[0])}`; 
           }
         }
       }  
       
     } else {
       resdescription = {description:'Erro',icon:'🚫'};
+
     }
    
     result = {
@@ -316,6 +324,12 @@ export class MonitoringComponent implements OnInit , DoCheck{
       switch (data) {
         case "Ativo":
           result = {description:'Ativo',icon:'✅'};
+          break;
+        case "Erro":
+          result = {description:'Erro',icon:'🚫'};
+          break;
+        case "Aplicação Fechada":
+          result = {description:'Aplicação Fechada',icon:'🚪'};
           break;
         case "Aplicação Iniciada":
           result = {description:'Aplicação Iniciada',icon:'🚀'};
@@ -405,7 +419,10 @@ export class MonitoringComponent implements OnInit , DoCheck{
     this.adicionarCNPJNaLista(listaCNPJs, element.key);
   }
 
-  checkboxChanged(){
+  checkboxChanged(event: any) {
+    this.isChecked = event.checked;
+    
+
     this.accordion.closeAll();
       this.table()
       .then(async result => {
@@ -415,14 +432,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
         console.error(error);
       });
   }
-  changecheckbox(status: boolean):void{
-    if(status){
-      localStorage.setItem('checkboxPedente', status.toString());
-    } else {
-      localStorage.removeItem('checkboxPedente');
-    }
-  }
-
+ 
   applyFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
     

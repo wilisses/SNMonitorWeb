@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import * as Dropbox from 'dropbox';
+
 import { MonitoringService } from './monitoring.service';
 import { Observable } from 'rxjs';
 import { addSeconds, format, setSeconds } from 'date-fns';
+import * as Dropbox from 'dropbox';
 
 export interface Token{
   accesstoken: any,

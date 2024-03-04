@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -95,7 +95,7 @@ export class LogComponent {
   });
   
   constructor(private route: ActivatedRoute, public auth: AuthService, private MonitoringService: MonitoringService, public dialog: MatDialog) {}
-
+  
   async ngOnInit(): Promise<void> {
     this.user = this.auth.UserAuth();
   
@@ -239,6 +239,8 @@ export class LogComponent {
       this.auth.navigate("Monitoring");
     } else if(this.shift === '1'){
       this.auth.navigate(`Register/${this.key}`);
+    } else {
+      this.auth.navigate("");
     }
     
   }

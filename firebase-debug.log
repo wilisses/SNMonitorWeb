@@ -1,0 +1,489 @@
+[debug] [2024-03-04T17:13:05.006Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T17:13:05.016Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T17:13:05.017Z] CLI Version:   13.4.0
+[debug] [2024-03-04T17:13:05.017Z] Platform:      win32
+[debug] [2024-03-04T17:13:05.017Z] Node Version:  v20.11.0
+[debug] [2024-03-04T17:13:05.017Z] Time:          Mon Mar 04 2024 14:13:05 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T17:13:05.017Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T17:13:05.020Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-03-04T17:13:05.146Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T17:13:05.147Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T17:13:05.147Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T17:13:05.149Z] > refreshing access token with scopes: []
+[debug] [2024-03-04T17:13:05.150Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-03-04T17:13:05.151Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-04T17:13:05.485Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-03-04T17:13:05.486Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-04T17:13:05.497Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T17:13:05.498Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T17:13:05.499Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:13:05.608Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-03-04T17:13:05.609Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-03-04T17:13:06.692Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T17:13:06.692Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {}
+[debug] [2024-03-04T17:13:06.693Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project backupplus-monitoring:
+
+  firebase.projects.get
+  firebasehosting.sites.update
+[debug] [2024-03-04T17:13:06.694Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T17:13:07.726Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 403
+[debug] [2024-03-04T17:13:07.727Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2024-03-04T17:13:07.728Z] HTTP Error: 403, The caller does not have permission
+[error] 
+[error] Error: Assertion failed: resolving hosting target of a site with no site name or target name. This should have caused an error earlier
+[debug] [2024-03-04T17:19:04.034Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T17:19:04.036Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T17:19:04.036Z] CLI Version:   13.4.0
+[debug] [2024-03-04T17:19:04.036Z] Platform:      win32
+[debug] [2024-03-04T17:19:04.036Z] Node Version:  v20.11.0
+[debug] [2024-03-04T17:19:04.037Z] Time:          Mon Mar 04 2024 14:19:04 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T17:19:04.037Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T17:19:04.108Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T17:19:04.110Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T17:19:04.110Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T17:19:04.113Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T17:19:04.114Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T17:19:04.114Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:19:05.232Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T17:19:05.232Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:19:05.233Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T17:19:05.752Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-03-04T17:19:05.753Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] === Deploying to 'backupplus-monitoring'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-04T17:19:05.760Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions [none]
+[debug] [2024-03-04T17:19:05.760Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-03-04T17:19:07.254Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions 200
+[debug] [2024-03-04T17:19:07.255Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"name":"projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[backupplus-monitoring]: beginning deploy... 
+[info] i  hosting[backupplus-monitoring]: found 69 files in src 
+[debug] [2024-03-04T17:19:07.278Z] [hosting] uploading with 200 concurrency
+[debug] [2024-03-04T17:19:07.490Z] [hosting] hash cache [c3Jj] stored for 69 files
+[debug] [2024-03-04T17:19:07.491Z] [hosting][hash queue][FINAL] {"max":71,"min":0,"avg":3.4338293316016064,"active":0,"complete":69,"success":69,"errored":0,"retried":0,"total":69,"elapsed":92}
+[debug] [2024-03-04T17:19:07.492Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c:populateFiles [none]
+[debug] [2024-03-04T17:19:07.493Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c:populateFiles {"files":{"/404.html":"762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890","/index.html":"2f67a6ac27504b7932b19f377535aa16d7d6f6275239a53d6ae3353bed65db30","/main.ts":"fc8fb53c3607dde039522079d7793e2aaad24d3ec6fa5302e3b9050e6788537b","/styles.css":"4976ccf6cef059b8709ceae7b170c5c8d06bcfb3c673a3879b1f3acc7036456c","/app/app-routing.module.ts":"893b3f13db8ec553741c06bc77fe30bd9bdbf81bdae47c0bd5d25916ee79bd28","/app/app.component.css":"193716bd4e8fc75dd371ad7f5f1168be87c9bab38ec17b1b02aa2478ca746fe7","/app/app.component.html":"d455e2ca328b3b5c369b9e59ed6d0d4f830db91f0bec4a22d47929a415dde7b1","/app/app.component.spec.ts":"439143ef16dcf7de8093285f9f29edc6cb13c32aad3ff28914b0ba18526591c2","/app/app.component.ts":"d8be5c331124e6dca9c361d3c4ed092650650a62a9ea44f07effe57dd27099f7","/app/auth/auth.component.css":"40aa482f38fd0d4334f36bdb367e57cd92539f40468231b5fd096050e14571a4","/app/auth/auth.component.html":"cca1c6e3f50f6b80a0dda2247fbf1dc7840d2e77a7f3ec28fddae0bdcc6feea2","/app/auth/auth.component.spec.ts":"74b686962c18ff79ff9ba8ad7e6b4e920661b86f75933eda52c25bd2128527d9","/app/auth/auth.component.ts":"a0d3d7754aa2dbdb443132b3b00aad4d8839b87d91c8cbc660bf80846360c243","/app/log/log.component.css":"f7057140102114a8e1383e66b76f8de2333289e451c85e8432976a0ab27a63f6","/app/log/log.component.html":"6f325e3975515f79fb02fe45f2fcc5595df37fa93afbe4d399ad4a11e3c35bb5","/app/log/log.component.spec.ts":"16a87f754fd7663f3d732c51fed61dfac8cf6016219e5dab419172e3da8f3de7","/app/monitoring/monitoring.component.css":"5b1e4802256727eaf420dd3be7b87f3888289310c86d4b3d5bc9ee98293fca24","/app/monitoring/monitoring.component.spec.ts":"540deff0bc46a3db78eac9ad6fb085df5fcf8affb6c78b986632624b28689afd","/app/register/register.component.css":"c44625bfcff018c03563caba7b1ff574b0007a4d36c78f682731dee696164407","/app/register/register.component.html":"72e9afa09fecb9410f76f902b38cb31bed379367204aac1b5c8c30f1bb6caa32","/app/register/register.component.spec.ts":"a949e2514a4ba975181318e623ac32327db47fe68259430c67a7789e7f5cd9b5","/app/register/register.component.ts":"548b8b5d806f95108cc2fca7e0b9a78283cf8c4b14099a9aede0bb3720ab06bf","/app/service/auth.service.spec.ts":"816f93498295c4a37e3fb93d71b25f4aef39d549725ba1d1993bbc90e2a7ddb1","/app/service/auth.service.ts":"7800a548ca26acb8f8b8e0354ba0935d5a2d5261b53ab1c2085be3dee5700eb9","/app/service/dropbox.service.spec.ts":"8d766aae47c78f519a5fe93924dc4980a22b1df3766c403ba92fdc8ce21669d1","/app/service/email.service.spec.ts":"4f59ce10791489f9aab2c7637cfc4210b474c24f094ad08190f2f3cee02bbf7e","/app/service/email.service.ts":"3b20055ee3f7a71ae06b06a12d80d4cb19531b641efafff2b4b262f63ee44c13","/app/service/monitoring.service.spec.ts":"f0429f345834fc08569a76912497383c09495901c4dcb13724b5d06ed9babb6c","/app/shared/components/config-dialog/config-dialog.component.css":"d5b7603a369b228eb257ae2a233ac065d9e00658346b56b3d3a3e8df88f85a5d","/app/shared/components/config-dialog/config-dialog.component.html":"e838eedd1b62b612837de9979c94884b5e6fcea06c440562e0972603674f3058","/app/shared/components/config-dialog/config-dialog.component.spec.ts":"c5ea85db1f9756774572d43c6159c69dac1bc3289056604f730909eab0f63b2b","/app/shared/components/config-dialog/config-dialog.component.ts":"a0006b0405374917ce80ea97b02e56b05e9453c3d99c7ca4629d720f49a0ad36","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.css":"1ff8c9204edd5ee6d68ad8b53817d08af774d5ab75007619b895c5f49e1573cf","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.html":"a745d9a7e4e4e1d3e9c3547b42ae0bcde3201579f8ec5fa2c26e8c191e666c1b","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.spec.ts":"8cd13c91988954708588e983b16073a589751ff0b8b07d7fdf4c256f7d97e8b8","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.ts":"c0d930d0b56f52328de1256b42a52e9d8477f2e3ca3d8c403eb75bb5f56497d3","/app/shared/components/generate-token-dialog/generate-token-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/generate-token-dialog/generate-token-dialog.component.html":"538a8b9c0e30f53f5ca081c4c5c766fa28224cd3601728247a8aa5a0c62fcb73","/app/shared/components/generate-token-dialog/generate-token-dialog.component.spec.ts":"e081ae63e7e3b5bf95a4654880689c27a713c3eede3c5ebc9b7bd5d95dc59605","/app/shared/components/generate-token-dialog/generate-token-dialog.component.ts":"583eb3a30dc69693d8167dadd3429c29cb0a1d70c9106a0932c3516b9335cca4","/app/shared/components/license-dialog/license-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/license-dialog/license-dialog.component.html":"6d4280cdc72118f7206f05ac298557bc646262909fa4f1dcd1f209fd8e5f68ba","/app/shared/components/license-dialog/license-dialog.component.spec.ts":"d6192dac13fa34639415209f4aa52b54bd96e56686c9c38788c7e58ba6f72089","/app/shared/components/license-dialog/license-dialog.component.ts":"cb8537f4d5ecc49d7569006d6042225c37531b375f1404077a9068c3b8387ff2","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.css":"a2598ed5354fc2a1db2cbb2bad9bbc358f623f771ba59e098681f7bea98bccc0","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.html":"62801621e31b25825bf24d3acbdc8e7e7761844e7b9b1e06eea1613db517bf7e","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.spec.ts":"4a4f078b1b69dbd9553dfba24b1e728bfe5f1207bf31f02a3a16b7c981d17de7","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.ts":"404ad673f66306b64fa0b3fad75a9cb3f37d56474c0e45da02fe17aa93a95f9d","/app/shared/components/pending-dialog/pending-dialog.component.css":"665f23016fbe99faf92e04b1416b1b9c431cd5d315de7fed6013737fd7fa7c0f","/app/shared/components/pending-dialog/pending-dialog.component.html":"a36ac65ebfa554eba2dd4b77a0436023baa0ef79954e7a334836ac2c8f824010","/app/shared/components/pending-dialog/pending-dialog.component.spec.ts":"268f2fded378579d47d00cca0a38eb0ed1486817311f6006da69c2adb85abc63","/app/shared/components/pending-dialog/pending-dialog.component.ts":"9844193a3c4122a7834371efc36df4fd5346f327c827ab27e56cf0edfa602948","/app/user/user.component.css":"07b0f52cd4351fa887800432a9a0175cafa03ee0e2dcac7ebeb86716dd72c636","/app/user/user.component.html":"7a894340595faeec45b6eb69f28076d670b5c93999a001a9a2ed0398f1bdc49f","/app/user/user.component.spec.ts":"e19e2d897d57eb00bb0e44a306d7e8db3d604cd9c280bba592b179898c6da0e0","/app/user/user.component.ts":"b34ece5a329941cf13c2a2c02269a9903a852e28e17053e4d46c05c427bc8a2e","/assets/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/assets/Icon_Google.svg":"27db9fcaaacab11d6dcd8d3e3859bcebdc98de6953abc620a694f726c7d24d72","/assets/menu.svg":"85884208aded906ab7386027e99a94fc6670757270ecf8c7dd390b6e007d7896","/assets/voltar.svg":"c3eaefc162cc4f4df21addde6d40d3d15d3dce1ed44e4b9562514307842eaa64","/environments/environment.development.ts":"e0e9e4ca1f336c7e03404a72419c18e28bbad141680f4fb83fc6a85343f1afb6","/environments/environment.ts":"1c7193723da9ec6bdec61d2276a49c1d1300f21375e39ebc12f839a341e91649","/theme/variables.css":"3759b2de735459920c8e2b8f814e360c31d8f23715194f423e0ae0653835c0b3","/app/monitoring/monitoring.component.html":"ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e","/app/monitoring/monitoring.component.ts":"b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678","/app/app.module.ts":"11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c","/app/log/log.component.ts":"313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa","/app/service/dropbox.service.ts":"43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7","/app/service/monitoring.service.ts":"0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2"}}
+[debug] [2024-03-04T17:19:07.846Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c:populateFiles 200
+[debug] [2024-03-04T17:19:07.846Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c:populateFiles {"uploadRequiredHashes":["313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa","11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c","0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2","ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e","b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678","43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files"}
+[debug] [2024-03-04T17:19:07.850Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa [none]
+[debug] [2024-03-04T17:19:07.851Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa [stream]
+[debug] [2024-03-04T17:19:07.855Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c [none]
+[debug] [2024-03-04T17:19:07.855Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c [stream]
+[debug] [2024-03-04T17:19:07.857Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2 [none]
+[debug] [2024-03-04T17:19:07.857Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2 [stream]
+[debug] [2024-03-04T17:19:07.859Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e [none]
+[debug] [2024-03-04T17:19:07.859Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e [stream]
+[debug] [2024-03-04T17:19:07.860Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678 [none]
+[debug] [2024-03-04T17:19:07.860Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678 [stream]
+[debug] [2024-03-04T17:19:07.861Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7 [none]
+[debug] [2024-03-04T17:19:07.861Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7 [stream]
+[debug] [2024-03-04T17:19:07.863Z] [hosting][populate queue][FINAL] {"max":374,"min":374,"avg":374,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":387}
+[debug] [2024-03-04T17:19:07.863Z] [hosting] uploads queued: 6
+[debug] [2024-03-04T17:19:09.027Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e 200
+[debug] [2024-03-04T17:19:09.028Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e [stream]
+[debug] [2024-03-04T17:19:09.036Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7 200
+[debug] [2024-03-04T17:19:09.037Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7 [stream]
+[debug] [2024-03-04T17:19:09.038Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa 200
+[debug] [2024-03-04T17:19:09.038Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa [stream]
+[debug] [2024-03-04T17:19:09.074Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2 200
+[debug] [2024-03-04T17:19:09.074Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2 [stream]
+[debug] [2024-03-04T17:19:09.075Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678 200
+[debug] [2024-03-04T17:19:09.076Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678 [stream]
+[debug] [2024-03-04T17:19:09.081Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c 200
+[debug] [2024-03-04T17:19:09.081Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/2bc9c041c283040c/files/11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c [stream]
+[debug] [2024-03-04T17:19:09.082Z] [hosting][upload queue][FINAL] {"max":1233,"min":1179,"avg":1207.3333333333333,"active":0,"complete":6,"success":6,"errored":0,"retried":0,"total":6,"elapsed":1235}
+[info] i  hosting: upload complete 
+[info] +  hosting[backupplus-monitoring]: file upload complete 
+[debug] [2024-03-04T17:19:09.083Z] [hosting] deploy completed after 1825ms
+[debug] [2024-03-04T17:19:09.083Z] [
+  {
+    "config": {
+      "public": "src",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "backupplus-monitoring"
+    },
+    "version": "projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c"
+  }
+]
+[info] i  hosting[backupplus-monitoring]: finalizing version... 
+[debug] [2024-03-04T17:19:09.089Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/2bc9c041c283040c updateMask=status%2Cconfig
+[debug] [2024-03-04T17:19:09.089Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/2bc9c041c283040c {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2024-03-04T17:19:09.353Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/2bc9c041c283040c 200
+[debug] [2024-03-04T17:19:09.354Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/2bc9c041c283040c {"name":"projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:19:05.578117Z","createUser":{"email":"josewilissesti2905@gmail.com"},"finalizeTime":"2024-03-04T17:19:07.980149Z","finalizeUser":{"email":"josewilissesti2905@gmail.com"}}
+[debug] [2024-03-04T17:19:09.354Z] [hosting] finalized version for backupplus-monitoring:[object Object]
+[info] +  hosting[backupplus-monitoring]: version finalized 
+[info] i  hosting[backupplus-monitoring]: releasing new version... 
+[debug] [2024-03-04T17:19:09.356Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases versionName=projects%2F102506778320%2Fsites%2Fbackupplus-monitoring%2Fversions%2F2bc9c041c283040c
+[debug] [2024-03-04T17:19:09.356Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {}
+[debug] [2024-03-04T17:19:09.982Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases 200
+[debug] [2024-03-04T17:19:09.983Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709572748034000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:19:05.578117Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:19:07.980149Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:19:08.034Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[debug] [2024-03-04T17:19:09.983Z] [hosting] release: {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709572748034000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/2bc9c041c283040c","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:19:05.578117Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:19:07.980149Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:19:08.034Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[info] +  hosting[backupplus-monitoring]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/backupplus-monitoring/overview
+[info] Hosting URL: https://backupplus-monitoring.web.app
+[debug] [2024-03-04T17:20:12.070Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T17:20:12.072Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T17:20:12.072Z] CLI Version:   13.4.0
+[debug] [2024-03-04T17:20:12.073Z] Platform:      win32
+[debug] [2024-03-04T17:20:12.073Z] Node Version:  v20.11.0
+[debug] [2024-03-04T17:20:12.073Z] Time:          Mon Mar 04 2024 14:20:12 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T17:20:12.073Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T17:20:12.147Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T17:20:12.148Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T17:20:12.149Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T17:20:12.151Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T17:20:12.152Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T17:20:12.153Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:20:13.156Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T17:20:13.156Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:20:13.157Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T17:20:13.764Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-03-04T17:20:13.765Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] === Deploying to 'backupplus-monitoring'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-04T17:20:13.773Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions [none]
+[debug] [2024-03-04T17:20:13.773Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-03-04T17:20:15.087Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions 200
+[debug] [2024-03-04T17:20:15.088Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"name":"projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[backupplus-monitoring]: beginning deploy... 
+[info] i  hosting[backupplus-monitoring]: found 69 files in src 
+[debug] [2024-03-04T17:20:15.106Z] [hosting] uploading with 200 concurrency
+[debug] [2024-03-04T17:20:16.899Z] [hosting] hash cache [c3Jj] stored for 69 files
+[debug] [2024-03-04T17:20:16.900Z] [hosting][hash queue][FINAL] {"max":4,"min":0,"avg":0.11783227932307067,"active":0,"complete":69,"success":69,"errored":0,"retried":0,"total":69,"elapsed":99}
+[debug] [2024-03-04T17:20:16.901Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9:populateFiles [none]
+[debug] [2024-03-04T17:20:16.902Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9:populateFiles {"files":{"/404.html":"762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890","/index.html":"2f67a6ac27504b7932b19f377535aa16d7d6f6275239a53d6ae3353bed65db30","/main.ts":"fc8fb53c3607dde039522079d7793e2aaad24d3ec6fa5302e3b9050e6788537b","/styles.css":"4976ccf6cef059b8709ceae7b170c5c8d06bcfb3c673a3879b1f3acc7036456c","/app/app-routing.module.ts":"893b3f13db8ec553741c06bc77fe30bd9bdbf81bdae47c0bd5d25916ee79bd28","/app/app.component.css":"193716bd4e8fc75dd371ad7f5f1168be87c9bab38ec17b1b02aa2478ca746fe7","/app/app.component.html":"d455e2ca328b3b5c369b9e59ed6d0d4f830db91f0bec4a22d47929a415dde7b1","/app/app.component.spec.ts":"439143ef16dcf7de8093285f9f29edc6cb13c32aad3ff28914b0ba18526591c2","/app/app.component.ts":"d8be5c331124e6dca9c361d3c4ed092650650a62a9ea44f07effe57dd27099f7","/app/app.module.ts":"11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c","/app/auth/auth.component.css":"40aa482f38fd0d4334f36bdb367e57cd92539f40468231b5fd096050e14571a4","/app/auth/auth.component.html":"cca1c6e3f50f6b80a0dda2247fbf1dc7840d2e77a7f3ec28fddae0bdcc6feea2","/app/auth/auth.component.spec.ts":"74b686962c18ff79ff9ba8ad7e6b4e920661b86f75933eda52c25bd2128527d9","/app/auth/auth.component.ts":"a0d3d7754aa2dbdb443132b3b00aad4d8839b87d91c8cbc660bf80846360c243","/app/log/log.component.css":"f7057140102114a8e1383e66b76f8de2333289e451c85e8432976a0ab27a63f6","/app/log/log.component.html":"6f325e3975515f79fb02fe45f2fcc5595df37fa93afbe4d399ad4a11e3c35bb5","/app/log/log.component.spec.ts":"16a87f754fd7663f3d732c51fed61dfac8cf6016219e5dab419172e3da8f3de7","/app/log/log.component.ts":"313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa","/app/monitoring/monitoring.component.css":"5b1e4802256727eaf420dd3be7b87f3888289310c86d4b3d5bc9ee98293fca24","/app/monitoring/monitoring.component.html":"ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e","/app/monitoring/monitoring.component.spec.ts":"540deff0bc46a3db78eac9ad6fb085df5fcf8affb6c78b986632624b28689afd","/app/monitoring/monitoring.component.ts":"b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678","/app/register/register.component.css":"c44625bfcff018c03563caba7b1ff574b0007a4d36c78f682731dee696164407","/app/register/register.component.html":"72e9afa09fecb9410f76f902b38cb31bed379367204aac1b5c8c30f1bb6caa32","/app/register/register.component.spec.ts":"a949e2514a4ba975181318e623ac32327db47fe68259430c67a7789e7f5cd9b5","/app/register/register.component.ts":"548b8b5d806f95108cc2fca7e0b9a78283cf8c4b14099a9aede0bb3720ab06bf","/app/service/auth.service.spec.ts":"816f93498295c4a37e3fb93d71b25f4aef39d549725ba1d1993bbc90e2a7ddb1","/app/service/auth.service.ts":"7800a548ca26acb8f8b8e0354ba0935d5a2d5261b53ab1c2085be3dee5700eb9","/app/service/dropbox.service.spec.ts":"8d766aae47c78f519a5fe93924dc4980a22b1df3766c403ba92fdc8ce21669d1","/app/service/dropbox.service.ts":"43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7","/app/service/email.service.spec.ts":"4f59ce10791489f9aab2c7637cfc4210b474c24f094ad08190f2f3cee02bbf7e","/app/service/email.service.ts":"3b20055ee3f7a71ae06b06a12d80d4cb19531b641efafff2b4b262f63ee44c13","/app/service/monitoring.service.spec.ts":"f0429f345834fc08569a76912497383c09495901c4dcb13724b5d06ed9babb6c","/app/service/monitoring.service.ts":"0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2","/app/shared/components/config-dialog/config-dialog.component.css":"d5b7603a369b228eb257ae2a233ac065d9e00658346b56b3d3a3e8df88f85a5d","/app/shared/components/config-dialog/config-dialog.component.html":"e838eedd1b62b612837de9979c94884b5e6fcea06c440562e0972603674f3058","/app/shared/components/config-dialog/config-dialog.component.spec.ts":"c5ea85db1f9756774572d43c6159c69dac1bc3289056604f730909eab0f63b2b","/app/shared/components/config-dialog/config-dialog.component.ts":"a0006b0405374917ce80ea97b02e56b05e9453c3d99c7ca4629d720f49a0ad36","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.css":"1ff8c9204edd5ee6d68ad8b53817d08af774d5ab75007619b895c5f49e1573cf","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.html":"a745d9a7e4e4e1d3e9c3547b42ae0bcde3201579f8ec5fa2c26e8c191e666c1b","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.spec.ts":"8cd13c91988954708588e983b16073a589751ff0b8b07d7fdf4c256f7d97e8b8","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.ts":"c0d930d0b56f52328de1256b42a52e9d8477f2e3ca3d8c403eb75bb5f56497d3","/app/shared/components/generate-token-dialog/generate-token-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/generate-token-dialog/generate-token-dialog.component.html":"538a8b9c0e30f53f5ca081c4c5c766fa28224cd3601728247a8aa5a0c62fcb73","/app/shared/components/generate-token-dialog/generate-token-dialog.component.spec.ts":"e081ae63e7e3b5bf95a4654880689c27a713c3eede3c5ebc9b7bd5d95dc59605","/app/shared/components/generate-token-dialog/generate-token-dialog.component.ts":"583eb3a30dc69693d8167dadd3429c29cb0a1d70c9106a0932c3516b9335cca4","/app/shared/components/license-dialog/license-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/license-dialog/license-dialog.component.html":"6d4280cdc72118f7206f05ac298557bc646262909fa4f1dcd1f209fd8e5f68ba","/app/shared/components/license-dialog/license-dialog.component.spec.ts":"d6192dac13fa34639415209f4aa52b54bd96e56686c9c38788c7e58ba6f72089","/app/shared/components/license-dialog/license-dialog.component.ts":"cb8537f4d5ecc49d7569006d6042225c37531b375f1404077a9068c3b8387ff2","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.css":"a2598ed5354fc2a1db2cbb2bad9bbc358f623f771ba59e098681f7bea98bccc0","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.html":"62801621e31b25825bf24d3acbdc8e7e7761844e7b9b1e06eea1613db517bf7e","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.spec.ts":"4a4f078b1b69dbd9553dfba24b1e728bfe5f1207bf31f02a3a16b7c981d17de7","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.ts":"404ad673f66306b64fa0b3fad75a9cb3f37d56474c0e45da02fe17aa93a95f9d","/app/shared/components/pending-dialog/pending-dialog.component.css":"665f23016fbe99faf92e04b1416b1b9c431cd5d315de7fed6013737fd7fa7c0f","/app/shared/components/pending-dialog/pending-dialog.component.html":"a36ac65ebfa554eba2dd4b77a0436023baa0ef79954e7a334836ac2c8f824010","/app/shared/components/pending-dialog/pending-dialog.component.spec.ts":"268f2fded378579d47d00cca0a38eb0ed1486817311f6006da69c2adb85abc63","/app/shared/components/pending-dialog/pending-dialog.component.ts":"9844193a3c4122a7834371efc36df4fd5346f327c827ab27e56cf0edfa602948","/app/user/user.component.css":"07b0f52cd4351fa887800432a9a0175cafa03ee0e2dcac7ebeb86716dd72c636","/app/user/user.component.html":"7a894340595faeec45b6eb69f28076d670b5c93999a001a9a2ed0398f1bdc49f","/app/user/user.component.spec.ts":"e19e2d897d57eb00bb0e44a306d7e8db3d604cd9c280bba592b179898c6da0e0","/app/user/user.component.ts":"b34ece5a329941cf13c2a2c02269a9903a852e28e17053e4d46c05c427bc8a2e","/assets/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/assets/Icon_Google.svg":"27db9fcaaacab11d6dcd8d3e3859bcebdc98de6953abc620a694f726c7d24d72","/assets/menu.svg":"85884208aded906ab7386027e99a94fc6670757270ecf8c7dd390b6e007d7896","/assets/voltar.svg":"c3eaefc162cc4f4df21addde6d40d3d15d3dce1ed44e4b9562514307842eaa64","/environments/environment.development.ts":"e0e9e4ca1f336c7e03404a72419c18e28bbad141680f4fb83fc6a85343f1afb6","/environments/environment.ts":"1c7193723da9ec6bdec61d2276a49c1d1300f21375e39ebc12f839a341e91649","/theme/variables.css":"3759b2de735459920c8e2b8f814e360c31d8f23715194f423e0ae0653835c0b3"}}
+[debug] [2024-03-04T17:20:17.269Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9:populateFiles 200
+[debug] [2024-03-04T17:20:17.269Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/140b200ebd9182a9/files"}
+[debug] [2024-03-04T17:20:17.269Z] [hosting][populate queue][FINAL] {"max":462,"min":462,"avg":462,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":462}
+[debug] [2024-03-04T17:20:17.270Z] [hosting] uploads queued: 0
+[debug] [2024-03-04T17:20:17.270Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1709572817270}
+[info] i  hosting: upload complete 
+[info] +  hosting[backupplus-monitoring]: file upload complete 
+[debug] [2024-03-04T17:20:17.271Z] [hosting] deploy completed after 2181ms
+[debug] [2024-03-04T17:20:17.272Z] [
+  {
+    "config": {
+      "public": "src",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "backupplus-monitoring"
+    },
+    "version": "projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9"
+  }
+]
+[info] i  hosting[backupplus-monitoring]: finalizing version... 
+[debug] [2024-03-04T17:20:17.277Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/140b200ebd9182a9 updateMask=status%2Cconfig
+[debug] [2024-03-04T17:20:17.277Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/140b200ebd9182a9 {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2024-03-04T17:20:17.567Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/140b200ebd9182a9 200
+[debug] [2024-03-04T17:20:17.568Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/140b200ebd9182a9 {"name":"projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:20:13.495170Z","createUser":{"email":"josewilissesti2905@gmail.com"},"finalizeTime":"2024-03-04T17:20:16.202154Z","finalizeUser":{"email":"josewilissesti2905@gmail.com"}}
+[debug] [2024-03-04T17:20:17.568Z] [hosting] finalized version for backupplus-monitoring:[object Object]
+[info] +  hosting[backupplus-monitoring]: version finalized 
+[info] i  hosting[backupplus-monitoring]: releasing new version... 
+[debug] [2024-03-04T17:20:17.570Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases versionName=projects%2F102506778320%2Fsites%2Fbackupplus-monitoring%2Fversions%2F140b200ebd9182a9
+[debug] [2024-03-04T17:20:17.570Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {}
+[debug] [2024-03-04T17:20:17.886Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases 200
+[debug] [2024-03-04T17:20:17.887Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709572815955000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:20:13.495170Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:20:16.202154Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:20:15.955Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[debug] [2024-03-04T17:20:17.887Z] [hosting] release: {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709572815955000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/140b200ebd9182a9","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:20:13.495170Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:20:16.202154Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:20:15.955Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[info] +  hosting[backupplus-monitoring]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/backupplus-monitoring/overview
+[info] Hosting URL: https://backupplus-monitoring.web.app
+[debug] [2024-03-04T17:33:17.220Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T17:33:17.232Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T17:33:17.232Z] CLI Version:   13.4.0
+[debug] [2024-03-04T17:33:17.232Z] Platform:      win32
+[debug] [2024-03-04T17:33:17.232Z] Node Version:  v20.11.0
+[debug] [2024-03-04T17:33:17.233Z] Time:          Mon Mar 04 2024 14:33:17 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T17:33:17.233Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T17:33:17.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T17:33:17.311Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T17:33:17.311Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T17:33:17.314Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T17:33:17.315Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T17:33:17.316Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:33:18.500Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T17:33:18.501Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:33:18.502Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T17:33:19.049Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-03-04T17:33:19.050Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] === Deploying to 'backupplus-monitoring'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-04T17:33:19.167Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions [none]
+[debug] [2024-03-04T17:33:19.168Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-03-04T17:33:21.125Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions 200
+[debug] [2024-03-04T17:33:21.125Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"name":"projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[backupplus-monitoring]: beginning deploy... 
+[info] i  hosting[backupplus-monitoring]: found 11 files in dist/snmonitor 
+[debug] [2024-03-04T17:33:21.272Z] [hosting] uploading with 200 concurrency
+[debug] [2024-03-04T17:33:21.464Z] [hosting] hash cache [ZGlzdFxzbm1vbml0b3I] stored for 11 files
+[debug] [2024-03-04T17:33:21.464Z] [hosting][hash queue][FINAL] {"max":141,"min":0,"avg":36.63636363636363,"active":0,"complete":11,"success":11,"errored":0,"retried":0,"total":11,"elapsed":164}
+[debug] [2024-03-04T17:33:21.465Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e:populateFiles [none]
+[debug] [2024-03-04T17:33:21.466Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e:populateFiles {"files":{"/browser/assets/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/browser/assets/Icon_Google.svg":"27db9fcaaacab11d6dcd8d3e3859bcebdc98de6953abc620a694f726c7d24d72","/browser/assets/menu.svg":"85884208aded906ab7386027e99a94fc6670757270ecf8c7dd390b6e007d7896","/browser/assets/voltar.svg":"c3eaefc162cc4f4df21addde6d40d3d15d3dce1ed44e4b9562514307842eaa64","/browser/chunk-R5OW5MHU.js":"748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc","/3rdpartylicenses.txt":"5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44","/browser/styles-IIOFJWD5.css":"5692b06c708829a478d184edd0ecbc720d17b9ce61878089a148de5a6214022d","/browser/polyfills-RX4V3J3S.js":"e4b49f0c3742383213022f2fa9661ff3bc5b2f5a72de718214b8d2a214914365","/browser/chunk-QMGBMPRP.js":"08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d","/browser/index.html":"1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56","/browser/main-P7WZTQMX.js":"355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62"}}
+[debug] [2024-03-04T17:33:21.948Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e:populateFiles 200
+[debug] [2024-03-04T17:33:21.949Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e:populateFiles {"uploadRequiredHashes":["748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc","355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62","5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44","08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d","1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files"}
+[debug] [2024-03-04T17:33:21.953Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc [none]
+[debug] [2024-03-04T17:33:21.954Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc [stream]
+[debug] [2024-03-04T17:33:21.958Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62 [none]
+[debug] [2024-03-04T17:33:21.959Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62 [stream]
+[debug] [2024-03-04T17:33:21.962Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44 [none]
+[debug] [2024-03-04T17:33:21.962Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44 [stream]
+[debug] [2024-03-04T17:33:21.964Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d [none]
+[debug] [2024-03-04T17:33:21.964Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d [stream]
+[debug] [2024-03-04T17:33:21.966Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56 [none]
+[debug] [2024-03-04T17:33:21.966Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56 [stream]
+[debug] [2024-03-04T17:33:21.967Z] [hosting][populate queue][FINAL] {"max":508,"min":508,"avg":508,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":523}
+[debug] [2024-03-04T17:33:21.968Z] [hosting] uploads queued: 5
+[debug] [2024-03-04T17:33:23.185Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44 200
+[debug] [2024-03-04T17:33:23.186Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44 [stream]
+[debug] [2024-03-04T17:33:23.284Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc 200
+[debug] [2024-03-04T17:33:23.285Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc [stream]
+[info] i  hosting: uploading new files [2/5] (40%) 
+[debug] [2024-03-04T17:33:23.395Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d 200
+[debug] [2024-03-04T17:33:23.396Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d [stream]
+[debug] [2024-03-04T17:33:23.734Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62 200
+[debug] [2024-03-04T17:33:23.735Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62 [stream]
+[debug] [2024-03-04T17:33:24.102Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56 200
+[debug] [2024-03-04T17:33:24.102Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/79b2fd363328841e/files/1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56 [stream]
+[debug] [2024-03-04T17:33:24.103Z] [hosting][upload queue][FINAL] {"max":2151,"min":1235,"avg":1589.8,"active":0,"complete":5,"success":5,"errored":0,"retried":0,"total":5,"elapsed":2153}
+[info] i  hosting: upload complete 
+[info] +  hosting[backupplus-monitoring]: file upload complete 
+[debug] [2024-03-04T17:33:24.105Z] [hosting] deploy completed after 2978ms
+[debug] [2024-03-04T17:33:24.105Z] [
+  {
+    "config": {
+      "public": "dist/snmonitor",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "backupplus-monitoring"
+    },
+    "version": "projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e"
+  }
+]
+[info] i  hosting[backupplus-monitoring]: finalizing version... 
+[debug] [2024-03-04T17:33:24.117Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/79b2fd363328841e updateMask=status%2Cconfig
+[debug] [2024-03-04T17:33:24.117Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/79b2fd363328841e {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2024-03-04T17:33:24.872Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/79b2fd363328841e 200
+[debug] [2024-03-04T17:33:24.873Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/79b2fd363328841e {"name":"projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:33:19.141350Z","createUser":{"email":"josewilissesti2905@gmail.com"},"finalizeTime":"2024-03-04T17:33:23.450377Z","finalizeUser":{"email":"josewilissesti2905@gmail.com"}}
+[debug] [2024-03-04T17:33:24.874Z] [hosting] finalized version for backupplus-monitoring:[object Object]
+[info] +  hosting[backupplus-monitoring]: version finalized 
+[info] i  hosting[backupplus-monitoring]: releasing new version... 
+[debug] [2024-03-04T17:33:24.876Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases versionName=projects%2F102506778320%2Fsites%2Fbackupplus-monitoring%2Fversions%2F79b2fd363328841e
+[debug] [2024-03-04T17:33:24.876Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {}
+[debug] [2024-03-04T17:33:25.577Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases 200
+[debug] [2024-03-04T17:33:25.578Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709573603473000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:33:19.141350Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:33:23.450377Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:33:23.473Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[debug] [2024-03-04T17:33:25.578Z] [hosting] release: {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709573603473000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/79b2fd363328841e","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:33:19.141350Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:33:23.450377Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:33:23.473Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[info] +  hosting[backupplus-monitoring]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/backupplus-monitoring/overview
+[info] Hosting URL: https://backupplus-monitoring.web.app
+[debug] [2024-03-04T17:39:38.555Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T17:39:38.557Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T17:39:38.557Z] CLI Version:   13.4.0
+[debug] [2024-03-04T17:39:38.557Z] Platform:      win32
+[debug] [2024-03-04T17:39:38.557Z] Node Version:  v20.11.0
+[debug] [2024-03-04T17:39:38.557Z] Time:          Mon Mar 04 2024 14:39:38 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T17:39:38.558Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T17:39:38.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T17:39:38.645Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T17:39:38.645Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T17:39:38.648Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T17:39:38.648Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T17:39:38.649Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:39:39.772Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T17:39:39.772Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T17:39:39.773Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T17:39:40.303Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-03-04T17:39:40.303Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] === Deploying to 'backupplus-monitoring'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-04T17:39:40.309Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions [none]
+[debug] [2024-03-04T17:39:40.310Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-03-04T17:39:42.232Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions 200
+[debug] [2024-03-04T17:39:42.232Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"name":"projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[backupplus-monitoring]: beginning deploy... 
+[info] i  hosting[backupplus-monitoring]: found 11 files in dist/snmonitor 
+[debug] [2024-03-04T17:39:42.244Z] [hosting] uploading with 200 concurrency
+[debug] [2024-03-04T17:39:42.421Z] [hosting] hash cache [ZGlzdFxzbm1vbml0b3I] stored for 11 files
+[debug] [2024-03-04T17:39:42.422Z] [hosting][hash queue][FINAL] {"max":51,"min":0,"avg":8.727272727272727,"active":0,"complete":11,"success":11,"errored":0,"retried":0,"total":11,"elapsed":79}
+[debug] [2024-03-04T17:39:42.422Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35:populateFiles [none]
+[debug] [2024-03-04T17:39:42.423Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35:populateFiles {"files":{"/browser/assets/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/browser/assets/Icon_Google.svg":"27db9fcaaacab11d6dcd8d3e3859bcebdc98de6953abc620a694f726c7d24d72","/browser/assets/menu.svg":"85884208aded906ab7386027e99a94fc6670757270ecf8c7dd390b6e007d7896","/browser/assets/voltar.svg":"c3eaefc162cc4f4df21addde6d40d3d15d3dce1ed44e4b9562514307842eaa64","/browser/chunk-R5OW5MHU.js":"748a5372e661ba20fffcfcbf1344db3acbd52a8dd851874edc028e12e0e699fc","/3rdpartylicenses.txt":"5a434c9e9c70533c88858d2b379350060c233581c9a82de75567b81148408d44","/browser/index.html":"1cce504f86b8fc9b74530441d85a47538a2c25d9b6c1e3a44864cd1da3501b56","/browser/polyfills-RX4V3J3S.js":"e4b49f0c3742383213022f2fa9661ff3bc5b2f5a72de718214b8d2a214914365","/browser/styles-IIOFJWD5.css":"5692b06c708829a478d184edd0ecbc720d17b9ce61878089a148de5a6214022d","/browser/chunk-QMGBMPRP.js":"08743215866cc46215b72b14d2530c4231eba233030f5cc7003a4e00152d494d","/browser/main-P7WZTQMX.js":"355425a5ddcb25fa33efefe49136be927210980605ce344fca5a6eb168489c62"}}
+[debug] [2024-03-04T17:39:43.018Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35:populateFiles 200
+[debug] [2024-03-04T17:39:43.019Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/309405f307126e35/files"}
+[debug] [2024-03-04T17:39:43.020Z] [hosting][populate queue][FINAL] {"max":621,"min":621,"avg":621,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":622}
+[debug] [2024-03-04T17:39:43.020Z] [hosting] uploads queued: 0
+[debug] [2024-03-04T17:39:43.020Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1709573983020}
+[info] i  hosting: upload complete 
+[info] +  hosting[backupplus-monitoring]: file upload complete 
+[debug] [2024-03-04T17:39:43.021Z] [hosting] deploy completed after 784ms
+[debug] [2024-03-04T17:39:43.022Z] [
+  {
+    "config": {
+      "public": "dist/snmonitor",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "backupplus-monitoring"
+    },
+    "version": "projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35"
+  }
+]
+[info] i  hosting[backupplus-monitoring]: finalizing version... 
+[debug] [2024-03-04T17:39:43.025Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/309405f307126e35 updateMask=status%2Cconfig
+[debug] [2024-03-04T17:39:43.026Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/309405f307126e35 {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2024-03-04T17:39:43.713Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/309405f307126e35 200
+[debug] [2024-03-04T17:39:43.714Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/309405f307126e35 {"name":"projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:39:40.260164Z","createUser":{"email":"josewilissesti2905@gmail.com"},"finalizeTime":"2024-03-04T17:39:42.289021Z","finalizeUser":{"email":"josewilissesti2905@gmail.com"}}
+[debug] [2024-03-04T17:39:43.714Z] [hosting] finalized version for backupplus-monitoring:[object Object]
+[info] +  hosting[backupplus-monitoring]: version finalized 
+[info] i  hosting[backupplus-monitoring]: releasing new version... 
+[debug] [2024-03-04T17:39:43.716Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases versionName=projects%2F102506778320%2Fsites%2Fbackupplus-monitoring%2Fversions%2F309405f307126e35
+[debug] [2024-03-04T17:39:43.717Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {}
+[debug] [2024-03-04T17:39:44.402Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases 200
+[debug] [2024-03-04T17:39:44.402Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709573982294000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:39:40.260164Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:39:42.289021Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:39:42.294Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[debug] [2024-03-04T17:39:44.403Z] [hosting] release: {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709573982294000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/309405f307126e35","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T17:39:40.260164Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T17:39:42.289021Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T17:39:42.294Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[info] +  hosting[backupplus-monitoring]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/backupplus-monitoring/overview
+[info] Hosting URL: https://backupplus-monitoring.web.app
+[debug] [2024-03-04T18:03:33.855Z] ----------------------------------------------------------------------
+[debug] [2024-03-04T18:03:33.860Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\supor\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2024-03-04T18:03:33.861Z] CLI Version:   13.4.0
+[debug] [2024-03-04T18:03:33.861Z] Platform:      win32
+[debug] [2024-03-04T18:03:33.861Z] Node Version:  v20.11.0
+[debug] [2024-03-04T18:03:33.861Z] Time:          Mon Mar 04 2024 15:03:33 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-03-04T18:03:33.861Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-03-04T18:03:33.929Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-03-04T18:03:33.930Z] > authorizing via signed-in user (josewilissesti2905@gmail.com)
+[debug] [2024-03-04T18:03:33.931Z] [iam] checking project backupplus-monitoring for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-03-04T18:03:33.933Z] > refreshing access token with scopes: []
+[debug] [2024-03-04T18:03:33.936Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-03-04T18:03:33.937Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-04T18:03:34.386Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-03-04T18:03:34.387Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-03-04T18:03:34.398Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions [none]
+[debug] [2024-03-04T18:03:34.399Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions x-goog-quota-user=projects/backupplus-monitoring
+[debug] [2024-03-04T18:03:34.399Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T18:03:35.460Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions 200
+[debug] [2024-03-04T18:03:35.460Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/backupplus-monitoring:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-03-04T18:03:35.463Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring [none]
+[debug] [2024-03-04T18:03:35.979Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring 200
+[debug] [2024-03-04T18:03:35.979Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backupplus-monitoring {"projectId":"backupplus-monitoring","projectNumber":"102506778320","displayName":"BackupPlus-monitoring","name":"projects/backupplus-monitoring","resources":{"hostingSite":"backupplus-monitoring","realtimeDatabaseInstance":"backupplus-monitoring-default-rtdb"},"state":"ACTIVE","etag":"1_5390daa1-b6a8-4a10-a88f-2081bde471e6"}
+[info] 
+[info] === Deploying to 'backupplus-monitoring'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2024-03-04T18:03:35.985Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions [none]
+[debug] [2024-03-04T18:03:35.986Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-03-04T18:03:37.453Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions 200
+[debug] [2024-03-04T18:03:37.454Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions {"name":"projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[backupplus-monitoring]: beginning deploy... 
+[info] i  hosting[backupplus-monitoring]: found 69 files in src 
+[debug] [2024-03-04T18:03:37.475Z] [hosting] uploading with 200 concurrency
+[debug] [2024-03-04T18:03:37.612Z] [hosting] hash cache [c3Jj] stored for 69 files
+[debug] [2024-03-04T18:03:37.613Z] [hosting][hash queue][FINAL] {"max":5,"min":0,"avg":0.16705961141989273,"active":0,"complete":69,"success":69,"errored":0,"retried":0,"total":69,"elapsed":27}
+[debug] [2024-03-04T18:03:37.614Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d:populateFiles [none]
+[debug] [2024-03-04T18:03:37.614Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d:populateFiles {"files":{"/404.html":"762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890","/index.html":"2f67a6ac27504b7932b19f377535aa16d7d6f6275239a53d6ae3353bed65db30","/main.ts":"fc8fb53c3607dde039522079d7793e2aaad24d3ec6fa5302e3b9050e6788537b","/styles.css":"4976ccf6cef059b8709ceae7b170c5c8d06bcfb3c673a3879b1f3acc7036456c","/app/app-routing.module.ts":"893b3f13db8ec553741c06bc77fe30bd9bdbf81bdae47c0bd5d25916ee79bd28","/app/app.component.css":"193716bd4e8fc75dd371ad7f5f1168be87c9bab38ec17b1b02aa2478ca746fe7","/app/app.component.html":"d455e2ca328b3b5c369b9e59ed6d0d4f830db91f0bec4a22d47929a415dde7b1","/app/app.component.spec.ts":"439143ef16dcf7de8093285f9f29edc6cb13c32aad3ff28914b0ba18526591c2","/app/app.component.ts":"d8be5c331124e6dca9c361d3c4ed092650650a62a9ea44f07effe57dd27099f7","/app/app.module.ts":"11e6d24fb5abf79b1ee18e2f30ab79a35a1fb95628f808df2b173dcf2033a59c","/app/auth/auth.component.css":"40aa482f38fd0d4334f36bdb367e57cd92539f40468231b5fd096050e14571a4","/app/auth/auth.component.html":"cca1c6e3f50f6b80a0dda2247fbf1dc7840d2e77a7f3ec28fddae0bdcc6feea2","/app/auth/auth.component.spec.ts":"74b686962c18ff79ff9ba8ad7e6b4e920661b86f75933eda52c25bd2128527d9","/app/auth/auth.component.ts":"a0d3d7754aa2dbdb443132b3b00aad4d8839b87d91c8cbc660bf80846360c243","/app/log/log.component.css":"f7057140102114a8e1383e66b76f8de2333289e451c85e8432976a0ab27a63f6","/app/log/log.component.html":"6f325e3975515f79fb02fe45f2fcc5595df37fa93afbe4d399ad4a11e3c35bb5","/app/log/log.component.spec.ts":"16a87f754fd7663f3d732c51fed61dfac8cf6016219e5dab419172e3da8f3de7","/app/log/log.component.ts":"313873f5c62c4d5b4a1807c6c818baccf45d84347670e8eb45aeb4ae02f3cbfa","/app/monitoring/monitoring.component.css":"5b1e4802256727eaf420dd3be7b87f3888289310c86d4b3d5bc9ee98293fca24","/app/monitoring/monitoring.component.html":"ecd13eeda80f64e80cd3bdfb0a3692e56aace7cc57c780df94b0db32e9e7f77e","/app/monitoring/monitoring.component.spec.ts":"540deff0bc46a3db78eac9ad6fb085df5fcf8affb6c78b986632624b28689afd","/app/monitoring/monitoring.component.ts":"b62940bafaa0337ae1f1b19ffd12a1bc8f0cb481e843ceb90d3f6661eea3e678","/app/register/register.component.css":"c44625bfcff018c03563caba7b1ff574b0007a4d36c78f682731dee696164407","/app/register/register.component.html":"72e9afa09fecb9410f76f902b38cb31bed379367204aac1b5c8c30f1bb6caa32","/app/register/register.component.spec.ts":"a949e2514a4ba975181318e623ac32327db47fe68259430c67a7789e7f5cd9b5","/app/register/register.component.ts":"548b8b5d806f95108cc2fca7e0b9a78283cf8c4b14099a9aede0bb3720ab06bf","/app/service/auth.service.spec.ts":"816f93498295c4a37e3fb93d71b25f4aef39d549725ba1d1993bbc90e2a7ddb1","/app/service/auth.service.ts":"7800a548ca26acb8f8b8e0354ba0935d5a2d5261b53ab1c2085be3dee5700eb9","/app/service/dropbox.service.spec.ts":"8d766aae47c78f519a5fe93924dc4980a22b1df3766c403ba92fdc8ce21669d1","/app/service/dropbox.service.ts":"43c4d81d2c226a369ff8838b2fd99f51c968a39f363b1c37c0d8d3b8560577c7","/app/service/email.service.spec.ts":"4f59ce10791489f9aab2c7637cfc4210b474c24f094ad08190f2f3cee02bbf7e","/app/service/email.service.ts":"3b20055ee3f7a71ae06b06a12d80d4cb19531b641efafff2b4b262f63ee44c13","/app/service/monitoring.service.spec.ts":"f0429f345834fc08569a76912497383c09495901c4dcb13724b5d06ed9babb6c","/app/service/monitoring.service.ts":"0268a9fa0f67a784ddd937fee6a3e446c1e38d4cab7ed5bc5f276939dc40bce2","/app/shared/components/config-dialog/config-dialog.component.css":"d5b7603a369b228eb257ae2a233ac065d9e00658346b56b3d3a3e8df88f85a5d","/app/shared/components/config-dialog/config-dialog.component.html":"e838eedd1b62b612837de9979c94884b5e6fcea06c440562e0972603674f3058","/app/shared/components/config-dialog/config-dialog.component.spec.ts":"c5ea85db1f9756774572d43c6159c69dac1bc3289056604f730909eab0f63b2b","/app/shared/components/config-dialog/config-dialog.component.ts":"a0006b0405374917ce80ea97b02e56b05e9453c3d99c7ca4629d720f49a0ad36","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.css":"1ff8c9204edd5ee6d68ad8b53817d08af774d5ab75007619b895c5f49e1573cf","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.html":"a745d9a7e4e4e1d3e9c3547b42ae0bcde3201579f8ec5fa2c26e8c191e666c1b","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.spec.ts":"8cd13c91988954708588e983b16073a589751ff0b8b07d7fdf4c256f7d97e8b8","/app/shared/components/config-dropbox-dialog/config-dropbox-dialog.component.ts":"c0d930d0b56f52328de1256b42a52e9d8477f2e3ca3d8c403eb75bb5f56497d3","/app/shared/components/generate-token-dialog/generate-token-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/generate-token-dialog/generate-token-dialog.component.html":"538a8b9c0e30f53f5ca081c4c5c766fa28224cd3601728247a8aa5a0c62fcb73","/app/shared/components/generate-token-dialog/generate-token-dialog.component.spec.ts":"e081ae63e7e3b5bf95a4654880689c27a713c3eede3c5ebc9b7bd5d95dc59605","/app/shared/components/generate-token-dialog/generate-token-dialog.component.ts":"583eb3a30dc69693d8167dadd3429c29cb0a1d70c9106a0932c3516b9335cca4","/app/shared/components/license-dialog/license-dialog.component.css":"e855d7c7558c2ee4e39176906b3d780b32a2708eaedf8838a7f86c95738ac55f","/app/shared/components/license-dialog/license-dialog.component.html":"6d4280cdc72118f7206f05ac298557bc646262909fa4f1dcd1f209fd8e5f68ba","/app/shared/components/license-dialog/license-dialog.component.spec.ts":"d6192dac13fa34639415209f4aa52b54bd96e56686c9c38788c7e58ba6f72089","/app/shared/components/license-dialog/license-dialog.component.ts":"cb8537f4d5ecc49d7569006d6042225c37531b375f1404077a9068c3b8387ff2","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.css":"a2598ed5354fc2a1db2cbb2bad9bbc358f623f771ba59e098681f7bea98bccc0","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.html":"62801621e31b25825bf24d3acbdc8e7e7761844e7b9b1e06eea1613db517bf7e","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.spec.ts":"4a4f078b1b69dbd9553dfba24b1e728bfe5f1207bf31f02a3a16b7c981d17de7","/app/shared/components/new-data-base-dialog/new-data-base-dialog.component.ts":"404ad673f66306b64fa0b3fad75a9cb3f37d56474c0e45da02fe17aa93a95f9d","/app/shared/components/pending-dialog/pending-dialog.component.css":"665f23016fbe99faf92e04b1416b1b9c431cd5d315de7fed6013737fd7fa7c0f","/app/shared/components/pending-dialog/pending-dialog.component.html":"a36ac65ebfa554eba2dd4b77a0436023baa0ef79954e7a334836ac2c8f824010","/app/shared/components/pending-dialog/pending-dialog.component.spec.ts":"268f2fded378579d47d00cca0a38eb0ed1486817311f6006da69c2adb85abc63","/app/shared/components/pending-dialog/pending-dialog.component.ts":"9844193a3c4122a7834371efc36df4fd5346f327c827ab27e56cf0edfa602948","/app/user/user.component.css":"07b0f52cd4351fa887800432a9a0175cafa03ee0e2dcac7ebeb86716dd72c636","/app/user/user.component.html":"7a894340595faeec45b6eb69f28076d670b5c93999a001a9a2ed0398f1bdc49f","/app/user/user.component.spec.ts":"e19e2d897d57eb00bb0e44a306d7e8db3d604cd9c280bba592b179898c6da0e0","/app/user/user.component.ts":"b34ece5a329941cf13c2a2c02269a9903a852e28e17053e4d46c05c427bc8a2e","/assets/favicon.ico":"a905b13e228420df3dbe746dfb656d37a49736494c0737d00e007c8dc7319912","/assets/Icon_Google.svg":"27db9fcaaacab11d6dcd8d3e3859bcebdc98de6953abc620a694f726c7d24d72","/assets/menu.svg":"85884208aded906ab7386027e99a94fc6670757270ecf8c7dd390b6e007d7896","/assets/voltar.svg":"c3eaefc162cc4f4df21addde6d40d3d15d3dce1ed44e4b9562514307842eaa64","/environments/environment.development.ts":"e0e9e4ca1f336c7e03404a72419c18e28bbad141680f4fb83fc6a85343f1afb6","/environments/environment.ts":"1c7193723da9ec6bdec61d2276a49c1d1300f21375e39ebc12f839a341e91649","/theme/variables.css":"3759b2de735459920c8e2b8f814e360c31d8f23715194f423e0ae0653835c0b3"}}
+[debug] [2024-03-04T18:03:37.990Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d:populateFiles 200
+[debug] [2024-03-04T18:03:37.991Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d:populateFiles {"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/backupplus-monitoring/versions/812178fb2a535a4d/files"}
+[debug] [2024-03-04T18:03:37.991Z] [hosting][populate queue][FINAL] {"max":399,"min":399,"avg":399,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":399}
+[debug] [2024-03-04T18:03:37.991Z] [hosting] uploads queued: 0
+[debug] [2024-03-04T18:03:37.991Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":0,"success":0,"errored":0,"retried":0,"total":0,"elapsed":1709575417991}
+[info] i  hosting: upload complete 
+[info] +  hosting[backupplus-monitoring]: file upload complete 
+[debug] [2024-03-04T18:03:37.992Z] [hosting] deploy completed after 536ms
+[debug] [2024-03-04T18:03:37.993Z] [
+  {
+    "config": {
+      "public": "src",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "backupplus-monitoring"
+    },
+    "version": "projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d"
+  }
+]
+[info] i  hosting[backupplus-monitoring]: finalizing version... 
+[debug] [2024-03-04T18:03:37.997Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/812178fb2a535a4d updateMask=status%2Cconfig
+[debug] [2024-03-04T18:03:37.998Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/812178fb2a535a4d {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2024-03-04T18:03:38.299Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/812178fb2a535a4d 200
+[debug] [2024-03-04T18:03:38.300Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/versions/812178fb2a535a4d {"name":"projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T18:03:35.830241Z","createUser":{"email":"josewilissesti2905@gmail.com"},"finalizeTime":"2024-03-04T18:03:36.939777Z","finalizeUser":{"email":"josewilissesti2905@gmail.com"}}
+[debug] [2024-03-04T18:03:38.301Z] [hosting] finalized version for backupplus-monitoring:[object Object]
+[info] +  hosting[backupplus-monitoring]: version finalized 
+[info] i  hosting[backupplus-monitoring]: releasing new version... 
+[debug] [2024-03-04T18:03:38.303Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases versionName=projects%2F102506778320%2Fsites%2Fbackupplus-monitoring%2Fversions%2F812178fb2a535a4d
+[debug] [2024-03-04T18:03:38.304Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {}
+[debug] [2024-03-04T18:03:38.637Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases 200
+[debug] [2024-03-04T18:03:38.638Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/backupplus-monitoring/channels/live/releases {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709575416722000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T18:03:35.830241Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T18:03:36.939777Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T18:03:36.722Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[debug] [2024-03-04T18:03:38.638Z] [hosting] release: {"name":"projects/102506778320/sites/backupplus-monitoring/channels/live/releases/1709575416722000","version":{"name":"projects/102506778320/sites/backupplus-monitoring/versions/812178fb2a535a4d","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2024-03-04T18:03:35.830241Z","createUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"},"finalizeTime":"2024-03-04T18:03:36.939777Z","finalizeUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}},"type":"DEPLOY","releaseTime":"2024-03-04T18:03:36.722Z","releaseUser":{"email":"josewilissesti2905@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocKF8n3Ay3GcSu_wxDZBLr9vYIWqQvsNhLyDu-gNvIRgyiU"}}
+[info] +  hosting[backupplus-monitoring]: release complete 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/backupplus-monitoring/overview
+[info] Hosting URL: https://backupplus-monitoring.web.app

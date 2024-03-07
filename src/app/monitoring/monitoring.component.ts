@@ -115,6 +115,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
           {description:'Backup Iniciado',icon:'⏳🗃️', active: true},
           {description:'Backup Finalizado e Upload Iniciado',icon:'⏳📤', active: true},
           {description:'Upload Finalizado e Limpeza Iniciada',icon:'⌛🗑️', active: true},
+          {description:'Não encontrado',icon:'♾️', active: true},
   ];
   markAll: any;
   licenses: any[] = [];
@@ -256,15 +257,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
         let hourCurrent0 = (this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','');
         let minuteCurrent1 = (this.auth.getCurrentDateTime()).split(' ')[1].split(':')[1];
 
-
-        if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +hourCurrent0){
+        if(parseInt((hourCurrent0 + minuteCurrent1)) >= parseInt(((formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')+'00')) && parseInt((hourCurrent0 + minuteCurrent1)) <= parseInt(((formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')+'15'))){
           if(transformedData[0]?.description === 'Aplicação Fechada') {
             resdescription = {description:'Alerta Fechada', icon:'🚨'};
           } else if (+(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')) {
             resdescription = {description:'Alerta Ativo', icon:'🔔'};
           } else {
             resdescription = {description:'Alerta Fechada', icon:'🚨'};
-            if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+10) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+59)){
+            if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+10) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+15)){
               this.MonitoringService.updateStatusApp(key, this.auth.getCurrentDateTime(), 'Aplicação Fechada');
             }
           }
@@ -294,7 +294,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
       }  
       
     } else {
-      resdescription = {description:'Erro', icon:'🚫'};
+      resdescription = {description:'Não encontrado', icon:'♾️'};
 
     }
    
@@ -354,7 +354,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
           result = {description: data.split(',')[0], icon:'🔄'};
           break;
         default:
-          result = {description:'Erro', icon:'🚫'};
+          result = {description:'Não encontrado', icon:'♾️'};
           break;
       }
 
@@ -412,8 +412,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
       height: '40rem',
       data: key,
     });
-  
   }
+
   rowClick(element: any):void{
     console.log(element)
     this.auth.Alert(`Banco de dados: ${element.nameDataBase}  Horários: ${element.hours}  Acesso: ${element.access} Senha: ${element.accessPassword}`, 15000)

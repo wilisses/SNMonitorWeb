@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
   title = 'SNMonitor';
   expiration: any;
   constructor(public auth: AuthService,private MonitoringService: MonitoringService){}
-  // @HostListener('window:beforeunload', ['$event'])
-  // async beforeUnloadHandler(event: any) {
-  //   await this.auth.signOut();
-  //   window.location.href = '/';
-  // }
+  @HostListener('window:beforeunload', ['$event'])
+  async beforeUnloadHandler(event: any) {
+    await this.auth.signOut();
+    window.location.href = '/';
+  }
   async ngOnInit(): Promise<void> {
       
       //this.auth.navigate("");

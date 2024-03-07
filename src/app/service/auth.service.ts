@@ -194,6 +194,10 @@ export class AuthService {
       this.user = null;
       localStorage.removeItem('User');
       localStorage.removeItem('listaCNPJs');
+      localStorage.removeItem('checkboxPedente');
+      localStorage.removeItem('statusApp');
+      localStorage.removeItem('expirationToken');
+      localStorage.removeItem('TokenApp');
       this.navigate("");
     } catch (error) {
       this.error = error;

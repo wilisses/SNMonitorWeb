@@ -104,18 +104,19 @@ export interface Monitoring{
 export class MonitoringComponent implements OnInit , DoCheck{
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   statusAppsActive: string[] = [];
+        
   statusApps = [
-          {description:'Ativo',icon:'✅', active: true},
-          {description:'Aplicação Iniciada',icon:'🚀', active: true},
-          {description:'Aplicação Fechada',icon:'🚪', active: true},
-          {description:'Alerta Fechada',icon:'🚨', active: true},
-          {description:'Alerta Ativo',icon:'🔔', active: true},
-          {description:'Erro',icon:'🚫', active: true},
-          {description:'Limpeza Finalizada e Reiniciando Aplicação',icon:'🔄', active: true},
-          {description:'Backup Iniciado',icon:'⏳🗃️', active: true},
-          {description:'Backup Finalizado e Upload Iniciado',icon:'⏳📤', active: true},
-          {description:'Upload Finalizado e Limpeza Iniciada',icon:'⌛🗑️', active: true},
-          {description:'Não encontrado',icon:'♾️', active: true},
+          {description:'Ativo', icon:'✅', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Ativo')?true:false},
+          {description:'Aplicação Iniciada', icon:'🚀', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Aplicação Iniciada')?true:false},
+          {description:'Aplicação Fechada', icon:'🚪', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Aplicação Fechada')?true:false},
+          {description:'Alerta Fechada', icon:'🚨', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Alerta Fechada')?true:false},
+          {description:'Alerta Ativo', icon:'🔔', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Alerta Ativo')?true:false},
+          {description:'Erro', icon:'🚫', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Erro')?true:false},
+          {description:'Limpeza Finalizada e Reiniciando Aplicação', icon:'🔄', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Limpeza Finalizada e Reiniciando Aplicação')?true:false},
+          {description:'Backup Iniciado', icon:'⏳🗃️', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Backup Iniciado')?true:false},
+          {description:'Backup Finalizado e Upload Iniciado', icon:'⏳📤', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Backup Finalizado e Upload Iniciado')?true:false},
+          {description:'Upload Finalizado e Limpeza Iniciada', icon:'⌛🗑️', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Upload Finalizado e Limpeza Iniciada')?true:false},
+          {description:'Não encontrado', icon:'♾️', active: localStorage.getItem('statusApp') === null ? true : localStorage.getItem('statusApp')!.split(',').includes('Não encontrado')?true:false},
   ];
   markAll: any;
   licenses: any[] = [];
@@ -155,7 +156,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
     public dialog: MatDialog,){}
   
   async ngOnInit(): Promise<void> {
-    this.statusActive();
+    if(localStorage.getItem('statusApp') === null){
+      this.statusActive();
+    }
     this.user = this.auth.UserAuth();
    
     if(this.user && await this.dropboxService.Token()){
@@ -213,6 +216,8 @@ export class MonitoringComponent implements OnInit , DoCheck{
         this.statusAppsActive.push(item.description);
       }
     });
+
+    localStorage.setItem('statusApp', this.statusAppsActive.toString());
   }
   async statusLog(key: string): Promise<any> {
     let resdescription = null;
@@ -257,14 +262,14 @@ export class MonitoringComponent implements OnInit , DoCheck{
         let hourCurrent0 = (this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','');
         let minuteCurrent1 = (this.auth.getCurrentDateTime()).split(' ')[1].split(':')[1];
 
-        if(parseInt((hourCurrent0 + minuteCurrent1)) >= parseInt(((formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')+'00')) && parseInt((hourCurrent0 + minuteCurrent1)) <= parseInt(((formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')+'15'))){
+        if(+(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(this.auth.getCurrentDateTime()).split(':')[0].replaceAll('-','').replaceAll(' ','')){
           if(transformedData[0]?.description === 'Aplicação Fechada') {
             resdescription = {description:'Alerta Fechada', icon:'🚨'};
           } else if (+(transformedData[0]?.date).split(':')[0].replaceAll('-','').replaceAll(' ','') === +(formatDateHour(horario)).split(':')[0].replaceAll('-','').replaceAll(' ','')) {
             resdescription = {description:'Alerta Ativo', icon:'🔔'};
           } else {
             resdescription = {description:'Alerta Fechada', icon:'🚨'};
-            if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+10) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+15)){
+            if((hourCurrent0 + minuteCurrent1) >= (hourCurrent0+15) && (hourCurrent0 + minuteCurrent1) <= (hourCurrent0+59)){
               this.MonitoringService.updateStatusApp(key, this.auth.getCurrentDateTime(), 'Aplicação Fechada');
             }
           }
@@ -564,8 +569,9 @@ export class MonitoringComponent implements OnInit , DoCheck{
                             hourData.push(item[caminhoPasta][nomeDoBanco]?.hour)
                           }
                         })
+                        const statusAppsActives = localStorage.getItem('statusApp')!.split(',');
 
-                        if (this.statusAppsActive.includes(statusApp.description.description)) {
+                        if (statusAppsActives.includes(statusApp.description.description)) {
                           if(nameCurrent.split('_')[1].split('.')[0] === "newcompany"){
                             listaMonitoramento.push({
                               checked:ischecked,

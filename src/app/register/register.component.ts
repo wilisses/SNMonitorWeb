@@ -245,5 +245,17 @@ export class RegisterComponent implements OnInit, DoCheck {
     newTab.click();
     this.renderer.removeChild(document.body, newTab);
   }
+  async linkDropBoxdelete():Promise<void>{
+
+    const clientId = (await this.MonitoringService.getDatatoken()).clientId;
+    const dropboxAuthorizationUrl = `https://www.dropbox.com/deleted_files?fq_path=%2FVRBackup%2F${this.pasta.replaceAll(' ','+')}`;
+      
+    const newTab = this.renderer.createElement('a');
+    this.renderer.setAttribute(newTab, 'href', dropboxAuthorizationUrl);
+    this.renderer.setAttribute(newTab, 'target', '_blank');
+    this.renderer.appendChild(document.body, newTab);
+    newTab.click();
+    this.renderer.removeChild(document.body, newTab);
+  }
   
 }

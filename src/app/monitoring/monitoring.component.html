@@ -84,8 +84,7 @@
     <div id="table">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="statusApp">
-          <th mat-header-cell *matHeaderCellDef> 
-          </th>
+          <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let element" matTooltip="{{element.nameDataBase}} {{element.hours}}">
             <button mat-menu-item [matMenuTriggerFor]="submenu">
               {{element.statusAppIcon}}
@@ -156,6 +155,6 @@
       </table>
     </div>
     <div>{{this.user.name}}</div>
-    
+    <div class="row">{{row}}</div>
 </section>
 

@@ -94,6 +94,13 @@ table tr:hover {
   flex-direction: column;
 }
 
+.row{
+  z-index: 1000;
+  bottom: 0.5em;
+  left: 2.2em;
+  position: fixed;
+}
+
 @media (max-width: 450px) {
   .filter{
     display: flex;

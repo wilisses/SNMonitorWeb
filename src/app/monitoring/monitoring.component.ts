@@ -76,7 +76,6 @@ export interface Monitoring{
     checked: any;
     sign:any;
     percentage:any;
-    row: any;
     key: any;
     caminhoPasta: any;
     nameDataBase: any;
@@ -149,6 +148,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
   changesituations: any;
   log: logMonitoring[] = [];
   selectedSituation: string = "1";
+  row: any;
   constructor(
     public auth: AuthService , 
     private MonitoringService: MonitoringService,
@@ -292,8 +292,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
           if(validationDate){
             resdescription = switchLog(transformedData[0]?.description);
           } else {
-            resdescription = `${switchLog(transformedData[0]?.description)}`;
-             
+            resdescription = switchLog(transformedData[0]?.description);
           }
         }
       }  
@@ -471,7 +470,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
           this.licenses = dados;
           this.log = [];
           const listaMonitoramento: Monitoring[] = [];
-          let row = 1;
+          this.row = 0;
           this.licenses.forEach(item => {
             if (item.config && item.config.bancos) {
               
@@ -577,7 +576,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               checked:ischecked,
                               sign: returnpercentage.sign,
                               percentage: returnpercentage.percentage,
-                              row,
                               key,
                               caminhoPasta,
                               nameDataBase: nomeDoBanco,
@@ -595,6 +593,7 @@ export class MonitoringComponent implements OnInit , DoCheck{
                               access: null,
                               accessPassword:null
                             });
+                            this.row = this.row+1;
                           } else {
                             if(this.isChecked){
                               if(status !== "OK"){
@@ -602,7 +601,6 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                   checked:ischecked,
                                   sign: returnpercentage.sign,
                                   percentage: returnpercentage.percentage,
-                                  row,
                                   key,
                                   caminhoPasta,
                                   nameDataBase: nomeDoBanco,
@@ -620,13 +618,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                   access: (await this.MonitoringService.getDataRegister(key)).acesso,
                                   accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
                                 });
+                                this.row = this.row+1;
                               }
                             } else {
                               listaMonitoramento.push({
                                 checked:ischecked,
                                 sign: returnpercentage.sign,
                                 percentage: returnpercentage.percentage,
-                                row,
                                 key,
                                 caminhoPasta,
                                 nameDataBase: nomeDoBanco,
@@ -644,11 +642,13 @@ export class MonitoringComponent implements OnInit , DoCheck{
                                 access: (await this.MonitoringService.getDataRegister(key)).acesso,
                                 accessPassword:(await this.MonitoringService.getDataRegister(key)).senha
                               });
+                              this.row = this.row+1;
                             }
+
                           } 
                         }
                         
-                        row = row+1;
+                        
                       });
                     })
                     .catch(error => {

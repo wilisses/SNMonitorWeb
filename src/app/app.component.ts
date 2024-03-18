@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
   title = 'SNMonitor';
   expiration: any;
   constructor(public auth: AuthService,private MonitoringService: MonitoringService){}
-  // @HostListener('window:beforeunload', ['$event'])
-  // async beforeUnloadHandler(event: any) {
-  //   await this.auth.signOut();
-  //   window.location.href = '/';
-  // }
+  @HostListener('window:beforeunload', ['$event'])
+  async beforeUnloadHandler(event: any) {
+    await this.auth.signOut();
+    window.location.href = '/';
+  }
   async ngOnInit(): Promise<void> {
       
       //this.auth.navigate("");
@@ -23,13 +23,13 @@ export class AppComponent implements OnInit {
       setInterval(() => {
       this.expiration = this.auth.updateTimeRemaining(expirationDate);
      
-      let expira = `${this.expiration.split(' ')[0].replace('d','')+this.expiration.split(' ')[1].replace('h','')+this.expiration.split(' ')[2].replace('m','')+this.expiration.split(' ')[3].replace('s','')}`;
+      // let expira = `${this.expiration.split(' ')[0].replace('d','')+this.expiration.split(' ')[1].replace('h','')+this.expiration.split(' ')[2].replace('m','')+this.expiration.split(' ')[3].replace('s','')}`;
       
-       if(expira < '01059'){
-        alert("Atenção: O token expirará em breve!");
-       }
+      //  if(expira < '01059' && expira < '01059'){
+      //   alert("Atenção: O token expirará em breve!");
+      //  }
 
-      }, 1000);
+       }, 1000);
       
   }
 }
